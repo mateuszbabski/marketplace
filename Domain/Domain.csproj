@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Enterpreneurs\" />
+    <Folder Include="Interfaces\" />
     <Folder Include="Products\" />
+    <Folder Include="Shared\" />
   </ItemGroup>
 
 </Project>

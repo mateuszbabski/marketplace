@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace Domain.Customers.ValueObject
 {
-    public record TelephoneNumber
+    public record Email
     {
         public string Value { get; }
 
-        public TelephoneNumber(string value)
+        public Email(string value)
         {
-            //number only guard
-            if(string.IsNullOrEmpty(value))
+            //email regex validation
+            if (string.IsNullOrEmpty(value))
             {
-                throw new InvalidTelephoneNumberException();
+                throw new InvalidEmailException();
             }
+
             Value = value;
         }
     }

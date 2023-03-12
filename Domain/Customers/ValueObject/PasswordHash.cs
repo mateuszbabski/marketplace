@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Customers.ValueObject
 {
-    public record TelephoneNumber
+    public record PasswordHash
     {
         public string Value { get; }
 
-        public TelephoneNumber(string value)
+        public PasswordHash(string value)
         {
-            //number only guard
-            if(string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
             {
-                throw new InvalidTelephoneNumberException();
+                throw new InvalidPasswordException();
             }
             Value = value;
         }
