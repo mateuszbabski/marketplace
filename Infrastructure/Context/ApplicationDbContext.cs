@@ -15,5 +15,10 @@ namespace Infrastructure.Context
         }
 
         public DbSet<Customer> Customers { get;  set; }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await base.SaveChangesAsync();
+        }
     }
 }

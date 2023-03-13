@@ -23,6 +23,7 @@ namespace Domain.Customers
 
         public static Customer CreateRegistered(Email email, string password, Name name, LastName lastName, Address address, TelephoneNumber telephoneNumber)
         {
+            //TODO:
             //check logic, passwordhash, create entity, add to db, push event
             //return new Customer(email, passwordhash, name, lastName, address, telephoneNumber);
             throw new NotImplementedException();

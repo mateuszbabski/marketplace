@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Repositories
+namespace Infrastructure.Authentication
 {
-    public class CustomerRepository : ICustomerRepository
+    public class AuthenticationService : IAuthenticationService
     {
-        //TODO
     }
 }
