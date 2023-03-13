@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using Domain.Interfaces;
 using Infrastructure.Repositories;
 using Infrastructure.Authentication.Services;
+using Application.Common.Interfaces;
+using Infrastructure.Services;
+using Infrastructure.Authentication;
 
 namespace Infrastructure
 {
@@ -24,6 +27,8 @@ namespace Infrastructure
 
             services.AddScoped<IApplicationDbContext>(options => options.GetRequiredService<ApplicationDbContext>());
 
+            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            services.AddSingleton<ITokenManager, TokenManager>();
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
