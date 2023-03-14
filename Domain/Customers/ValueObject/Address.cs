@@ -8,10 +8,10 @@ namespace Domain.Customers.ValueObject
 {
     public record Address
     {
-        public string Country { get; }
-        public string City { get; }
-        public string Street { get; }
-        public string PostalCode { get; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string PostalCode { get; set; }
 
         public Address(string country, string city, string street, string postalCode)
         {
@@ -19,6 +19,11 @@ namespace Domain.Customers.ValueObject
             City = city;
             Street = street;
             PostalCode = postalCode;
+        }
+
+        public static Address CreateAddress(string country, string city, string street, string postalCode)
+        {
+            return new Address(country, city, street, postalCode);
         }
     }
 }

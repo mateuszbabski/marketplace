@@ -20,5 +20,8 @@ namespace Domain.Customers.ValueObject
 
             Value = value;
         }
+
+        public static implicit operator string(LastName lastName) => lastName.Value;
+        public static implicit operator LastName(string value) => new(value);
     }
 }

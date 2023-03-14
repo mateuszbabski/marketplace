@@ -20,5 +20,8 @@ namespace Domain.Customers.ValueObject
             }
             Value = value;
         }
+
+        public static implicit operator string(TelephoneNumber telephoneNumber) => telephoneNumber.Value;
+        public static implicit operator TelephoneNumber(string value) => new(value);
     }
 }

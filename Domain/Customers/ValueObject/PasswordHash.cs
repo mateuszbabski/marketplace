@@ -19,5 +19,8 @@ namespace Domain.Customers.ValueObject
             }
             Value = value;
         }
+
+        public static implicit operator string(PasswordHash passwordHash) => passwordHash.Value;
+        public static implicit operator PasswordHash(string value) => new(value);
     }
 }

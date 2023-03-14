@@ -1,4 +1,5 @@
-﻿using Domain.Exceptions;
+﻿using Domain.Customers.ValueObject;
+using Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,8 @@ namespace Domain.Customers
 
             Value = value;
         }
+
+        public static implicit operator Guid(CustomerId id) => id.Value;
+        public static implicit operator CustomerId(Guid value) => new(value);
     }
 }

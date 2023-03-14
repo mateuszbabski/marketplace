@@ -21,20 +21,20 @@ namespace Domain.Customers
 
         public Roles Role { get; private set; } = Roles.user;
 
-        public static Customer CreateRegistered(Email email, PasswordHash passwordhas, Name name, LastName lastName, Address address, TelephoneNumber telephoneNumber)
+        public static Customer CreateRegistered(string email, string passwordHash, string name, string lastName, string country, string city, string street, string postalCode, string telephoneNumber)
         {
             //TODO:
             //check logic, passwordhash, create entity, add to db, push event
-            //return new Customer(email, passwordhash, name, lastName, address, telephoneNumber);
-            throw new NotImplementedException();
-            //return new Customer(email, passwordhash, name, lastName, address, telephoneNumber);
+            
+            var address = Address.CreateAddress(country, city, street, postalCode);
+            return new Customer(email, passwordHash, name, lastName, address, telephoneNumber);
         }
-
-        private Customer(Email email, PasswordHash passwordhash, Name name, LastName lastName, Address address, TelephoneNumber telephoneNumber)
+        private Customer() { }
+        internal Customer(Email email, PasswordHash passwordHash, Name name, LastName lastName, Address address, TelephoneNumber telephoneNumber)
         {
-            Id = new CustomerId(Guid.NewGuid());
+            Id = new Guid();
             Email = email;
-            PasswordHash = passwordhash;
+            PasswordHash = passwordHash;
             Name = name;
             LastName = lastName;
             Address = address;

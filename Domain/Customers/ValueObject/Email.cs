@@ -21,5 +21,8 @@ namespace Domain.Customers.ValueObject
 
             Value = value;
         }
+    public static implicit operator string(Email email) => email.Value;
+    public static implicit operator Email(string value) => new(value);
     }
+
 }
