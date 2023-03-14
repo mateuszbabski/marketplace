@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Interfaces;
+using Application.Common.Persistence;
 using Infrastructure.Repositories;
 using Infrastructure.Authentication.Services;
 using Application.Common.Interfaces;
