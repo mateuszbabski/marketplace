@@ -9,7 +9,7 @@ namespace Application.Common.Persistence
 {
     public interface ICustomerRepository
     {
-        Customer? GetCustomerByEmail(string email);
-        void Add(Customer customer);
+        Task<Customer> Add(Customer customer);
+        Task<Customer?> GetCustomerByEmail(string email);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Application.Common.Persistence;
 using Domain.Customers;
+using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +12,23 @@ namespace Infrastructure.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
-        public void Add(Customer customer)
+        private readonly ApplicationDbContext _dbContext;
+
+        public CustomerRepository(ApplicationDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+        }
+        public async Task<Customer> Add(Customer customer)
+        {
+            await _dbContext.Customers.AddAsync(customer);
+            await _dbContext.SaveChangesAsync();
+
+            return customer;
         }
 
-        public Customer? GetCustomerByEmail(string email)
+        public async Task<Customer?> GetCustomerByEmail(string email)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Customers.FirstOrDefaultAsync(c => c.Email.Value == email);
         }
     }
 }
