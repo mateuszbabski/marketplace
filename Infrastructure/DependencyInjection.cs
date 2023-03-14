@@ -23,7 +23,7 @@ namespace Infrastructure
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));         
             
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IApplicationDbContext>(options => options.GetRequiredService<ApplicationDbContext>());
 
