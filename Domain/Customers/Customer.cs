@@ -21,7 +21,7 @@ namespace Domain.Customers
 
         public Roles Role { get; private set; } = Roles.user;
 
-        public static Customer CreateRegistered(Email email, string password, Name name, LastName lastName, Address address, TelephoneNumber telephoneNumber)
+        public static Customer CreateRegistered(Email email, PasswordHash passwordhas, Name name, LastName lastName, Address address, TelephoneNumber telephoneNumber)
         {
             //TODO:
             //check logic, passwordhash, create entity, add to db, push event
