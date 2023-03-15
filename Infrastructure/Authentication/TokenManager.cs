@@ -1,5 +1,4 @@
 ﻿using Application.Common.Interfaces;
-using Application.Common.Persistence;
 using Infrastructure.Authentication.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

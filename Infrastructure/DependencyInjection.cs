@@ -7,12 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.Common.Persistence;
 using Infrastructure.Repositories;
 using Infrastructure.Authentication.Services;
 using Application.Common.Interfaces;
 using Infrastructure.Services;
 using Infrastructure.Authentication;
+using Domain.Customers.Repositories;
 
 namespace Infrastructure
 {

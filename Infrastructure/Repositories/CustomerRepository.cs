@@ -1,5 +1,5 @@
-﻿using Application.Common.Persistence;
-using Domain.Customers;
+﻿using Domain.Customers;
+using Domain.Customers.Repositories;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
