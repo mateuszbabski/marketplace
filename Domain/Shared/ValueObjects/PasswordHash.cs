@@ -1,11 +1,11 @@
-﻿using Domain.Exceptions;
+﻿using Domain.Shared.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Customers.ValueObject
+namespace Domain.Shared.ValueObjects
 {
     public record PasswordHash
     {

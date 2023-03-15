@@ -1,16 +1,15 @@
-﻿using Domain.Customers.ValueObject;
-using Domain.Exceptions;
+﻿using Domain.Customers.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Customers
+namespace Domain.Customers.ValueObject
 {
     public record CustomerId
     {
-        public Guid Value { get;  }
+        public Guid Value { get; }
 
         public CustomerId(Guid value)
         {

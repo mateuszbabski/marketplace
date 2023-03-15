@@ -1,4 +1,5 @@
 ﻿using Domain.Customers.ValueObject;
+using Domain.Shared.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,26 +20,19 @@ namespace Domain.Customers
         public TelephoneNumber TelephoneNumber { get; private set; }
         public Address Address { get; private set; }
 
-        public Roles Role { get; private set; } = Roles.user;
-
-        public static Customer CreateRegistered(string email, string passwordHash, string name, string lastName, string country, string city, string street, string postalCode, string telephoneNumber)
+        public Roles Role { get; private set; } = Roles.customer;
+                
+        //private Customer() { }
+        internal Customer(CustomerId id, Email email, PasswordHash passwordHash, Name name, LastName lastName, Address address, TelephoneNumber telephoneNumber)
         {
-            //TODO:
-            //check logic, passwordhash, create entity, add to db, push event
-            
-            var address = Address.CreateAddress(country, city, street, postalCode);
-            return new Customer(email, passwordHash, name, lastName, address, telephoneNumber);
-        }
-        private Customer() { }
-        internal Customer(Email email, PasswordHash passwordHash, Name name, LastName lastName, Address address, TelephoneNumber telephoneNumber)
-        {
-            Id = new Guid();
+            Id = id;
             Email = email;
             PasswordHash = passwordHash;
             Name = name;
             LastName = lastName;
             Address = address;
             TelephoneNumber = telephoneNumber;
+            Role = Roles.customer;
         }
     }
 }

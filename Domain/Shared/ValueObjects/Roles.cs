@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Customers.ValueObject
+namespace Domain.Shared.ValueObjects
 {
     public enum Roles
     {
-        admin = 1,
-        user = 2
+        admin,
+        customer,
+        enterpreneur
     }
 }

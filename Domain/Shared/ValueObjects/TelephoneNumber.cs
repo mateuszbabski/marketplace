@@ -1,11 +1,11 @@
-﻿using Domain.Exceptions;
+﻿using Domain.Shared.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Customers.ValueObject
+namespace Domain.Shared.ValueObjects
 {
     public record TelephoneNumber
     {
@@ -14,7 +14,7 @@ namespace Domain.Customers.ValueObject
         public TelephoneNumber(string value)
         {
             //number only guard
-            if(string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
             {
                 throw new InvalidTelephoneNumberException();
             }

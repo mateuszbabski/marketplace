@@ -1,11 +1,11 @@
-﻿using Domain.Exceptions;
+﻿using Domain.Shared.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Customers.ValueObject
+namespace Domain.Shared.ValueObjects
 {
     public record Email
     {
@@ -21,8 +21,8 @@ namespace Domain.Customers.ValueObject
 
             Value = value;
         }
-    public static implicit operator string(Email email) => email.Value;
-    public static implicit operator Email(string value) => new(value);
+        public static implicit operator string(Email email) => email.Value;
+        public static implicit operator Email(string value) => new(value);
     }
 
 }
