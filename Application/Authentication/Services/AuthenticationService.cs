@@ -28,7 +28,9 @@ namespace Application.Authentication.Services
 
         public async Task<AuthenticationResult> RegisterCustomer(RegisterCustomerRequest request)
         {
-            if (_customerRepository.GetCustomerByEmail(request.Email) is not null)
+            var emailInUse = await _customerRepository.GetCustomerByEmail(request.Email);
+
+            if (emailInUse != null)
             {
                 throw new Exception("Email already taken");
             }

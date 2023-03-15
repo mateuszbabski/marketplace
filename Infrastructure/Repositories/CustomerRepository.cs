@@ -26,9 +26,9 @@ namespace Infrastructure.Repositories
             return customer;
         }
 
-        public async Task<Customer?> GetCustomerByEmail(string email)
+        public async Task<Customer> GetCustomerByEmail(string email)
         {
-            return await _dbContext.Customers.FirstOrDefaultAsync(c => c.Email.Value == email);
+            return await _dbContext.Customers.FirstOrDefaultAsync(c => c.Email == email);
         }
     }
 }

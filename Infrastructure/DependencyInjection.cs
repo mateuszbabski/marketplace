@@ -13,6 +13,7 @@ using Application.Common.Interfaces;
 using Infrastructure.Services;
 using Infrastructure.Authentication;
 using Domain.Customers.Repositories;
+using Application.Authentication.Services;
 
 namespace Infrastructure
 {
@@ -29,8 +30,9 @@ namespace Infrastructure
 
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddSingleton<ITokenManager, TokenManager>();
+            services.AddSingleton<IHashingService, HashingService>();
 
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();          
 
             
 

@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using Application.Authentication.Services;
+using Domain.Customers.Factories;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 using System;
@@ -20,7 +22,11 @@ namespace Application
 
             services.AddValidatorsFromAssembly(assembly);
 
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<ICustomerFactory, CustomerFactory>();
+
             return services;
         }
     }
 }
+

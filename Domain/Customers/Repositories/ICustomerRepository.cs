@@ -10,6 +10,6 @@ namespace Domain.Customers.Repositories
     public interface ICustomerRepository
     {
         Task<Customer> Add(Customer customer);
-        Task<Customer?> GetCustomerByEmail(string email);
+        Task<Customer> GetCustomerByEmail(string email);
     }
 }
