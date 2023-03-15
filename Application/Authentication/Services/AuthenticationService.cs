@@ -1,12 +1,13 @@
 ﻿using Application.Common.Interfaces;
-using Application.Common.Persistence;
+using Domain.Customers.Repositories;
 using Domain.Customers;
-using Domain.Customers.ValueObject;
+using Domain.Shared.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Customers.Factories;
 
 namespace Application.Authentication.Services
 {
@@ -15,12 +16,14 @@ namespace Application.Authentication.Services
         private readonly ITokenManager _tokenManager;
         private readonly ICustomerRepository _customerRepository;
         private readonly IHashingService _hashingService;
+        private readonly ICustomerFactory _customerFactory;
 
-        public AuthenticationService(ITokenManager tokenManager, ICustomerRepository customerRepository, IHashingService hashingService)
+        public AuthenticationService(ITokenManager tokenManager, ICustomerRepository customerRepository, IHashingService hashingService, ICustomerFactory customerFactory)
         {
             _tokenManager = tokenManager;
             _customerRepository = customerRepository;
             _hashingService = hashingService;
+            _customerFactory = customerFactory;
         }
 
         public async Task<AuthenticationResult> RegisterCustomer(RegisterCustomerRequest request)
@@ -31,22 +34,21 @@ namespace Application.Authentication.Services
             }
             
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
+            var address = new Address(request.Country, request.City, request.Street, request.PostalCode);
 
-            var customer = Customer.CreateRegistered(request.Email,
-                                                     passwordHash,
-                                                     request.Name,
-                                                     request.LastName,
-                                                     request.Country,
-                                                     request.City,
-                                                     request.Street,
-                                                     request.PostalCode,
-                                                     request.TelephoneNumber);
+            var customer = _customerFactory.Create(Guid.NewGuid(),
+                                                   request.Email,
+                                                   passwordHash,
+                                                   request.Name,
+                                                   request.LastName,
+                                                   address,
+                                                   request.TelephoneNumber);
 
             await _customerRepository.Add(customer);
 
-            var token = _tokenManager.GenerateToken(customer.Id.Value, customer.Email.Value);
+            var token = _tokenManager.GenerateToken(customer.Id, customer.Email);
 
-            return new AuthenticationResult(customer.Id.Value, token);
+            return new AuthenticationResult(customer.Id, token);
         }
 
         //public AuthenticationResult Login(string email, string password)
