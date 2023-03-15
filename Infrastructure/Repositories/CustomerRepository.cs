@@ -1,5 +1,6 @@
 ﻿using Domain.Customers;
 using Domain.Customers.Repositories;
+using Domain.Customers.ValueObject;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,9 +27,14 @@ namespace Infrastructure.Repositories
             return customer;
         }
 
-        public async Task<Customer> GetCustomerByEmail(string email)
+        public async Task<Customer?> GetCustomerByEmail(string email)
         {
             return await _dbContext.Customers.FirstOrDefaultAsync(c => c.Email == email);
+        }
+
+        public async Task<Customer?> GetCustomerById(CustomerId id)
+        {
+            return await _dbContext.Customers.SingleAsync(c => c.Id == id);
         }
     }
 }

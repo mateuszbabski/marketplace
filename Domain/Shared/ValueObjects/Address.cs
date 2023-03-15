@@ -29,11 +29,11 @@ namespace Domain.Shared.ValueObjects
         public static Address CreateAddress(string value)
         {
             var splitAddress = value.Split(',');
-            return new Address(splitAddress[0], splitAddress[1], splitAddress[2], splitAddress[3]);
+            return new Address(splitAddress[0].Trim(), splitAddress[1].Trim(), splitAddress[2].Trim(), splitAddress[3].Trim());
             
         }
 
         public override string ToString()
-            => $"{Country},{City},{Street},{PostalCode}";
+            => $"{Country}, {City}, {Street}, {PostalCode}";
     }
 }
