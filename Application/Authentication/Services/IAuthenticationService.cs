@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace Application.Authentication.Services
 {
     public interface IAuthenticationService
-    {
-        //AuthenticationResult Login(string email, string password);
+    {        
+        Task<AuthenticationResult> Login(LoginRequest request);
         Task<AuthenticationResult> RegisterCustomer(RegisterCustomerRequest request);
         //AuthenticationResult RegisterEnterpreneur();
     }

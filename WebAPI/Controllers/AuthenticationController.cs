@@ -15,11 +15,11 @@ namespace WebAPI.Controllers
             _authenticationService = authenticationService;
         }
 
-        //[HttpPost("authenticate")]
-        //public async Task<IActionResult> AuthenticateAsync([FromBody] LoginRequest request)
-        //{
-        //    return Ok(await _authenticationService.Login(request));
-        //}
+        [HttpPost("login")]
+        public async Task<IActionResult> AuthenticateAsync([FromBody] LoginRequest request)
+        {
+            return Ok(await _authenticationService.Login(request));
+        }
 
         [HttpPost("register-customer")]
         public async Task<IActionResult> AuthenticateAsync([FromBody] RegisterCustomerRequest request)

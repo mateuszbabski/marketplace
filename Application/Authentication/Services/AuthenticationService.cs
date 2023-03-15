@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Customers.Factories;
+using MediatR;
 
 namespace Application.Authentication.Services
 {
@@ -53,23 +54,22 @@ namespace Application.Authentication.Services
             return new AuthenticationResult(customer.Id, token);
         }
 
-        //public AuthenticationResult Login(string email, string password)
-        //{
-        //    //    if (_customerRepository.GetCustomerByEmail(email) is not Customer customer)
-        //    //    {
-        //    //        throw new Exception("Email not found");
-        //    //    }
+        public async Task<AuthenticationResult> Login(LoginRequest request)
+        {
+            var customer = await _customerRepository.GetCustomerByEmail(request.Email);
+            if (customer == null)
+            {
+                throw new Exception("Email not found");
+            }
 
-        //    //    if (customer.passwordhash != passwordhash)
-        //    //    {
-        //    //        throw new Exception("Invalid password");
-        //    //    }
+            if (!_hashingService.ValidatePassword(request.Password, customer.PasswordHash))
+            {
+                throw new Exception("Invalid password");
+            }
 
-        //    //    var token = _tokenManager.GenerateToken(customer.Id, email);
+            var token = _tokenManager.GenerateToken(customer.Id, customer.Email);
 
-        //    //    return new AuthenticationResult(customer.Id, token);
-        //    return email;
-
-        //}
+            return new AuthenticationResult(customer.Id, token);
+        }
     }
 }
