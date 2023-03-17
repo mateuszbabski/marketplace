@@ -49,11 +49,7 @@ namespace Application.Authentication.Services
 
         public async Task<AuthenticationResult> Login(LoginRequest request)
         {
-            var customer = await _customerRepository.GetCustomerByEmail(request.Email);
-            if (customer == null)
-            {
-                throw new Exception("Email not found");
-            }
+            var customer = await _customerRepository.GetCustomerByEmail(request.Email) ?? throw new Exception("Email not found");
 
             if (!_hashingService.ValidatePassword(request.Password, customer.PasswordHash))
             {

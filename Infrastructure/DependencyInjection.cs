@@ -26,7 +26,8 @@ namespace Infrastructure
             services.AddSingleton<ITokenManager, TokenManager>();
             services.AddSingleton<IHashingService, HashingService>();
 
-            services.AddScoped<ICustomerRepository, CustomerRepository>();          
+            services.AddScoped<ICustomerRepository, CustomerRepository>(); 
+            services.AddScoped<IEntrepreneurRepository, EntrepreneurRepository>();
 
             
 
