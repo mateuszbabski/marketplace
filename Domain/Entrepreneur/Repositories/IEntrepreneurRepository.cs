@@ -1,7 +1,7 @@
 ﻿using Domain.Entrepreneur;
 using Domain.Entrepreneur.ValueObjects;
 
-namespace Infrastructure.Repositories
+namespace Domain.Entrepreneur.Repositories
 {
     public interface IEntrepreneurRepository
     {

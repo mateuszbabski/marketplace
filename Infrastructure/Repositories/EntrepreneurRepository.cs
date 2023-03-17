@@ -1,4 +1,5 @@
 ﻿using Domain.Entrepreneur;
+using Domain.Entrepreneur.Repositories;
 using Domain.Entrepreneur.ValueObjects;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
