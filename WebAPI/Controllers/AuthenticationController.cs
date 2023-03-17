@@ -1,6 +1,7 @@
 ﻿using Application.Authentication;
 using Application.Authentication.Services;
 using Application.Features.Customers.GetCustomerDetails;
+using Application.Features.Entrepreneurs.GetEntrepreneurDetails;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,12 @@ namespace WebAPI.Controllers
             return Ok(await _authenticationService.RegisterCustomer(request));
         }
 
+        [HttpPost("register-entrepreneur")]
+        public async Task<IActionResult> AuthenticateAsync([FromBody] RegisterEntrepreneurRequest request)
+        {
+            return Ok(await _authenticationService.RegisterEntrepreneur(request));
+        }
+
         [HttpGet("Get-detailed-customer")]
         public async Task<ActionResult<CustomerDto>> GetCustomerAsync(Guid id)
         {
@@ -40,6 +47,17 @@ namespace WebAPI.Controllers
             });
 
             return Ok(customer);
+        }
+
+        [HttpGet("Get-detailed-entrepreneur")]
+        public async Task<ActionResult<EntrepreneurDto>> GetEntrepreneurAsync(Guid id)
+        {
+            var entrepreneur = await _mediator.Send(new GetEntrepreneurDetailsQuery()
+            {
+                Id = id
+            });
+
+            return Ok(entrepreneur);
         }
     }
 }
