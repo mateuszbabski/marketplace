@@ -1,4 +1,5 @@
 ﻿using Domain.Customers;
+using Domain.Entrepreneur;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Context
@@ -10,6 +11,7 @@ namespace Infrastructure.Context
         }
 
         public DbSet<Customer> Customers { get;  set; }
+        public DbSet<Entrepreneur> Entrepreneurs { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {
