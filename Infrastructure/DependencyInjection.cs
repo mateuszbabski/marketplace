@@ -2,18 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Infrastructure.Repositories;
 using Infrastructure.Authentication.Services;
 using Application.Common.Interfaces;
 using Infrastructure.Services;
 using Infrastructure.Authentication;
 using Domain.Customers.Repositories;
-using Application.Authentication.Services;
 
 namespace Infrastructure
 {

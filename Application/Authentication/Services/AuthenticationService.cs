@@ -1,14 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Customers.Repositories;
-using Domain.Customers;
 using Domain.Shared.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Domain.Customers.Factories;
-using MediatR;
 
 namespace Application.Authentication.Services
 {

@@ -1,12 +1,5 @@
-﻿using Domain.Customers.ValueObject;
+﻿using Domain.Customers.ValueObjects;
 using Domain.Shared.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Customers
 {
@@ -23,7 +16,13 @@ namespace Domain.Customers
         public Roles Role { get; private set; } = Roles.customer;
                 
         //private Customer() { }
-        internal Customer(CustomerId id, Email email, PasswordHash passwordHash, Name name, LastName lastName, Address address, TelephoneNumber telephoneNumber)
+        internal Customer(CustomerId id,
+                          Email email,
+                          PasswordHash passwordHash,
+                          Name name,
+                          LastName lastName,
+                          Address address,
+                          TelephoneNumber telephoneNumber)
         {
             Id = id;
             Email = email;
