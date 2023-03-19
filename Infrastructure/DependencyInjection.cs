@@ -8,6 +8,7 @@ using Application.Common.Interfaces;
 using Infrastructure.Services;
 using Infrastructure.Authentication;
 using Domain.Customers.Repositories;
+using Domain.Shop.Repositories;
 
 namespace Infrastructure
 {
@@ -27,7 +28,7 @@ namespace Infrastructure
             services.AddSingleton<IHashingService, HashingService>();
 
             services.AddScoped<ICustomerRepository, CustomerRepository>(); 
-            services.AddScoped<IEntrepreneurRepository, EntrepreneurRepository>();
+            services.AddScoped<IShopRepository, ShopRepository>();
 
             
 

@@ -1,11 +1,11 @@
-﻿using Domain.Entrepreneur.ValueObjects;
+﻿using Domain.Shop.ValueObjects;
 using Domain.Shared.ValueObjects;
 
-namespace Domain.Entrepreneur.Factories
+namespace Domain.Shop.Factories
 {
-    public sealed class EntrepreneurFactory : IEntrepreneurFactory
+    public interface IShopFactory
     {
-        public Entrepreneur Create(EntrepreneurId id,
+        Shop Create(ShopId id,
                                    Email email,
                                    PasswordHash passwordHash,
                                    Name name,
@@ -13,7 +13,6 @@ namespace Domain.Entrepreneur.Factories
                                    ShopName shopName,
                                    Address shopAddress,
                                    TaxNumber taxNumber,
-                                   TelephoneNumber telephoneNumber) =>
-            new(id, email, passwordHash, name, lastName, shopName, shopAddress, taxNumber, telephoneNumber);
+                                   TelephoneNumber telephoneNumber);
     }
 }

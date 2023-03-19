@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Entrepreneurs.GetEntrepreneurDetails
+namespace Application.Features.Shops.GetShopDetails
 {
-    public class GetEntrepreneurDetailsQuery : IRequest<EntrepreneurDto>
+    public class GetShopDetailsQuery : IRequest<ShopDto>
     {
         public Guid Id { get; set; }
     }

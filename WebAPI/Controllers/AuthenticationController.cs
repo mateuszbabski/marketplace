@@ -1,7 +1,7 @@
 ﻿using Application.Authentication;
 using Application.Authentication.Services;
 using Application.Features.Customers.GetCustomerDetails;
-using Application.Features.Entrepreneurs.GetEntrepreneurDetails;
+using Application.Features.Shops.GetShopDetails;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,10 +32,10 @@ namespace WebAPI.Controllers
             return Ok(await _authenticationService.RegisterCustomer(request));
         }
 
-        [HttpPost("register-entrepreneur")]
-        public async Task<IActionResult> AuthenticateAsync([FromBody] RegisterEntrepreneurRequest request)
+        [HttpPost("register-shop")]
+        public async Task<IActionResult> AuthenticateAsync([FromBody] RegisterShopRequest request)
         {
-            return Ok(await _authenticationService.RegisterEntrepreneur(request));
+            return Ok(await _authenticationService.RegisterShop(request));
         }
 
         [HttpGet("Get-detailed-customer")]
@@ -49,15 +49,15 @@ namespace WebAPI.Controllers
             return Ok(customer);
         }
 
-        [HttpGet("Get-detailed-entrepreneur")]
-        public async Task<ActionResult<EntrepreneurDto>> GetEntrepreneurAsync(Guid id)
+        [HttpGet("Get-detailed-shop")]
+        public async Task<ActionResult<ShopDto>> GetShopAsync(Guid id)
         {
-            var entrepreneur = await _mediator.Send(new GetEntrepreneurDetailsQuery()
+            var shop = await _mediator.Send(new GetShopDetailsQuery()
             {
                 Id = id
             });
 
-            return Ok(entrepreneur);
+            return Ok(shop);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Domain.Entrepreneur.Exceptions
+﻿namespace Domain.Shop.Exceptions
 {
     public class EmptyTaxNumberException : Exception
     {

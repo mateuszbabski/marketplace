@@ -4,6 +4,6 @@
     {
         admin,
         customer,
-        entrepreneur
+        shop
     }
 }

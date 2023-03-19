@@ -4,6 +4,6 @@
     {        
         Task<AuthenticationResult> Login(LoginRequest request);
         Task<AuthenticationResult> RegisterCustomer(RegisterCustomerRequest request);
-        Task<AuthenticationResult> RegisterEntrepreneur(RegisterEntrepreneurRequest request);
+        Task<AuthenticationResult> RegisterShop(RegisterShopRequest request);
     }
 }

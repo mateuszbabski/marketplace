@@ -1,5 +1,5 @@
 ﻿using Domain.Customers;
-using Domain.Entrepreneur;
+using Domain.Shop;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Context
@@ -7,7 +7,7 @@ namespace Infrastructure.Context
     internal interface IApplicationDbContext
     {
         DbSet<Customer> Customers { get; set; }
-        DbSet<Entrepreneur> Entrepreneurs { get; set; }
+        DbSet<Shop> Shops { get; set; }
 
         Task<int> SaveChangesAsync();
     }

@@ -1,11 +1,11 @@
-﻿using Domain.Entrepreneur.ValueObjects;
+﻿using Domain.Shop.ValueObjects;
 using Domain.Shared.ValueObjects;
 
-namespace Domain.Entrepreneur
+namespace Domain.Shop
 {
-    public class Entrepreneur
+    public class Shop
     {
-        public EntrepreneurId Id { get; private set; }
+        public ShopId Id { get; private set; }
         public Email Email { get; private set; }
         public PasswordHash PasswordHash { get; private set; }
         public Name Name { get; private set; }
@@ -14,9 +14,9 @@ namespace Domain.Entrepreneur
         public TaxNumber TaxNumber { get; private set; }
         public TelephoneNumber TelephoneNumber { get; private set; }
         public Address ShopAddress { get; private set; }
-        public Roles Role { get; private set; } = Roles.entrepreneur;
+        public Roles Role { get; private set; } = Roles.shop;
 
-        internal Entrepreneur(EntrepreneurId id,
+        internal Shop(ShopId id,
                                    Email email,
                                    PasswordHash passwordHash,
                                    Name name,
@@ -35,7 +35,7 @@ namespace Domain.Entrepreneur
             ShopAddress = shopAddress;
             TaxNumber = taxNumber;
             TelephoneNumber = telephoneNumber;
-            Role = Roles.entrepreneur;
+            Role = Roles.shop;
         }
     }
 }

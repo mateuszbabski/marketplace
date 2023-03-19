@@ -1,6 +1,6 @@
 ﻿using Domain.Customers.ValueObjects;
-using Domain.Entrepreneur;
-using Domain.Entrepreneur.ValueObjects;
+using Domain.Shop;
+using Domain.Shop.ValueObjects;
 using Domain.Shared.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,16 +13,16 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Context.DbConfiguration
 {
-    internal sealed class EntrepreneurDbConfiguration : IEntityTypeConfiguration<Entrepreneur>
+    internal sealed class ShopDbConfiguration : IEntityTypeConfiguration<Shop>
     {
-        public void Configure(EntityTypeBuilder<Entrepreneur> builder)
+        public void Configure(EntityTypeBuilder<Shop> builder)
         {
             var passwordConverter = new ValueConverter<PasswordHash, string>(c => c.Value, c => new PasswordHash(c));
             var addressConverter = new ValueConverter<Address, string>(c => c.ToString(), c => Address.CreateAddress(c));
 
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Id)
-                   .HasConversion(c => c.Value, c => new EntrepreneurId(c));
+                   .HasConversion(c => c.Value, c => new ShopId(c));
 
             builder.Property(c => c.Email)
                    .HasConversion(c => c.Value, c => new Email(c));
@@ -52,7 +52,7 @@ namespace Infrastructure.Context.DbConfiguration
                    .HasConversion(v => v.ToString(),
                                    v => (Roles)Enum.Parse(typeof(Roles), v));            
 
-            builder.ToTable("Entrepreneurs");
+            builder.ToTable("Shops");
         }
     }
 }

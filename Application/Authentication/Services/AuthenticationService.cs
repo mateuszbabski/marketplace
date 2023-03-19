@@ -2,32 +2,32 @@
 using Domain.Customers.Repositories;
 using Domain.Shared.ValueObjects;
 using Domain.Customers.Factories;
-using Domain.Entrepreneur.Repositories;
-using Domain.Entrepreneur.Factories;
+using Domain.Shop.Repositories;
+using Domain.Shop.Factories;
 
 namespace Application.Authentication.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
         private readonly ITokenManager _tokenManager;
-        private readonly IEntrepreneurRepository _entrepreneurRepository;
+        private readonly IShopRepository _shopRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IHashingService _hashingService;
-        private readonly IEntrepreneurFactory _entrepreneurFactory;
+        private readonly IShopFactory _shopFactory;
         private readonly ICustomerFactory _customerFactory;
 
         public AuthenticationService(ITokenManager tokenManager,
-                                     IEntrepreneurRepository entrepreneurRepository,
+                                     IShopRepository shopRepository,
                                      ICustomerRepository customerRepository,
                                      IHashingService hashingService,
-                                     IEntrepreneurFactory entrepreneurFactory,
+                                     IShopFactory shopFactory,
                                      ICustomerFactory customerFactory)
         {
             _tokenManager = tokenManager;
-            _entrepreneurRepository = entrepreneurRepository;
+            _shopRepository = shopRepository;
             _customerRepository = customerRepository;
             _hashingService = hashingService;
-            _entrepreneurFactory = entrepreneurFactory;
+            _shopFactory = shopFactory;
             _customerFactory = customerFactory;
         }
 
@@ -58,9 +58,9 @@ namespace Application.Authentication.Services
             return new AuthenticationResult(customer.Id, token);
         }
 
-        public async Task<AuthenticationResult> RegisterEntrepreneur(RegisterEntrepreneurRequest request)
+        public async Task<AuthenticationResult> RegisterShop(RegisterShopRequest request)
         {
-            var emailInUse = await _entrepreneurRepository.GetEntrepreneurByEmail(request.Email);
+            var emailInUse = await _shopRepository.GetShopByEmail(request.Email);
 
             if (emailInUse != null)
             {
@@ -70,7 +70,7 @@ namespace Application.Authentication.Services
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
             var shopAddress = new Address(request.Country, request.City, request.Street, request.PostalCode);
 
-            var entrepreneur = _entrepreneurFactory.Create(Guid.NewGuid(),
+            var shop = _shopFactory.Create(Guid.NewGuid(),
                                                    request.Email,
                                                    passwordHash,
                                                    request.Name,
@@ -80,11 +80,11 @@ namespace Application.Authentication.Services
                                                    request.TaxNumber,
                                                    request.TelephoneNumber);
 
-            await _entrepreneurRepository.Add(entrepreneur);
+            await _shopRepository.Add(shop);
 
-            var token = _tokenManager.GenerateToken(entrepreneur.Id, entrepreneur.Email);
+            var token = _tokenManager.GenerateToken(shop.Id, shop.Email);
 
-            return new AuthenticationResult(entrepreneur.Id, token);
+            return new AuthenticationResult(shop.Id, token);
         }
 
         public async Task<AuthenticationResult> Login(LoginRequest request)

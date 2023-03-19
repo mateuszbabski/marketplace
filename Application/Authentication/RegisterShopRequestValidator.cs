@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Application.Authentication
 {
-    public class RegisterEntrepreneurRequestValidator : AbstractValidator<RegisterEntrepreneurRequest>
+    public class RegisterShopRequestValidator : AbstractValidator<RegisterShopRequest>
     {
-        public RegisterEntrepreneurRequestValidator()
+        public RegisterShopRequestValidator()
         {
             RuleFor(c => c.Email).NotEmpty()
                                  .EmailAddress()

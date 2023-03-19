@@ -1,6 +1,6 @@
-﻿using Domain.Entrepreneur.Exceptions;
+﻿using Domain.Shop.Exceptions;
 
-namespace Domain.Entrepreneur.ValueObjects
+namespace Domain.Shop.ValueObjects
 {
     public record TaxNumber
     {
