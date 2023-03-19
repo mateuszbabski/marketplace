@@ -10,7 +10,7 @@
 
 
 ## Project description
-Marketplace works like a small bussiness aggregator. Customer is able to order different products from different enterpreneurs, but he gets one order package. 
+Marketplace works like a small bussiness aggregator. Customer is able to order different products from different shops, but he gets one order package. 
 
 To implement:
 
@@ -55,13 +55,13 @@ $ dotnet run
 ## Features
 
 Done:
-- Register/Login for Customer and Enterpreneur separately
+- Register/Login for Customer and Shop separately
 
 To implement:
 - Adding, updating and deleting products available to buy
 - Searching products
 - Placing orders
-- Splitting order to notify all enterpreneurs about products to prepare
+- Splitting order to notify all shops owners about products to prepare
 - Creating and sending invoices
 - Sending email notifications about orders
 - Confirm account, forgot/reset password features
@@ -69,7 +69,7 @@ To implement:
 
 ## Architecture
 
-Projects is base on Clean architecture principles, following DDD approach. CQRS and MediatR handle application features.
+Projects is based on Clean architecture principles, following DDD approach. CQRS and MediatR handle application features.
 
 ## Contribution
 
