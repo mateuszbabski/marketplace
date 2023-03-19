@@ -8,11 +8,11 @@ namespace Domain.Shop.Factories
         Shop Create(ShopId id,
                                    Email email,
                                    PasswordHash passwordHash,
-                                   Name name,
-                                   LastName lastName,
+                                   Name ownerName,
+                                   LastName ownerLastName,
                                    ShopName shopName,
                                    Address shopAddress,
                                    TaxNumber taxNumber,
-                                   TelephoneNumber telephoneNumber);
+                                   TelephoneNumber contactNumber);
     }
 }

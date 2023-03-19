@@ -15,11 +15,11 @@ namespace Application.Authentication
         [Required]
         [MinLength(6)]
         public string Password { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
+        public string OwnerName { get; set; }
+        public string OwnerLastName { get; set; }
         public string ShopName { get; set; }
         public string TaxNumber { get; set; }
-        public string TelephoneNumber { get; set; }
+        public string ContactNumber { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
         public string Street { get; set; }

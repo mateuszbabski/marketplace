@@ -18,10 +18,10 @@ namespace Application.Authentication
             RuleFor(c => c.Password).MinimumLength(6)
                                     .WithMessage("Password is too short");
 
-            RuleFor(c => c.Name).NotEmpty()
+            RuleFor(c => c.OwnerName).NotEmpty()
                                 .WithMessage("Field cannot be empty");
 
-            RuleFor(c => c.LastName).NotEmpty()
+            RuleFor(c => c.OwnerLastName).NotEmpty()
                                     .WithMessage("Field cannot be empty");
 
             RuleFor(c => c.ShopName).NotEmpty()
@@ -42,7 +42,7 @@ namespace Application.Authentication
             RuleFor(c => c.PostalCode).NotEmpty()
                                       .WithMessage("Field cannot be empty");
 
-            RuleFor(c => c.TelephoneNumber).NotEmpty()
+            RuleFor(c => c.ContactNumber).NotEmpty()
                                            .Matches("^[0-9]*$")
                                            .WithMessage("Only digits allowed");
         }

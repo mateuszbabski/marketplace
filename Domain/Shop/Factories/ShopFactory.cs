@@ -8,12 +8,12 @@ namespace Domain.Shop.Factories
         public Shop Create(ShopId id,
                                    Email email,
                                    PasswordHash passwordHash,
-                                   Name name,
-                                   LastName lastName,
+                                   Name ownerName,
+                                   LastName ownerLastName,
                                    ShopName shopName,
                                    Address shopAddress,
                                    TaxNumber taxNumber,
-                                   TelephoneNumber telephoneNumber) =>
-            new(id, email, passwordHash, name, lastName, shopName, shopAddress, taxNumber, telephoneNumber);
+                                   TelephoneNumber contactNumber) =>
+            new(id, email, passwordHash, ownerName, ownerLastName, shopName, shopAddress, taxNumber, contactNumber);
     }
 }

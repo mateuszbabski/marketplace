@@ -73,12 +73,12 @@ namespace Application.Authentication.Services
             var shop = _shopFactory.Create(Guid.NewGuid(),
                                                    request.Email,
                                                    passwordHash,
-                                                   request.Name,
-                                                   request.LastName,
+                                                   request.OwnerName,
+                                                   request.OwnerLastName,
                                                    request.ShopName,
                                                    shopAddress,
                                                    request.TaxNumber,
-                                                   request.TelephoneNumber);
+                                                   request.ContactNumber);
 
             await _shopRepository.Add(shop);
 

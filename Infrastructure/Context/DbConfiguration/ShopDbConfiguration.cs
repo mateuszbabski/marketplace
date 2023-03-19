@@ -30,10 +30,10 @@ namespace Infrastructure.Context.DbConfiguration
             builder.Property(c => c.PasswordHash)
                    .HasConversion(passwordConverter);
 
-            builder.Property(c => c.Name)
+            builder.Property(c => c.OwnerName)
                    .HasConversion(c => c.Value, c => new Name(c));
 
-            builder.Property(c => c.LastName)
+            builder.Property(c => c.OwnerLastName)
                    .HasConversion(c => c.Value, c => new LastName(c));
 
             builder.Property(c => c.ShopName)
@@ -45,7 +45,7 @@ namespace Infrastructure.Context.DbConfiguration
             builder.Property(c => c.ShopAddress)
                    .HasConversion(addressConverter);
 
-            builder.Property(c => c.TelephoneNumber)
+            builder.Property(c => c.ContactNumber)
                    .HasConversion(c => c.Value, c => new TelephoneNumber(c));
 
             builder.Property(c => c.Role)
