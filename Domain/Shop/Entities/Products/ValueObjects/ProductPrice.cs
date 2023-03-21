@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Shop.Entities.Products.ValueObjects
 {
-    public class ProductPrice
+    public record ProductPrice
     {
         public MoneyValue Value { get; private set; }
         public ProductPrice(MoneyValue value)

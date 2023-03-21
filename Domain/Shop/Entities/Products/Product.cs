@@ -16,7 +16,6 @@ namespace Domain.Shop.Entities.Products
         public ProductDescription ProductDescription { get; private set; }
         public ProductPrice ProductPrice { get; private set; }
         public Unit Unit { get; private set; }
-
         public ShopId ShopId { get; private set; }
         public bool IsAvailable { get; private set; } = true;
 
