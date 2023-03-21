@@ -9,9 +9,9 @@ namespace Domain.Shared.ValueObjects
     public record MoneyValue
     {
         public decimal Value { get;}
-        public string Currency { get; }
+        public Currency Currency { get; }
 
-        public MoneyValue(decimal value, string currency)
+        public MoneyValue(decimal value, Currency currency)
         {
             Value = value;
             Currency = currency;    
