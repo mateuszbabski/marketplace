@@ -10,10 +10,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Shop.Entities.Products;
+using Domain.Shop.Entities.Products.ValueObjects;
 
 namespace Infrastructure.Context.DbConfiguration
 {
-    internal sealed class ShopDbConfiguration : IEntityTypeConfiguration<Shop>
+    internal sealed class ShopDbConfiguration : IEntityTypeConfiguration<Shop>, IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Shop> builder)
         {
@@ -50,9 +52,43 @@ namespace Infrastructure.Context.DbConfiguration
 
             builder.Property(c => c.Role)
                    .HasConversion(v => v.ToString(),
-                                   v => (Roles)Enum.Parse(typeof(Roles), v));            
+                                   v => (Roles)Enum.Parse(typeof(Roles), v));
+
+            builder.HasMany<Product>(c => c.Products)
+                   .WithOne(p => p.Shop)
+                   .HasForeignKey(p => p.ShopId);
 
             builder.ToTable("Shops");
+        }
+
+        public void Configure(EntityTypeBuilder<Product> builder)
+        {
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id)
+                   .HasConversion(c => c.Value, c => new ProductId(c));
+
+            builder.Property(c => c.ProductName)
+                   .HasConversion(c => c.Value, c => new ProductName(c));
+
+            builder.Property(c => c.ProductDescription)
+                   .HasConversion(c => c.Value, c => new ProductDescription(c));
+
+            builder.Property(c => c.Unit)
+                   .HasConversion(c => c.Value, c => new ProductUnit(c));
+
+            builder.HasOne<Shop>(c => c.Shop)
+                   .WithMany(p => p.Products)
+                   .HasForeignKey(c => c.ShopId);
+
+            builder.Property(c => c.IsAvailable);
+
+            builder.OwnsOne(c => c.Price, mv =>
+            {
+                mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("Currency");
+                mv.Property(p => p.Amount).HasColumnName("Amount");
+            });
+
+            builder.ToTable("Products");
         }
     }
 }
