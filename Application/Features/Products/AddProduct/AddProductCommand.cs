@@ -14,7 +14,9 @@ namespace Application.Features.Products.AddProduct
     {
         public ProductName ProductName { get; set; }
         public ProductDescription ProductDescription { get; set;}
-        public ProductPrice ProductPrice { get; set;}
+        //public decimal Amount { get; set;}
+        //public string Currency { get; set; }
+        public MoneyValue Price { get; set;}
         public ProductUnit Unit { get; set;}
     }
 }

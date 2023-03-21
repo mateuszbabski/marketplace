@@ -17,7 +17,7 @@ namespace Application.Features.Products.AddProduct
             RuleFor(c => c.ProductDescription).NotEmpty()
                                               .WithMessage("Field cannot be empty");
 
-            RuleFor(c => c.ProductPrice).NotEmpty()
+            RuleFor(c => c.Price).NotEmpty()
                                         .WithMessage("Field cannot be empty");
 
             RuleFor(c => c.Unit).NotEmpty()

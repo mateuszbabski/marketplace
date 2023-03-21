@@ -1,4 +1,5 @@
-﻿using Domain.Shop.Entities.Products.Factories;
+﻿using Domain.Shared.ValueObjects;
+using Domain.Shop.Entities.Products.Factories;
 using Domain.Shop.Entities.Products.Repositories;
 using MediatR;
 using System;
@@ -27,12 +28,16 @@ namespace Application.Features.Products.AddProduct
 
             if (!validationResult.IsValid)
                 throw new Exception("Validation error");
-                //throw new ValidationException();
+            //throw new ValidationException();
+
+            //TODO validation exception, check price and shopid mapping
+            //var price = new MoneyValue(request.Amount, request.Currency);
 
             var product = _productFactory.Create(Guid.NewGuid(),
                                                  request.ProductName,
                                                  request.ProductDescription,
-                                                 request.ProductPrice,
+                                                 //price,
+                                                 request.Price,
                                                  request.Unit,
                                                  shopId);
 

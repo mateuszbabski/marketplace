@@ -23,6 +23,7 @@ namespace Application
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<ICustomerFactory, CustomerFactory>();
             services.AddScoped<IShopFactory, ShopFactory>();
+            services.AddScoped<IProductFactory, ProductFactory>();
 
             services.AddScoped<IValidator<RegisterCustomerRequest>, RegisterCustomerRequestValidator>();
             services.AddScoped<IValidator<RegisterShopRequest>, RegisterShopRequestValidator>();
