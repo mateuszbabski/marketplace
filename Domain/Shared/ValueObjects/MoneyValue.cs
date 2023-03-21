@@ -9,33 +9,33 @@ namespace Domain.Shared.ValueObjects
 {
     public record MoneyValue
     {
-        public decimal Value { get; }
-        public Currency Currency { get; } = Currency.USD;
+        public decimal Amount { get; }
+        public string Currency { get; } = "PLN";   
 
-        private MoneyValue(decimal value, Currency currency)
+        public MoneyValue(decimal amount, string currency)
         {
-            Value = value;
+            Amount = amount;
             Currency = currency;
         }
 
-        public static MoneyValue Of(decimal value, Currency currency)
+        public static MoneyValue Of(decimal amount, string currency)
         {
-            if (new MoneyMustHaveCurrencyRule(currency.ToString()).IsBroken())
+            if (new MoneyMustHaveCurrencyRule(currency.ToString()).IsBroken() || currency.Length > 3)
             {
                 throw new Exception("Invalid currency");
             }
 
-            if (value < 0)
+            if (amount < 0)
             {
                 throw new Exception("Money amount value cannot be negative");
             }
 
-            return new MoneyValue(value, currency);
+            return new MoneyValue(amount, currency);
         }
 
         public static MoneyValue Of(MoneyValue value)
         {
-            return new MoneyValue(value.Value, value.Currency);
+            return new MoneyValue(value.Amount, value.Currency);
         }
 
         public static MoneyValue operator +(MoneyValue left, MoneyValue right)
@@ -45,17 +45,17 @@ namespace Domain.Shared.ValueObjects
                 throw new Exception("Currency must be equal");
             }
 
-            return new MoneyValue(left.Value + right.Value, left.Currency);
+            return new MoneyValue(left.Amount + right.Amount, left.Currency);
         }
 
         public static MoneyValue operator *(int number, MoneyValue right)
         {
-            return new MoneyValue(number * right.Value, right.Currency);
+            return new MoneyValue(number * right.Amount, right.Currency);
         }
 
         public static MoneyValue operator *(decimal number, MoneyValue right)
         {
-            return new MoneyValue(number * right.Value, right.Currency);
+            return new MoneyValue(number * right.Amount, right.Currency);
 
         }
     }

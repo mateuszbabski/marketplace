@@ -6,6 +6,6 @@ namespace Domain.Shop.Entities.Products.Factories
 {
     public interface IProductFactory
     {
-        Product Create(ProductId id, ProductName productName, ProductDescription productDescription, ProductPrice productPrice, ProductUnit unit, ShopId shopId);
+        Product Create(ProductId id, ProductName productName, ProductDescription productDescription, MoneyValue price, ProductUnit unit, ShopId shopId);
     }
 }

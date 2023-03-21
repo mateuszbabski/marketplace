@@ -14,9 +14,9 @@ namespace Domain.Shop.Entities.Products.Factories
         public Product Create(ProductId id,
                               ProductName productName,
                               ProductDescription productDescription,
-                              ProductPrice productPrice,
+                              MoneyValue price,
                               ProductUnit unit,
                               ShopId shopId) =>
-            new(id, productName, productDescription, productPrice, unit, shopId);
+            new(id, productName, productDescription, price, unit, shopId);
     }
 }

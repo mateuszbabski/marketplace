@@ -14,22 +14,24 @@ namespace Domain.Shop.Entities.Products
         public ProductId Id { get; private set; }
         public ProductName ProductName { get; private set; }
         public ProductDescription ProductDescription { get; private set; }
-        public ProductPrice ProductPrice { get; private set; }
+        public MoneyValue Price { get; private set; }
         public ProductUnit Unit { get; private set; }
         public ShopId ShopId { get; private set; }
         public bool IsAvailable { get; private set; } = true;
-                
+        public Shop Shop { get; private set; }
+
+        private Product() { }
         internal Product(ProductId id,
                          ProductName productName,
                          ProductDescription productDescription,
-                         ProductPrice productPrice,
+                         MoneyValue price,
                          ProductUnit unit,
                          ShopId shopId)
         {
             Id = id;
             ProductName = productName;
             ProductDescription = productDescription;
-            ProductPrice = productPrice;
+            Price = price;
             Unit = unit;
             ShopId = shopId;
             IsAvailable = true;

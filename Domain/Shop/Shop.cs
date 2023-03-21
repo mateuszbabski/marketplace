@@ -1,5 +1,6 @@
 ﻿using Domain.Shop.ValueObjects;
 using Domain.Shared.ValueObjects;
+using Domain.Shop.Entities.Products;
 
 namespace Domain.Shop
 {
@@ -15,6 +16,7 @@ namespace Domain.Shop
         public TelephoneNumber ContactNumber { get; private set; }
         public Address ShopAddress { get; private set; }
         public Roles Role { get; private set; } = Roles.shop;
+        public List<Product> Products { get; private set; }
 
         internal Shop(ShopId id,
                                    Email email,
@@ -36,6 +38,7 @@ namespace Domain.Shop
             TaxNumber = taxNumber;
             ContactNumber = contactNumber;
             Role = Roles.shop;
+            Products = new List<Product>();
         }
     }
 }
