@@ -15,8 +15,8 @@ namespace Domain.Shop.Entities.Products.Factories
                               ProductName productName,
                               ProductDescription productDescription,
                               ProductPrice productPrice,
-                              Unit unit,
-                              ShopId shopId) => 
+                              ProductUnit unit,
+                              ShopId shopId) =>
             new(id, productName, productDescription, productPrice, unit, shopId);
     }
 }

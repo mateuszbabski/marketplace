@@ -15,16 +15,15 @@ namespace Domain.Shop.Entities.Products
         public ProductName ProductName { get; private set; }
         public ProductDescription ProductDescription { get; private set; }
         public ProductPrice ProductPrice { get; private set; }
-        public Unit Unit { get; private set; }
+        public ProductUnit Unit { get; private set; }
         public ShopId ShopId { get; private set; }
         public bool IsAvailable { get; private set; } = true;
-
-        private Product() { }
+                
         internal Product(ProductId id,
                          ProductName productName,
                          ProductDescription productDescription,
                          ProductPrice productPrice,
-                         Unit unit,
+                         ProductUnit unit,
                          ShopId shopId)
         {
             Id = id;
