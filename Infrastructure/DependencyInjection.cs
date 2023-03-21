@@ -9,6 +9,7 @@ using Infrastructure.Services;
 using Infrastructure.Authentication;
 using Domain.Customers.Repositories;
 using Domain.Shop.Repositories;
+using Domain.Shop.Entities.Products.Repositories;
 
 namespace Infrastructure
 {
@@ -29,6 +30,7 @@ namespace Infrastructure
 
             services.AddScoped<ICustomerRepository, CustomerRepository>(); 
             services.AddScoped<IShopRepository, ShopRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             
 

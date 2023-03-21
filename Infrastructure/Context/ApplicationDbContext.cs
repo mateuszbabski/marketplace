@@ -1,5 +1,6 @@
 ﻿using Domain.Customers;
 using Domain.Shop;
+using Domain.Shop.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Context
@@ -12,6 +13,7 @@ namespace Infrastructure.Context
 
         public DbSet<Customer> Customers { get;  set; }
         public DbSet<Shop> Shops { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {
