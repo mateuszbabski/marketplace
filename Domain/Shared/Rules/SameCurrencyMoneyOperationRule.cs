@@ -1,4 +1,5 @@
 ﻿using Domain.Shared.Abstractions;
+using Domain.Shared.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,16 @@ namespace Domain.Shared.Rules
 {
     public class SameCurrencyMoneyOperationRule : IBusinessRule
     {
-        public string Message => throw new NotImplementedException();
+        private readonly MoneyValue _left;
+        private readonly MoneyValue _right;
 
-        public bool IsBroken()
+        public SameCurrencyMoneyOperationRule(MoneyValue left, MoneyValue right)
         {
-            throw new NotImplementedException();
+            _left = left;
+            _right = right;
         }
+        public string Message => "Money currencies must be the same";
+
+        public bool IsBroken() => _left.Currency != _right.Currency;
     }
 }

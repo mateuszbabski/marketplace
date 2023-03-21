@@ -9,11 +9,15 @@ namespace Domain.Shared.Rules
 {
     public class MoneyMustHaveCurrencyRule : IBusinessRule
     {
-        public string Message => throw new NotImplementedException();
-
-        public bool IsBroken()
+        private readonly string _currency;
+        public MoneyMustHaveCurrencyRule(string currency)
         {
-            throw new NotImplementedException();
+
+            _currency = currency;
+
         }
+        public string Message => "Money value must have currency";
+
+        public bool IsBroken() => string.IsNullOrWhiteSpace(_currency);        
     }
 }
