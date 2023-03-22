@@ -27,7 +27,7 @@ namespace Application
 
             services.AddScoped<IValidator<RegisterCustomerRequest>, RegisterCustomerRequestValidator>();
             services.AddScoped<IValidator<RegisterShopRequest>, RegisterShopRequestValidator>();
-            services.AddScoped<IValidator<AddProductCommand>, AddProductCommandValidator>();
+            services.AddScoped<IValidator<AddProductCommand>, AddProductCommandValidator>();            
 
             return services;
         }
