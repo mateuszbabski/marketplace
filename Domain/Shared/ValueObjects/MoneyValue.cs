@@ -12,7 +12,7 @@ namespace Domain.Shared.ValueObjects
         public decimal Amount { get; }
         public string Currency { get; } = "PLN";   
 
-        public MoneyValue(decimal amount, string currency)
+        internal MoneyValue(decimal amount, string currency)
         {
             Amount = amount;
             Currency = currency;

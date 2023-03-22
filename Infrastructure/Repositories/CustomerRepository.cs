@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class CustomerRepository : ICustomerRepository
+    internal sealed class CustomerRepository : ICustomerRepository
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public CustomerRepository(ApplicationDbContext dbContext)
+        public CustomerRepository(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }

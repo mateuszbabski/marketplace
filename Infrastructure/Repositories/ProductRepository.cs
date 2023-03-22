@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class ProductRepository : IProductRepository
+    internal sealed class ProductRepository : IProductRepository
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IApplicationDbContext _dbContext;
 
-        public ProductRepository(ApplicationDbContext dbContext)
+        public ProductRepository(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
