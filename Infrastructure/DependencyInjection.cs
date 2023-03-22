@@ -31,9 +31,7 @@ namespace Infrastructure
             services.AddScoped<ICustomerRepository, CustomerRepository>(); 
             services.AddScoped<IShopRepository, ShopRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
-
             
-
             return services;
         }
     }

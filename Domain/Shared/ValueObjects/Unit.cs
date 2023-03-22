@@ -9,10 +9,10 @@ namespace Domain.Shared.ValueObjects
 {
     public record ProductUnit
     {
-        public static ProductUnit Kilograms => new("kg");
-        public static ProductUnit Pieces => new("pc");
-        public static ProductUnit Meters => new("m");
-        public static ProductUnit SquareMeters => new("m2");
+        public static ProductUnit Kilograms => new ("kg");
+        public static ProductUnit Pieces => new ("pc");
+        public static ProductUnit Meters => new ("m");
+        public static ProductUnit SquareMeters => new ("m2");
 
         public string Value { get; }
         public ProductUnit(string value)
