@@ -12,11 +12,10 @@ namespace Application.Features.Products.AddProduct
 {
     public class AddProductCommand : IRequest<Guid>
     {
-        public ProductName ProductName { get; set; }
-        public ProductDescription ProductDescription { get; set;}
-        //public decimal Amount { get; set;}
-        //public string Currency { get; set; }
-        public MoneyValue Price { get; set;}
-        public ProductUnit Unit { get; set;}
+        public string ProductName { get; set; }
+        public string ProductDescription { get; set;}
+        public decimal Amount { get; set; }
+        public string Currency { get; set; } = "PLN";
+        public string Unit { get; set; } = "Piece";
     }
 }

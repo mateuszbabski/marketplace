@@ -22,7 +22,7 @@ namespace Application.Features.Products.AddProduct
         }
         public async Task<Guid> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
-            var shopId = Guid.NewGuid();
+            var shopId = "9EA4AF6D-895B-4B4C-A231-F758903EBE66";
             var validator = new AddProductCommandValidator();
             var validationResult = await validator.ValidateAsync(request);
 
@@ -30,16 +30,16 @@ namespace Application.Features.Products.AddProduct
                 throw new Exception("Validation error");
             //throw new ValidationException();
 
-            //TODO validation exception, check price and shopid mapping
-            //var price = new MoneyValue(request.Amount, request.Currency);
+            //TODO validation exception, and shopid mapping
+            var price = MoneyValue.Of(request.Amount, request.Currency);
 
             var product = _productFactory.Create(Guid.NewGuid(),
                                                  request.ProductName,
                                                  request.ProductDescription,
-                                                 //price,
-                                                 request.Price,
+                                                 price,
                                                  request.Unit,
-                                                 shopId);
+                                                 //shopId
+                                                 Guid.Parse(shopId));
 
             await _productRepository.Add(product);
 
