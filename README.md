@@ -21,7 +21,7 @@ To implement:
 
 - C# 11
 - .Net 7
-- EntityFrameworkCore 6.0.8
+- EntityFrameworkCore 7.0.4
 - MSQLServer
 
 ## Setup
