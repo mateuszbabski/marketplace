@@ -30,7 +30,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Shop> GetShopById(ShopId id)
         {
-            return await _dbContext.Shops.SingleAsync(e => e.Id == id);
+            return await _dbContext.Shops.FirstOrDefaultAsync(e => e.Id == id);
         }
     }
 }

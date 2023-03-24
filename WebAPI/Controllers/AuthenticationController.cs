@@ -20,10 +20,16 @@ namespace WebAPI.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> AuthenticateAsync([FromBody] LoginRequest request)
+        [HttpPost("login-customer")]
+        public async Task<IActionResult> AuthenticateCustomerAsync([FromBody] LoginRequest request)
         {
-            return Ok(await _authenticationService.Login(request));
+            return Ok(await _authenticationService.LoginCustomer(request));
+        }
+
+        [HttpPost("login-shop")]
+        public async Task<IActionResult> AuthenticateShopAsync([FromBody] LoginRequest request)
+        {
+            return Ok(await _authenticationService.LoginShop(request));
         }
 
         [HttpPost("register-customer")]

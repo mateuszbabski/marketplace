@@ -30,7 +30,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Product> GetById(ProductId id)
         {
-            return await _dbContext.Products.SingleAsync(e => e.Id == id);
+            return await _dbContext.Products.FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<List<Product>> GetAllProducts()

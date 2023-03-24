@@ -4,6 +4,8 @@ using Domain.Shared.ValueObjects;
 using Domain.Customers.Factories;
 using Domain.Shop.Repositories;
 using Domain.Shop.Factories;
+using Domain.Customers;
+using Domain.Shop;
 
 namespace Application.Authentication.Services
 {
@@ -32,14 +34,9 @@ namespace Application.Authentication.Services
         }
 
         public async Task<AuthenticationResult> RegisterCustomer(RegisterCustomerRequest request)
-        {
-            var emailInUse = await _customerRepository.GetCustomerByEmail(request.Email);
+        {            
+            await CheckIfEmailIsFreeToUse(request.Email);
 
-            if (emailInUse != null)
-            {
-                throw new Exception("Email already taken");
-            }
-            
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
             var address = new Address(request.Country, request.City, request.Street, request.PostalCode);
 
@@ -60,12 +57,7 @@ namespace Application.Authentication.Services
 
         public async Task<AuthenticationResult> RegisterShop(RegisterShopRequest request)
         {
-            var emailInUse = await _shopRepository.GetShopByEmail(request.Email);
-
-            if (emailInUse != null)
-            {
-                throw new Exception("Email already taken");
-            }
+            await CheckIfEmailIsFreeToUse(request.Email);
 
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
             var shopAddress = new Address(request.Country, request.City, request.Street, request.PostalCode);
@@ -87,9 +79,9 @@ namespace Application.Authentication.Services
             return new AuthenticationResult(shop.Id, token);
         }
 
-        public async Task<AuthenticationResult> Login(LoginRequest request)
+        public async Task<AuthenticationResult> LoginCustomer(LoginRequest request)
         {
-            var customer = await _customerRepository.GetCustomerByEmail(request.Email) ?? throw new Exception("Email not found");
+            var customer = await _customerRepository.GetCustomerByEmail(request.Email) ?? throw new Exception("Email not found");            
 
             if (!_hashingService.ValidatePassword(request.Password, customer.PasswordHash))
             {
@@ -100,5 +92,29 @@ namespace Application.Authentication.Services
 
             return new AuthenticationResult(customer.Id, token);
         }
+
+        public async Task<AuthenticationResult> LoginShop(LoginRequest request)
+        {                        
+            var shop = await _shopRepository.GetShopByEmail(request.Email) ?? throw new Exception("Email not found");            
+
+            if (!_hashingService.ValidatePassword(request.Password, shop.PasswordHash))
+            {
+                throw new Exception("Invalid password");
+            }
+
+            var token = _tokenManager.GenerateToken(shop.Id, shop.Email);
+
+            return new AuthenticationResult(shop.Id, token);
+        }
+
+        private async Task<bool> CheckIfEmailIsFreeToUse(string email)
+        {
+            var customer = await _customerRepository.GetCustomerByEmail(email);
+            var shop = await _shopRepository.GetShopByEmail(email);
+            if (customer != null || shop != null)
+                throw new Exception("Email cannot be used");
+            return true;
+        }
+        
     }
 }
