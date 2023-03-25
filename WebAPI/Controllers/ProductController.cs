@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
             _mediator = mediator;
         }
 
-        //[Authorize(Roles = "shop")]
+        [Authorize(Roles = "shop")]
         [HttpPost("AddProduct")]
         public async Task<ActionResult<Guid>> AddProduct([FromBody] AddProductCommand command)
         {

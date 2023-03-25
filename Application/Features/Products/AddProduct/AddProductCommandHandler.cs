@@ -1,4 +1,5 @@
-﻿using Domain.Shared.ValueObjects;
+﻿using Application.Common.Interfaces;
+using Domain.Shared.ValueObjects;
 using Domain.Shop.Entities.Products.Factories;
 using Domain.Shop.Entities.Products.Repositories;
 using MediatR;
@@ -14,23 +15,27 @@ namespace Application.Features.Products.AddProduct
     {
         private readonly IProductRepository _productRepository;
         private readonly IProductFactory _productFactory;
+        private readonly ICurrentUserService _userService;
 
-        public AddProductCommandHandler(IProductRepository productRepository, IProductFactory productFactory)
+        public AddProductCommandHandler(IProductRepository productRepository,
+                                        IProductFactory productFactory,
+                                        ICurrentUserService userService)
         {
             _productRepository = productRepository;
             _productFactory = productFactory;
+            _userService = userService;
         }
         public async Task<Guid> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
-            var shopId = "9EA4AF6D-895B-4B4C-A231-F758903EBE66";
+            var shopId = _userService.UserId;
             var validator = new AddProductCommandValidator();
-            var validationResult = await validator.ValidateAsync(request);
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
             if (!validationResult.IsValid)
                 throw new Exception("Validation error");
             //throw new ValidationException();
 
-            //TODO validation exception, and shopid mapping
+            //TODO validation exception
             var price = MoneyValue.Of(request.Amount, request.Currency);
 
             var product = _productFactory.Create(Guid.NewGuid(),
@@ -38,8 +43,7 @@ namespace Application.Features.Products.AddProduct
                                                  request.ProductDescription,
                                                  price,
                                                  request.Unit,
-                                                 //shopId
-                                                 Guid.Parse(shopId));
+                                                 shopId);
 
             await _productRepository.Add(product);
 
