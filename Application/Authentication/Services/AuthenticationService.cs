@@ -50,7 +50,7 @@ namespace Application.Authentication.Services
 
             await _customerRepository.Add(customer);
 
-            var token = _tokenManager.GenerateToken(customer.Id, customer.Email);
+            var token = _tokenManager.GenerateToken(customer.Id, customer.Email, customer.Role);
 
             return new AuthenticationResult(customer.Id, token);
         }
@@ -74,7 +74,7 @@ namespace Application.Authentication.Services
 
             await _shopRepository.Add(shop);
 
-            var token = _tokenManager.GenerateToken(shop.Id, shop.Email);
+            var token = _tokenManager.GenerateToken(shop.Id, shop.Email, shop.Role);
 
             return new AuthenticationResult(shop.Id, token);
         }
@@ -88,7 +88,7 @@ namespace Application.Authentication.Services
                 throw new Exception("Invalid password");
             }
 
-            var token = _tokenManager.GenerateToken(customer.Id, customer.Email);
+            var token = _tokenManager.GenerateToken(customer.Id, customer.Email, customer.Role);
 
             return new AuthenticationResult(customer.Id, token);
         }
@@ -102,7 +102,7 @@ namespace Application.Authentication.Services
                 throw new Exception("Invalid password");
             }
 
-            var token = _tokenManager.GenerateToken(shop.Id, shop.Email);
+            var token = _tokenManager.GenerateToken(shop.Id, shop.Email, shop.Role);
 
             return new AuthenticationResult(shop.Id, token);
         }

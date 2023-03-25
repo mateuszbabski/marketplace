@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Shared.ValueObjects;
 using Infrastructure.Authentication.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -13,13 +14,13 @@ namespace Infrastructure.Authentication
         private readonly JwtSettings _jwtSettings;
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public TokenManager(IDateTimeProvider dateTimeProvider, IOptions<JwtSettings> jwtOptions)
+        public TokenManager(IDateTimeProvider dateTimeProvider, JwtSettings jwtSettings)
         {
-            _jwtSettings = jwtOptions.Value;
+            _jwtSettings = jwtSettings;
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public string GenerateToken(Guid id, string email)
+        public string GenerateToken(Guid id, string email, Roles role)
         {
             var signingCredendials = new SigningCredentials(
                 new SymmetricSecurityKey(
@@ -29,6 +30,7 @@ namespace Infrastructure.Authentication
             {
                 new Claim(ClaimTypes.NameIdentifier, id.ToString()),
                 new Claim(ClaimTypes.Email, email),
+                new Claim(ClaimTypes.Role, role.ToString())
             };
 
             var securityToken = new JwtSecurityToken(
