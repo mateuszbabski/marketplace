@@ -40,5 +40,20 @@ namespace Domain.Shop
             Role = Roles.shop;
             Products = new List<Product>();
         }
+
+        internal void SetAddress(Address shopAddress)
+        {
+            ShopAddress = shopAddress;
+        }
+
+        internal void SetContactNumber(TelephoneNumber contactNumber)
+        {
+            ContactNumber = contactNumber;
+        }
+
+        internal void SetName(ShopName shopName)
+        {
+            ShopName = shopName;
+        }
     }
 }

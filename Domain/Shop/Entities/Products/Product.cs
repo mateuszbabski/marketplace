@@ -36,5 +36,41 @@ namespace Domain.Shop.Entities.Products
             ShopId = shopId;
             IsAvailable = true;
         }
+
+        internal void SetPrice(MoneyValue price)
+        {
+            Price = price;
+        }
+
+        internal void SetUnit(ProductUnit unit)
+        {
+            Unit = unit;
+        }
+
+        internal void SetName(ProductName productName)
+        {
+            ProductName = productName;
+        }
+
+        internal void SetDescription(ProductDescription productDescription)
+        {
+            ProductDescription = productDescription;
+        }
+
+        internal MoneyValue GetPrice()
+        {
+            return Price;
+        }
+
+        internal void Remove()
+        {
+            IsAvailable = false;
+        }
+
+        internal void Restore()
+        {
+            IsAvailable = true;
+        }
+
     }
 }
