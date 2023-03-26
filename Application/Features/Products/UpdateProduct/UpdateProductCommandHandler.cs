@@ -1,8 +1,8 @@
 ﻿using Application.Common.Interfaces;
-using Application.Common.Responses;
 using Domain.Shared.ValueObjects;
 using Domain.Shop.Entities.Products;
 using Domain.Shop.Entities.Products.Repositories;
+using Domain.Shop.Entities.Products.ValueObjects;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,19 +10,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Products.UpdateProductPrice
+namespace Application.Features.Products.UpdateProduct
 {
-    public class UpdateProductPriceCommandHandler : IRequestHandler<UpdateProductPriceCommand, Unit>
+    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Unit>
     {
-        private readonly ICurrentUserService _userService;
         private readonly IProductRepository _productRepository;
+        private readonly ICurrentUserService _userService;
 
-        public UpdateProductPriceCommandHandler(ICurrentUserService userService, IProductRepository productRepository)
+        public UpdateProductCommandHandler(IProductRepository productRepository, ICurrentUserService userService)
         {
-            _userService = userService;
             _productRepository = productRepository;
+            _userService = userService;
         }
-        public async Task<Unit> Handle(UpdateProductPriceCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
             var shopId = _userService.UserId;
             var product = await _productRepository.GetById(request.Id);
@@ -32,8 +32,9 @@ namespace Application.Features.Products.UpdateProductPrice
                 throw new Exception("Product not found");
             }
 
-            var newPrice = MoneyValue.Of(request.Amount, request.Currency);
-            product.SetPrice(newPrice);
+            product.SetName(request.ProductName);
+            product.SetDescription(request.ProductDescription);
+            product.SetUnit(request.Unit);
 
             await _productRepository.Update(product);
 

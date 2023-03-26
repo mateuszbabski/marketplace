@@ -3,6 +3,7 @@ using Application.Features.Products;
 using Application.Features.Products.AddProduct;
 using Application.Features.Products.GetAllProducts;
 using Application.Features.Products.GetProductById;
+using Application.Features.Products.UpdateProduct;
 using Application.Features.Products.UpdateProductPrice;
 using Domain.Shared.ValueObjects;
 using Domain.Shop.Entities.Products;
@@ -31,11 +32,19 @@ namespace WebAPI.Controllers
         }
         
         [Authorize(Roles = "shop")]
-        [HttpPatch("{id}/update", Name = "UpdateProductPrice")]
-        public async Task<ActionResult<BaseResponse<Product>>> UpdateProductPrice([FromBody] UpdateProductPriceCommand command)
+        [HttpPatch("{id}/updateprice", Name = "UpdateProductPrice")]
+        public async Task<ActionResult<Unit>> UpdateProductPrice([FromBody] UpdateProductPriceCommand command)
         {
-            var result = await _mediator.Send(command);
-            return Ok(result);
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
+        [Authorize(Roles = "shop")]
+        [HttpPatch("{id}/update", Name = "UpdateProduct")]
+        public async Task<ActionResult<Unit>> UpdateProduct([FromBody] UpdateProductCommand command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
         }
 
 

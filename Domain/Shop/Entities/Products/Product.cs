@@ -42,19 +42,40 @@ namespace Domain.Shop.Entities.Products
             Price = price;
         }
 
-        public void SetUnit(ProductUnit unit)
+        public void SetUnit(string unit)
         {
-            Unit = unit;
+            if (string.IsNullOrEmpty(unit))
+            {
+                Unit = Unit;
+            }
+            else
+            {
+                Unit = new ProductUnit(unit);
+            }
         }
 
-        public void SetName(ProductName productName)
+        public void SetName(string productName)
         {
-            ProductName = productName;
+            if (string.IsNullOrEmpty(productName))
+            {
+                ProductName = ProductName;
+            }
+            else
+            {
+                ProductName = new ProductName(productName);
+            }
         }
 
-        public void SetDescription(ProductDescription productDescription)
+        public void SetDescription(string productDescription)
         {
-            ProductDescription = productDescription;
+            if (string.IsNullOrEmpty(productDescription))
+            {
+                ProductDescription = ProductDescription;
+            }
+            else
+            {
+                ProductDescription = new ProductDescription(productDescription);
+            }
         }
 
         internal MoneyValue GetPrice()
