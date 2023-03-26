@@ -38,7 +38,7 @@ namespace Application.Authentication.Services
             await CheckIfEmailIsFreeToUse(request.Email);
 
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
-            var address = new Address(request.Country, request.City, request.Street, request.PostalCode);
+            var address = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);
 
             var customer = _customerFactory.Create(Guid.NewGuid(),
                                                    request.Email,
@@ -60,7 +60,7 @@ namespace Application.Authentication.Services
             await CheckIfEmailIsFreeToUse(request.Email);
 
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
-            var shopAddress = new Address(request.Country, request.City, request.Street, request.PostalCode);
+            var shopAddress = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);
 
             var shop = _shopFactory.Create(Guid.NewGuid(),
                                                    request.Email,

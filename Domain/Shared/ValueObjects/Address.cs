@@ -1,31 +1,31 @@
 ﻿namespace Domain.Shared.ValueObjects
 {
-    public record Address(string Country, string City, string Street, string PostalCode)
+    public record Address
     {
-        //public string Country { get; set; }
-        //public string City { get; set; }
-        //public string Street { get; set; }
-        //public string PostalCode { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string PostalCode { get; set; }
 
-        //public Address(string country, string city, string street, string postalCode)
-        //{
-        //    Country = country;
-        //    City = city;
-        //    Street = street;
-        //    PostalCode = postalCode;
-        //}
-
-        //public static Address CreateAddress(string country, string city, string street, string postalCode)
-        //{
-        //    return new Address(country, city, street, postalCode);
-        //}
-
-        public static Address CreateAddress(string value)
+        private Address(string country, string city, string street, string postalCode)
         {
-            var splitAddress = value.Split(',');
-            return new Address(splitAddress[0].Trim(), splitAddress[1].Trim(), splitAddress[2].Trim(), splitAddress[3].Trim());
-            
+            Country = country;
+            City = city;
+            Street = street;
+            PostalCode = postalCode;
         }
+
+        public static Address CreateAddress(string country, string city, string street, string postalCode)
+        {
+            return new Address(country, city, street, postalCode);
+        }
+
+        //public static Address CreateAddress(string value)
+        //{
+        //    var splitAddress = value.Split(',');
+        //    return new Address(splitAddress[0].Trim(), splitAddress[1].Trim(), splitAddress[2].Trim(), splitAddress[3].Trim());
+
+        //}
 
         public override string ToString()
             => $"{Country}, {City}, {Street}, {PostalCode}";

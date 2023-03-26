@@ -1,6 +1,7 @@
 ﻿using Domain.Shop.ValueObjects;
 using Domain.Shared.ValueObjects;
 using Domain.Shop.Entities.Products;
+using Domain.Shop.Entities.Products.Repositories;
 
 namespace Domain.Shop
 {
@@ -41,19 +42,74 @@ namespace Domain.Shop
             Products = new List<Product>();
         }
 
-        internal void SetAddress(Address shopAddress)
+        public void SetAddress(Address shopAddress)
         {
             ShopAddress = shopAddress;
         }
 
-        internal void SetContactNumber(TelephoneNumber contactNumber)
+        public void SetContactNumber(string contactNumber)
         {
-            ContactNumber = contactNumber;
+            if (string.IsNullOrEmpty(contactNumber))
+            {
+                ContactNumber = ContactNumber;
+            }
+            else
+            {
+                ContactNumber = new TelephoneNumber(contactNumber);
+            }            
         }
 
-        internal void SetName(ShopName shopName)
+        public void SetTaxNumber(string taxNumber)
         {
-            ShopName = shopName;
+            if (string.IsNullOrEmpty(taxNumber))
+            {
+                TaxNumber = TaxNumber;
+            }
+            else
+            {
+                TaxNumber = new TaxNumber(taxNumber);
+            }
+        }
+
+        public void SetShopName(string shopName)
+        {
+            if (string.IsNullOrEmpty(shopName))
+            {
+                ShopName = ShopName;
+            }
+            else
+            {
+                ShopName = new ShopName(shopName);
+            }
+        }
+
+        public void SetOwnerName(string ownerName)
+        {
+            if (string.IsNullOrEmpty(ownerName))
+            {
+                OwnerName = OwnerName;
+            }
+            else
+            {
+                OwnerName = new Name(ownerName);
+            }
+        }
+
+        public void SetOwnerLastName(string ownerLastName)
+        {
+            if (string.IsNullOrEmpty(ownerLastName))
+            {
+                OwnerLastName = OwnerLastName;
+            }
+            else
+            {
+                OwnerLastName = new LastName(ownerLastName);
+            }
+        }
+
+        public List<Product> ShowProducts()
+        {
+            return Products;
         }
     }
 }
