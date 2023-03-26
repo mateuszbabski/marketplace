@@ -10,7 +10,7 @@
 
 
 ## Project description
-Marketplace works like a small bussiness aggregator. Customer is able to order different products from different shops, but he gets one order package. 
+Marketplace works like a small business aggregator. Customer is able to order different products from different shops, but he gets one order package. 
 
 To implement:
 
