@@ -10,7 +10,7 @@
 
 
 ## Project description
-Marketplace works like a small bussiness aggregator. Customer is able to order different products from different shops, but he gets one order package. 
+Marketplace works like a small business aggregator. Customer is able to order different products from different shops, but he gets one order package. 
 
 To implement:
 
@@ -56,9 +56,9 @@ $ dotnet run
 
 Done:
 - Register/Login for Customer and Shop separately
+- Adding, updating and deleting products available to buy
 
 To implement:
-- Adding, updating and deleting products available to buy
 - Searching products
 - Placing orders
 - Splitting order to notify all shops owners about products to prepare
