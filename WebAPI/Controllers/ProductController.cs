@@ -1,6 +1,7 @@
 ﻿using Application.Common.Responses;
 using Application.Features.Products;
 using Application.Features.Products.AddProduct;
+using Application.Features.Products.ChangeProductAvailability;
 using Application.Features.Products.GetAllProducts;
 using Application.Features.Products.GetProductById;
 using Application.Features.Products.UpdateProduct;
@@ -33,7 +34,7 @@ namespace WebAPI.Controllers
         
         [Authorize(Roles = "shop")]
         [HttpPatch("{id}/updateprice", Name = "UpdateProductPrice")]
-        public async Task<ActionResult<Unit>> UpdateProductPrice([FromBody] UpdateProductPriceCommand command)
+        public async Task<ActionResult> UpdateProductPrice([FromBody] UpdateProductPriceCommand command)
         {
             await _mediator.Send(command);
             return NoContent();
@@ -41,11 +42,21 @@ namespace WebAPI.Controllers
 
         [Authorize(Roles = "shop")]
         [HttpPatch("{id}/update", Name = "UpdateProduct")]
-        public async Task<ActionResult<Unit>> UpdateProduct([FromBody] UpdateProductCommand command)
+        public async Task<ActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
         {
             await _mediator.Send(command);
             return NoContent();
         }
+
+        [Authorize(Roles = "shop")]
+        [HttpPatch("ChangeProductAvailability")]
+        public async Task<ActionResult> ChangeProductAvailability(ChangeProductAvailabilityCommand command)
+        {
+            await _mediator.Send(command);
+
+            return NoContent();
+        }
+
 
 
         [HttpGet("{id}", Name = "GetProductById")]

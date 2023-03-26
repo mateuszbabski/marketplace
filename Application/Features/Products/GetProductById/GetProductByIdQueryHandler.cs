@@ -18,12 +18,7 @@ namespace Application.Features.Products.GetProductById
         }
         public async Task<ProductDto> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetById(request.Id);
-
-            if (product == null)
-            {
-                throw new Exception("Product not found");
-            }
+            var product = await _productRepository.GetById(request.Id) ?? throw new Exception("Product not found");
 
             var productVM = new ProductDto()
             {

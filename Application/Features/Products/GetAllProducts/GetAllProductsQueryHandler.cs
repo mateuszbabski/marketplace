@@ -19,14 +19,10 @@ namespace Application.Features.Products.GetAllProducts
         }
         public async Task<List<ProductDto>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
-            var products = await _productRepository.GetAllProducts();
-            if (products == null)
-            {
-                throw new Exception("Products not found");
-            }            
+            var products = await _productRepository.GetAllProducts() ?? throw new Exception("Products not found");
 
-            
             var productList = new List<ProductDto>();
+
             foreach (var product in products)
             {
                 var productDto = new ProductDto()

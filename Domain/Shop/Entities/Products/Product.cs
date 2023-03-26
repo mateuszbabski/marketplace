@@ -78,7 +78,7 @@ namespace Domain.Shop.Entities.Products
             }
         }
 
-        internal MoneyValue GetPrice()
+        public MoneyValue GetPrice()
         {
             return Price;
         }
