@@ -1,7 +1,9 @@
-﻿using Application.Features.Products;
+﻿using Application.Common.Responses;
+using Application.Features.Products;
 using Application.Features.Products.AddProduct;
 using Application.Features.Products.GetAllProducts;
 using Application.Features.Products.GetProductById;
+using Application.Features.Products.UpdateProductPrice;
 using Domain.Shared.ValueObjects;
 using Domain.Shop.Entities.Products;
 using MediatR;
@@ -27,8 +29,16 @@ namespace WebAPI.Controllers
         {
             return await _mediator.Send(command);
         }
-
         
+        [Authorize(Roles = "shop")]
+        [HttpPatch("{id}/update", Name = "UpdateProductPrice")]
+        public async Task<ActionResult<BaseResponse<Product>>> UpdateProductPrice([FromBody] UpdateProductPriceCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+
         [HttpGet("{id}", Name = "GetProductById")]
         public async Task<ActionResult<ProductDto>> GetProductById(Guid id)
         {

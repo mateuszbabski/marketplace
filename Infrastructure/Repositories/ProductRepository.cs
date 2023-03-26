@@ -28,6 +28,11 @@ namespace Infrastructure.Repositories
             return product;
         }
 
+        public async Task Update(Product product)
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<Product> GetById(ProductId id)
         {
             return await _dbContext.Products.FirstOrDefaultAsync(e => e.Id == id);

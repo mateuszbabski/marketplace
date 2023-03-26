@@ -37,22 +37,22 @@ namespace Domain.Shop.Entities.Products
             IsAvailable = true;
         }
 
-        internal void SetPrice(MoneyValue price)
+        public void SetPrice(MoneyValue price)
         {
             Price = price;
         }
 
-        internal void SetUnit(ProductUnit unit)
+        public void SetUnit(ProductUnit unit)
         {
             Unit = unit;
         }
 
-        internal void SetName(ProductName productName)
+        public void SetName(ProductName productName)
         {
             ProductName = productName;
         }
 
-        internal void SetDescription(ProductDescription productDescription)
+        public void SetDescription(ProductDescription productDescription)
         {
             ProductDescription = productDescription;
         }
@@ -62,12 +62,12 @@ namespace Domain.Shop.Entities.Products
             return Price;
         }
 
-        internal void Remove()
+        public void Remove()
         {
             IsAvailable = false;
         }
 
-        internal void Restore()
+        public void Restore()
         {
             IsAvailable = true;
         }

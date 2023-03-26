@@ -25,9 +25,9 @@ namespace Domain.Shared.ValueObjects
                 throw new Exception("Invalid currency");
             }
 
-            if (amount < 0)
+            if (amount <= 0)
             {
-                throw new Exception("Money amount value cannot be negative");
+                throw new Exception("Money amount value cannot be zero or negative");
             }
 
             return new MoneyValue(amount, currency);
