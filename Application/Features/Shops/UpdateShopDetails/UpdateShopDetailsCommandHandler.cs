@@ -1,0 +1,38 @@
+﻿using Application.Common.Interfaces;
+using Domain.Shop.Entities.Products.Repositories;
+using Domain.Shop.Repositories;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Application.Features.Shops.UpdateShopDetails
+{
+    public class UpdateShopDetailsCommandHandler : IRequestHandler<UpdateShopDetailsCommand, Unit>
+    {
+        private readonly ICurrentUserService _userService;
+        private readonly IShopRepository _shopRepository;
+
+        public UpdateShopDetailsCommandHandler(ICurrentUserService userService, IShopRepository shopRepository)
+        {
+            _userService = userService;
+            _shopRepository = shopRepository;
+        }
+        public async Task<Unit> Handle(UpdateShopDetailsCommand request, CancellationToken cancellationToken)
+        {
+            var userId = _userService.UserId;
+            var shop = await _shopRepository.GetShopById(request.Id);
+
+            if (shop == null || shop.Id.Value != userId)
+            {
+                throw new Exception("Shop not found");
+            }
+
+
+            await _shopRepository.Update(shop);
+            return Unit.Value;
+        }
+    }
+}

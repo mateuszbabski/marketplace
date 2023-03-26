@@ -23,6 +23,11 @@ namespace Infrastructure.Repositories
             return shop;
         }
 
+        public async Task Update(Shop shop)
+        {
+            await _dbContext.SaveChangesAsync();            
+        }
+
         public async Task<Shop> GetShopByEmail(string email)
         {
             return await _dbContext.Shops.FirstOrDefaultAsync(e => e.Email == email);
