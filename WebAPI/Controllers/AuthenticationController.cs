@@ -53,17 +53,6 @@ namespace WebAPI.Controllers
             });
 
             return Ok(customer);
-        }
-
-        [HttpGet("Get-detailed-shop")]
-        public async Task<ActionResult<ShopDto>> GetShopAsync(Guid id)
-        {
-            var shop = await _mediator.Send(new GetShopDetailsQuery()
-            {
-                Id = id
-            });
-
-            return Ok(shop);
-        }
+        }        
     }
 }

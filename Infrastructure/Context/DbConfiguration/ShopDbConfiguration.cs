@@ -20,7 +20,7 @@ namespace Infrastructure.Context.DbConfiguration
         public void Configure(EntityTypeBuilder<Shop> builder)
         {
             var passwordConverter = new ValueConverter<PasswordHash, string>(c => c.Value, c => new PasswordHash(c));
-            var addressConverter = new ValueConverter<Address, string>(c => c.ToString(), c => Address.CreateAddress(c));
+            //var addressConverter = new ValueConverter<Address, string>(c => c.ToString(), c => Address.CreateAddress(c));
 
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Id)
@@ -44,8 +44,16 @@ namespace Infrastructure.Context.DbConfiguration
             builder.Property(c => c.TaxNumber)
                    .HasConversion(c => c.Value, c => new TaxNumber(c));
 
-            builder.Property(c => c.ShopAddress)
-                   .HasConversion(addressConverter);
+            //builder.Property(c => c.ShopAddress)
+            //       .HasConversion(addressConverter);
+
+            builder.OwnsOne(c => c.ShopAddress, sa =>
+            {
+                sa.Property(x => x.Country).HasColumnName("Country");
+                sa.Property(x => x.City).HasColumnName("City");
+                sa.Property(x => x.Street).HasColumnName("Street");
+                sa.Property(x => x.PostalCode).HasColumnName("PostalCode");
+            });
 
             builder.Property(c => c.ContactNumber)
                    .HasConversion(c => c.Value, c => new TelephoneNumber(c));
