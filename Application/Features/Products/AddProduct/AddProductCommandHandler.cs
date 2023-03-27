@@ -1,7 +1,10 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Shared.ValueObjects;
+using Domain.Shop;
+using Domain.Shop.Entities.Products;
 using Domain.Shop.Entities.Products.Factories;
 using Domain.Shop.Entities.Products.Repositories;
+using Domain.Shop.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -25,6 +28,8 @@ namespace Application.Features.Products.AddProduct
             _productFactory = productFactory;
             _userService = userService;
         }
+
+
         public async Task<Guid> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
             var shopId = _userService.UserId;
@@ -37,7 +42,7 @@ namespace Application.Features.Products.AddProduct
 
             //TODO validation exception
             var price = MoneyValue.Of(request.Amount, request.Currency);
-
+            
             var product = _productFactory.Create(Guid.NewGuid(),
                                                  request.ProductName,
                                                  request.ProductDescription,
@@ -46,7 +51,7 @@ namespace Application.Features.Products.AddProduct
                                                  shopId);
 
             await _productRepository.Add(product);
-
+            
             return product.Id;
         }
     }

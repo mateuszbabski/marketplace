@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Shop.Entities.Products.Repositories;
+using Domain.Shop.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,20 @@ namespace Application.Features.Products.ChangeProductAvailability
     {
         private readonly IProductRepository _productRepository;
         private readonly ICurrentUserService _userService;
+        private readonly IShopRepository _shopRepository;
 
-        public ChangeProductAvailabilityCommandHandler(IProductRepository productRepository, ICurrentUserService userService)
+        public ChangeProductAvailabilityCommandHandler(IProductRepository productRepository, ICurrentUserService userService, IShopRepository shopRepository)
         {
             _productRepository = productRepository;
             _userService = userService;
+            _shopRepository = shopRepository;
         }
+
+
         public async Task<Unit> Handle(ChangeProductAvailabilityCommand request, CancellationToken cancellationToken)
         {
             var shopId = _userService.UserId;
+            var shop = await _shopRepository.GetShopById(shopId);
             var product = await _productRepository.GetById(request.Id);
 
             if (product == null || product.ShopId.Value != shopId)
@@ -29,17 +35,10 @@ namespace Application.Features.Products.ChangeProductAvailability
                 throw new Exception("Product not found");
             }
 
-            if (product.IsAvailable)
-            {
-                product.Remove();
-            }
-            else
-            {
-                product.Restore();
-            }
+            shop.ChangeProductAvailability(request.Id);
 
-            await _productRepository.Update(product);
-
+            await _productRepository.Update(product);         
+            
             return Unit.Value;
         }
     }

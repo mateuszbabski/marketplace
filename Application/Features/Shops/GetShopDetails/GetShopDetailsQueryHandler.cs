@@ -19,12 +19,7 @@ namespace Application.Features.Shops.GetShopDetails
         }
         public async Task<ShopDto> Handle(GetShopDetailsQuery request, CancellationToken cancellationToken)
         {
-            var shop = await _shopRepository.GetShopById(request.Id);
-
-            if (shop == null)
-            {
-                throw new Exception("Shop not found.");
-            }
+            var shop = await _shopRepository.GetShopById(request.Id) ?? throw new Exception("Shop not found.");
 
             var shopViewModel = new ShopDto()
             {
