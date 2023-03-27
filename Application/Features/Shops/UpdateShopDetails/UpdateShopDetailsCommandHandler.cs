@@ -2,6 +2,7 @@
 using Domain.Shared.ValueObjects;
 using Domain.Shop.Entities.Products.Repositories;
 using Domain.Shop.Repositories;
+using Domain.Shop.ValueObjects;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -33,22 +34,15 @@ namespace Application.Features.Shops.UpdateShopDetails
                 throw new Exception("Shop not found");
             }
 
-            var addressParams = new List<string>()
-            {
-                request.Country, request.City, request.Street, request.PostalCode
-            };
-
-            if (addressParams.All(c => !string.IsNullOrEmpty(c)))
-            {
-                var newShopAddress = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);
-                shop.SetAddress(newShopAddress);
-            }                
-
-            shop.SetShopName(request.ShopName);
-            shop.SetOwnerLastName(request.OwnerLastName);
-            shop.SetOwnerName(request.OwnerName);
-            shop.SetContactNumber(request.ContactNumber);
-            shop.SetTaxNumber(request.TaxNumber);            
+            shop.UpdateShopDetails(request.OwnerName,
+                                   request.OwnerLastName,
+                                   request.ShopName,
+                                   request.Country,
+                                   request.City,
+                                   request.Street,
+                                   request.PostalCode,
+                                   request.TaxNumber,
+                                   request.ContactNumber);           
 
             await _shopRepository.Update(shop);
             return Unit.Value;

@@ -45,6 +45,34 @@ namespace Domain.Shop
             Products = new List<Product>();
         }
 
+        public void UpdateShopDetails(string ownerName,
+                                   string ownerLastName,
+                                   string shopName,
+                                   string country,
+                                   string city,
+                                   string street,
+                                   string postalCode,
+                                   string taxNumber,
+                                   string contactNumber)
+        {
+            var addressParams = new List<string>()
+            {
+                country, city, street, postalCode
+            };
+
+            if (addressParams.All(c => !string.IsNullOrEmpty(c)))
+            {
+                var newShopAddress = Address.CreateAddress(country, city, street, postalCode);
+                SetAddress(newShopAddress);
+            }
+
+            SetShopName(shopName);
+            SetOwnerLastName(ownerLastName);
+            SetOwnerName(ownerName);
+            SetContactNumber(contactNumber);
+            SetTaxNumber(taxNumber);
+        }
+
         public void SetAddress(Address shopAddress)
         {
             if (shopAddress is not null)
