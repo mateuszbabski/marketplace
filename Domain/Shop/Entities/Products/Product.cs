@@ -37,6 +37,16 @@ namespace Domain.Shop.Entities.Products
             IsAvailable = true;
         }
 
+        public static Product CreateProduct(ProductId id,
+                              ProductName productName,
+                              ProductDescription productDescription,
+                              MoneyValue price,
+                              ProductUnit unit,
+                              ShopId shopId)
+        {
+            return new Product(id, productName, productDescription, price, unit, shopId);
+        }
+
         public void SetPrice(MoneyValue price)
         {
             Price = price;

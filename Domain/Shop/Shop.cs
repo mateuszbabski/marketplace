@@ -2,6 +2,8 @@
 using Domain.Shared.ValueObjects;
 using Domain.Shop.Entities.Products;
 using Domain.Shop.Entities.Products.Repositories;
+using Domain.Shop.Entities.Products.ValueObjects;
+using Domain.Shop.Entities.Products.Factories;
 
 namespace Domain.Shop
 {
@@ -86,6 +88,51 @@ namespace Domain.Shop
         public string ShowShopAddress()
         {
             return ShopAddress.ToString();
+        }
+
+        public Product AddProduct(ProductId id,
+                         ProductName productName,
+                         ProductDescription productDescription,
+                         MoneyValue price,
+                         ProductUnit unit,
+                         ShopId shopId)
+        {
+            var product = new Product(id, productName, productDescription, price, unit, shopId);
+            
+            return product;
+        }
+
+        public void UpdateProductPrice(ProductId id, decimal amount, string currency)
+        {
+            var product = Products.Single(x => x.Id == id);
+
+            product.SetPrice(MoneyValue.Of(amount, currency));            
+        }
+
+        public void UpdateProductDetails(ProductId id,
+                         string productName,
+                         string productDescription,
+                         string unit)
+        {
+            var product = Products.Single(x => x.Id == id);
+
+            product.SetName(productName);
+            product.SetDescription(productDescription);
+            product.SetUnit(unit);
+        }
+
+        public void ChangeProductAvailability(ProductId id)
+        {
+            var product = Products.Single(x => x.Id == id);
+            
+            if (product.IsAvailable)
+            {
+                product.Remove();
+            }
+            else
+            {
+                product.Restore();
+            }
         }
     }
 }
