@@ -1,4 +1,7 @@
-﻿namespace Domain.Shared.ValueObjects
+﻿using Domain.Shared.Exceptions;
+using System.Linq;
+
+namespace Domain.Shared.ValueObjects
 {
     public record Address
     {
@@ -19,13 +22,6 @@
         {
             return new Address(country, city, street, postalCode);
         }
-
-        //public static Address CreateAddress(string value)
-        //{
-        //    var splitAddress = value.Split(',');
-        //    return new Address(splitAddress[0].Trim(), splitAddress[1].Trim(), splitAddress[2].Trim(), splitAddress[3].Trim());
-
-        //}
 
         public override string ToString()
             => $"{Country}, {City}, {Street}, {PostalCode}";

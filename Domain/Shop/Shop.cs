@@ -13,12 +13,13 @@ namespace Domain.Shop
         public Name OwnerName { get; private set; }
         public LastName OwnerLastName { get; private set; }
         public ShopName ShopName { get; private set; }
+        public Address ShopAddress { get; private set; }
         public TaxNumber TaxNumber { get; private set; }
         public TelephoneNumber ContactNumber { get; private set; }
-        public Address ShopAddress { get; private set; }
         public Roles Role { get; private set; } = Roles.shop;
         public List<Product> Products { get; private set; }
 
+        private Shop() { }
         internal Shop(ShopId id,
                                    Email email,
                                    PasswordHash passwordHash,
@@ -44,72 +45,47 @@ namespace Domain.Shop
 
         public void SetAddress(Address shopAddress)
         {
-            ShopAddress = shopAddress;
+            if (shopAddress is not null)
+                ShopAddress = shopAddress;
         }
 
         public void SetContactNumber(string contactNumber)
         {
-            if (string.IsNullOrEmpty(contactNumber))
-            {
-                ContactNumber = ContactNumber;
-            }
-            else
-            {
-                ContactNumber = new TelephoneNumber(contactNumber);
-            }            
+            if(!string.IsNullOrEmpty(contactNumber))
+                ContactNumber = new TelephoneNumber(contactNumber);           
         }
 
         public void SetTaxNumber(string taxNumber)
         {
-            if (string.IsNullOrEmpty(taxNumber))
-            {
-                TaxNumber = TaxNumber;
-            }
-            else
-            {
+            if(!string.IsNullOrEmpty(taxNumber))          
                 TaxNumber = new TaxNumber(taxNumber);
-            }
-        }
-
+        }   
         public void SetShopName(string shopName)
         {
-            if (string.IsNullOrEmpty(shopName))
-            {
-                ShopName = ShopName;
-            }
-            else
-            {
+            if (!string.IsNullOrEmpty(shopName))
                 ShopName = new ShopName(shopName);
-            }
         }
 
         public void SetOwnerName(string ownerName)
         {
-            if (string.IsNullOrEmpty(ownerName))
-            {
-                OwnerName = OwnerName;
-            }
-            else
-            {
+            if (!string.IsNullOrEmpty(ownerName))
                 OwnerName = new Name(ownerName);
-            }
         }
 
         public void SetOwnerLastName(string ownerLastName)
         {
-            if (string.IsNullOrEmpty(ownerLastName))
-            {
-                OwnerLastName = OwnerLastName;
-            }
-            else
-            {
+            if (!string.IsNullOrEmpty(ownerLastName))
                 OwnerLastName = new LastName(ownerLastName);
-            }
         }
 
         public List<Product> ShowProducts()
         {
             return Products;
+        }
+
+        public string ShowShopAddress()
+        {
+            return ShopAddress.ToString();
         }
     }
 }

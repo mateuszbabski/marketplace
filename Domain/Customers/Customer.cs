@@ -10,12 +10,12 @@ namespace Domain.Customers
         public PasswordHash PasswordHash { get; private set; }
         public Name Name { get; private set; }
         public LastName LastName { get; private set; }
-        public TelephoneNumber TelephoneNumber { get; private set; }
         public Address Address { get; private set; }
+        public TelephoneNumber TelephoneNumber { get; private set; }
 
         public Roles Role { get; private set; } = Roles.customer;
                 
-        //private Customer() { }
+        private Customer() { }
         internal Customer(CustomerId id,
                           Email email,
                           PasswordHash passwordHash,

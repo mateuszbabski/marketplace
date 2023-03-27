@@ -44,38 +44,20 @@ namespace Domain.Shop.Entities.Products
 
         public void SetUnit(string unit)
         {
-            if (string.IsNullOrEmpty(unit))
-            {
-                Unit = Unit;
-            }
-            else
-            {
+            if (!string.IsNullOrEmpty(unit))
                 Unit = new ProductUnit(unit);
-            }
         }
 
         public void SetName(string productName)
         {
-            if (string.IsNullOrEmpty(productName))
-            {
-                ProductName = ProductName;
-            }
-            else
-            {
+            if (!string.IsNullOrEmpty(productName))
                 ProductName = new ProductName(productName);
-            }
         }
 
         public void SetDescription(string productDescription)
         {
-            if (string.IsNullOrEmpty(productDescription))
-            {
-                ProductDescription = ProductDescription;
-            }
-            else
-            {
+            if (!string.IsNullOrEmpty(productDescription))
                 ProductDescription = new ProductDescription(productDescription);
-            }
         }
 
         public MoneyValue GetPrice()
