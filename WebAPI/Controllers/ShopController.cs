@@ -1,6 +1,10 @@
-﻿using Application.Features.Shops.GetShopDetails;
+﻿using Application.Features.Shops;
+using Application.Features.Shops.GetShopDetails;
 using Application.Features.Shops.UpdateShopDetails;
+using Domain.Shop;
+using Domain.Shop.Entities.Products;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +20,8 @@ namespace WebAPI.Controllers
         {
             _mediator = mediator;
         }
+
+        [Authorize(Roles = "shop")]
         [HttpPatch("UpdateShopDetails")]
         public async Task<ActionResult> UpdateShopDetails(UpdateShopDetailsCommand command)
         {
@@ -23,7 +29,7 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-        [HttpGet("Get-detailed-shop")]
+        [HttpGet("{id}", Name = "Get-detailed-shop")]
         public async Task<ActionResult<ShopDto>> GetShopAsync(Guid id)
         {
             var shop = await _mediator.Send(new GetShopDetailsQuery()
@@ -32,6 +38,6 @@ namespace WebAPI.Controllers
             });
 
             return Ok(shop);
-        }
+        }        
     }
 }

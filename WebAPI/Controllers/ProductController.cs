@@ -57,8 +57,6 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-
-
         [HttpGet("{id}", Name = "GetProductById")]
         public async Task<ActionResult<ProductDto>> GetProductById(Guid id)
         {
