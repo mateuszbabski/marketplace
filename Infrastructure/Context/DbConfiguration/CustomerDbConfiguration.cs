@@ -12,7 +12,6 @@ namespace Infrastructure.Context.DbConfiguration
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
             var passwordConverter = new ValueConverter<PasswordHash, string>(c => c.Value, c => new PasswordHash(c));
-            //var addressConverter = new ValueConverter<Address, string>(c => c.ToString(), c => Address.CreateAddress(c));
 
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Id)
@@ -32,9 +31,6 @@ namespace Infrastructure.Context.DbConfiguration
 
             builder.Property(c => c.TelephoneNumber)
                    .HasConversion(c => c.Value, c => new TelephoneNumber(c));
-
-            //builder.Property(c => c.Address)
-            //       .HasConversion(addressConverter);
 
             builder.OwnsOne(c => c.Address, sa =>
             {

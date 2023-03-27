@@ -27,9 +27,6 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -105,9 +102,6 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ShopAddress")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ShopName")
                         .HasColumnType("nvarchar(max)");
 
@@ -117,6 +111,40 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Shops", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Customers.Customer", b =>
+                {
+                    b.OwnsOne("Domain.Shared.ValueObjects.Address", "Address", b1 =>
+                        {
+                            b1.Property<Guid>("CustomerId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("City")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("City");
+
+                            b1.Property<string>("Country")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Country");
+
+                            b1.Property<string>("PostalCode")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("PostalCode");
+
+                            b1.Property<string>("Street")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Street");
+
+                            b1.HasKey("CustomerId");
+
+                            b1.ToTable("Customers");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CustomerId");
+                        });
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.Products.Product", b =>
@@ -150,6 +178,40 @@ namespace Infrastructure.Migrations
                     b.Navigation("Price");
 
                     b.Navigation("Shop");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Shop", b =>
+                {
+                    b.OwnsOne("Domain.Shared.ValueObjects.Address", "ShopAddress", b1 =>
+                        {
+                            b1.Property<Guid>("ShopId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("City")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("City");
+
+                            b1.Property<string>("Country")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Country");
+
+                            b1.Property<string>("PostalCode")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("PostalCode");
+
+                            b1.Property<string>("Street")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Street");
+
+                            b1.HasKey("ShopId");
+
+                            b1.ToTable("Shops");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ShopId");
+                        });
+
+                    b.Navigation("ShopAddress");
                 });
 
             modelBuilder.Entity("Domain.Shop.Shop", b =>
