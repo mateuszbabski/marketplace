@@ -1,6 +1,6 @@
 ﻿using Domain.Customers.ValueObjects;
-using Domain.Shop;
-using Domain.Shop.ValueObjects;
+using Domain.Shops;
+using Domain.Shops.ValueObjects;
 using Domain.Shared.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,8 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Shop.Entities.Products;
-using Domain.Shop.Entities.Products.ValueObjects;
+using Domain.Shops.Entities.Products;
+using Domain.Shops.Entities.Products.ValueObjects;
 
 namespace Infrastructure.Context.DbConfiguration
 {

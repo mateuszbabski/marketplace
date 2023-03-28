@@ -1,5 +1,5 @@
 ﻿using Domain.Shared.ValueObjects;
-using Domain.Shop.Entities.Products.ValueObjects;
+using Domain.Shops.Entities.Products.ValueObjects;
 using MediatR;
 using System;
 using System.Collections.Generic;

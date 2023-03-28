@@ -2,8 +2,8 @@
 using Application.Authentication.Services;
 using Application.Features.Products.AddProduct;
 using Domain.Customers.Factories;
-using Domain.Shop.Entities.Products.Factories;
-using Domain.Shop.Factories;
+using Domain.Shops.Entities.Products.Factories;
+using Domain.Shops.Factories;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 

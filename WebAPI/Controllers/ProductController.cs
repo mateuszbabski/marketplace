@@ -7,7 +7,7 @@ using Application.Features.Products.GetProductById;
 using Application.Features.Products.UpdateProduct;
 using Application.Features.Products.UpdateProductPrice;
 using Domain.Shared.ValueObjects;
-using Domain.Shop.Entities.Products;
+using Domain.Shops.Entities.Products;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

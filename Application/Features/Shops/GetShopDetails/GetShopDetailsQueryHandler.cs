@@ -1,5 +1,5 @@
 ﻿using Domain.Customers;
-using Domain.Shop.Repositories;
+using Domain.Shops.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;

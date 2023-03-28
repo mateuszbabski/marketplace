@@ -1,9 +1,9 @@
 ﻿using Application.Common.Interfaces;
 using Application.Common.Responses;
 using Domain.Shared.ValueObjects;
-using Domain.Shop.Entities.Products;
-using Domain.Shop.Entities.Products.Repositories;
-using Domain.Shop.Repositories;
+using Domain.Shops.Entities.Products;
+using Domain.Shops.Entities.Products.Repositories;
+using Domain.Shops.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;

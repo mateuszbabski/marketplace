@@ -1,5 +1,5 @@
 ﻿using Domain.Shared.ValueObjects;
-using Domain.Shop;
+using Domain.Shops;
 using System;
 using System.Collections.Generic;
 using System.Linq;

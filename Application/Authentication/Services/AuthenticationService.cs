@@ -2,10 +2,10 @@
 using Domain.Customers.Repositories;
 using Domain.Shared.ValueObjects;
 using Domain.Customers.Factories;
-using Domain.Shop.Repositories;
-using Domain.Shop.Factories;
+using Domain.Shops.Repositories;
+using Domain.Shops.Factories;
 using Domain.Customers;
-using Domain.Shop;
+using Domain.Shops;
 
 namespace Application.Authentication.Services
 {

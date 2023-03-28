@@ -1,6 +1,6 @@
-﻿using Domain.Shop.Entities.Products;
-using Domain.Shop.Entities.Products.Repositories;
-using Domain.Shop.Entities.Products.ValueObjects;
+﻿using Domain.Shops.Entities.Products;
+using Domain.Shops.Entities.Products.Repositories;
+using Domain.Shops.Entities.Products.ValueObjects;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System;

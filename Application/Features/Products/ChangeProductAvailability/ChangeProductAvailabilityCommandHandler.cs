@@ -1,6 +1,6 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Shop.Entities.Products.Repositories;
-using Domain.Shop.Repositories;
+using Domain.Shops.Entities.Products.Repositories;
+using Domain.Shops.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;

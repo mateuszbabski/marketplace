@@ -1,4 +1,4 @@
-﻿using Domain.Shop.Entities.Products.Repositories;
+﻿using Domain.Shops.Entities.Products.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;

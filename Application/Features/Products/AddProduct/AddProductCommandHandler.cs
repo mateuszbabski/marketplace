@@ -1,10 +1,10 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Shared.ValueObjects;
-using Domain.Shop;
-using Domain.Shop.Entities.Products;
-using Domain.Shop.Entities.Products.Factories;
-using Domain.Shop.Entities.Products.Repositories;
-using Domain.Shop.Repositories;
+using Domain.Shops;
+using Domain.Shops.Entities.Products;
+using Domain.Shops.Entities.Products.Factories;
+using Domain.Shops.Entities.Products.Repositories;
+using Domain.Shops.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
-﻿using Domain.Shop;
-using Domain.Shop.Repositories;
-using Domain.Shop.ValueObjects;
+﻿using Domain.Shops;
+using Domain.Shops.Repositories;
+using Domain.Shops.ValueObjects;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 

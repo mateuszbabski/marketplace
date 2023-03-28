@@ -1,6 +1,6 @@
 ﻿using Domain.Customers;
-using Domain.Shop;
-using Domain.Shop.Entities.Products;
+using Domain.Shops;
+using Domain.Shops.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Context

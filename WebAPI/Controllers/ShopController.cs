@@ -1,8 +1,8 @@
 ﻿using Application.Features.Shops;
 using Application.Features.Shops.GetShopDetails;
 using Application.Features.Shops.UpdateShopDetails;
-using Domain.Shop;
-using Domain.Shop.Entities.Products;
+using Domain.Shops;
+using Domain.Shops.Entities.Products;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

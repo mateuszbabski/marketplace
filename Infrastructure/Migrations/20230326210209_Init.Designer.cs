@@ -54,7 +54,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Customers", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Shop.Entities.Products.Product", b =>
+            modelBuilder.Entity("Domain.Shops.Entities.Products.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -81,7 +81,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Products", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Shop.Shop", b =>
+            modelBuilder.Entity("Domain.Shops.Shop", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -150,9 +150,9 @@ namespace Infrastructure.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("Domain.Shop.Entities.Products.Product", b =>
+            modelBuilder.Entity("Domain.Shops.Entities.Products.Product", b =>
                 {
-                    b.HasOne("Domain.Shop.Shop", "Shop")
+                    b.HasOne("Domain.Shops.Shop", "Shop")
                         .WithMany("Products")
                         .HasForeignKey("ShopId");
 
@@ -183,7 +183,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("Domain.Shop.Shop", b =>
+            modelBuilder.Entity("Domain.Shops.Shop", b =>
                 {
                     b.OwnsOne("Domain.Shared.ValueObjects.Address", "ShopAddress", b1 =>
                         {
@@ -217,7 +217,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("ShopAddress");
                 });
 
-            modelBuilder.Entity("Domain.Shop.Shop", b =>
+            modelBuilder.Entity("Domain.Shops.Shop", b =>
                 {
                     b.Navigation("Products");
                 });
