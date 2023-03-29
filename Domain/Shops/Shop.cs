@@ -2,6 +2,8 @@
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.ValueObjects;
+using Domain.Shared.Abstractions;
+using Domain.Shared.Rules;
 
 namespace Domain.Shops
 {
@@ -18,7 +20,7 @@ namespace Domain.Shops
         public TelephoneNumber ContactNumber { get; private set; }
         public Roles Role { get; private set; } = Roles.shop;
 
-        private readonly List<Product> _products;
+        public List<Product> ProductList { get; private set; }
 
         private Shop() { }
         internal Shop(ShopId id,
@@ -41,7 +43,7 @@ namespace Domain.Shops
             TaxNumber = taxNumber;
             ContactNumber = contactNumber;
             Role = Roles.shop;
-            _products = new List<Product>();
+            ProductList = new List<Product>();
         }
 
         public static Shop Create(ShopId id,
@@ -53,7 +55,8 @@ namespace Domain.Shops
                                       Address shopAddress,
                                       TaxNumber taxNumber,
                                       TelephoneNumber contactNumber)
-        {
+        {           
+
             return new Shop(id, email, passwordHash, ownerName, ownerLastName, shopName, shopAddress, taxNumber, contactNumber);
         }
 
@@ -125,7 +128,7 @@ namespace Domain.Shops
             return ShopAddress.ToString();
         }
 
-        public static Product AddProduct(ProductId id,
+        public Product AddProduct(ProductId id,
                          ProductName productName,
                          ProductDescription productDescription,
                          MoneyValue price,
@@ -133,13 +136,15 @@ namespace Domain.Shops
                          ShopId shopId)
         {
             var product = Product.CreateProduct(id, productName, productDescription, price, unit, shopId);
+
+            ProductList.Add(product);
             
             return product;
         }
 
         public void ChangeProductPrice(ProductId id, decimal amount, string currency)
         {
-            var product = _products.Single(x => x.Id == id);
+            var product = ProductList.Single(x => x.Id == id);
 
             product.SetPrice(MoneyValue.Of(amount, currency));            
         }
@@ -149,21 +154,21 @@ namespace Domain.Shops
                          string productDescription,
                          string unit)
         {
-            var product = _products.Single(x => x.Id == id);
+            var product = ProductList.Single(x => x.Id == id);
 
             product.ChangeDetails(productName, productDescription, unit);
         }
 
         public void ChangeProductAvailability(ProductId id)
         {
-            var product = _products.Single(x => x.Id == id);
+            var product = ProductList.Single(x => x.Id == id);
 
             product.ChangeAvailability();
         }
 
         public void RemoveProduct(ProductId id)
         {
-            var product = _products.Single(x => x.Id == id);
+            var product = ProductList.Single(x => x.Id == id);
 
             product.Remove();
         }

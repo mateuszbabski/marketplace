@@ -1,9 +1,11 @@
 ﻿using Domain.Shared.Exceptions;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
 
 namespace Domain.Shared.ValueObjects
 {
     public record Email
-    {
+    {        
         public string Value { get; }
 
         public Email(string value)

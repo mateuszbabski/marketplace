@@ -9,9 +9,9 @@ namespace Domain.Shops.Entities.Products.Repositories
 {
     public interface IProductRepository
     {
-        Task<Products> Add(Products product);
-        Task Update(Products product);
-        Task<Products> GetById(ProductId id);
-        Task<List<Products>> GetAllProducts();
+        Task<Product> Add(Product product);
+        Task Update(Product product);
+        Task<Product> GetById(ProductId id);
+        Task<List<Product>> GetAllProducts();
     }
 }
