@@ -45,6 +45,19 @@ namespace Domain.Shops
             Products = new List<Product>();
         }
 
+        public static Shop CreateShop(ShopId id,
+                                      Email email,
+                                      PasswordHash passwordHash,
+                                      Name ownerName,
+                                      LastName ownerLastName,
+                                      ShopName shopName,
+                                      Address shopAddress,
+                                      TaxNumber taxNumber,
+                                      TelephoneNumber contactNumber)
+        {
+            return new Shop(id, email, passwordHash, ownerName, ownerLastName, shopName, shopAddress, taxNumber, contactNumber);
+        }
+
         public void UpdateShopDetails(string ownerName,
                                    string ownerLastName,
                                    string shopName,
