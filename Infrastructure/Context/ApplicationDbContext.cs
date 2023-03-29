@@ -13,7 +13,7 @@ namespace Infrastructure.Context
 
         public DbSet<Customer> Customers { get;  set; }
         public DbSet<Shop> Shops { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Products> Products { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {

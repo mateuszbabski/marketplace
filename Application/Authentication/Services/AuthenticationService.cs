@@ -3,8 +3,6 @@ using Domain.Customers.Repositories;
 using Domain.Shared.ValueObjects;
 using Domain.Customers.Factories;
 using Domain.Shops.Repositories;
-using Domain.Shops.Factories;
-using Domain.Customers;
 using Domain.Shops;
 
 namespace Application.Authentication.Services
@@ -15,21 +13,18 @@ namespace Application.Authentication.Services
         private readonly IShopRepository _shopRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IHashingService _hashingService;
-        private readonly IShopFactory _shopFactory;
         private readonly ICustomerFactory _customerFactory;
 
         public AuthenticationService(ITokenManager tokenManager,
                                      IShopRepository shopRepository,
                                      ICustomerRepository customerRepository,
                                      IHashingService hashingService,
-                                     IShopFactory shopFactory,
                                      ICustomerFactory customerFactory)
         {
             _tokenManager = tokenManager;
             _shopRepository = shopRepository;
             _customerRepository = customerRepository;
             _hashingService = hashingService;
-            _shopFactory = shopFactory;
             _customerFactory = customerFactory;
         }
 
@@ -61,8 +56,8 @@ namespace Application.Authentication.Services
 
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
             var shopAddress = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);
-
-            var shop = _shopFactory.Create(Guid.NewGuid(),
+            
+            var shop = Shop.Create(Guid.NewGuid(),
                                                    request.Email,
                                                    passwordHash,
                                                    request.OwnerName,

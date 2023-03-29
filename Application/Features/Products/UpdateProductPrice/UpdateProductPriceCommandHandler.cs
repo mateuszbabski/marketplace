@@ -36,7 +36,7 @@ namespace Application.Features.Products.UpdateProductPrice
                 throw new Exception("Product not found");
             }
 
-            shop.UpdateProductPrice(request.Id,
+            shop.ChangeProductPrice(request.Id,
                                     request.Amount,
                                     request.Currency);
 

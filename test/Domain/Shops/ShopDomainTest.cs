@@ -1,31 +1,27 @@
-﻿using Domain.Shops.Factories;
-using Domain.Shops;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Shops;
 using Domain.Shared.ValueObjects;
-using System.Net;
 
 
 namespace UnitTest.Domain.Shops
 {
     public class ShopDomainTest
     {
-        private readonly IShopFactory _shopFactory;
+        
         public ShopDomainTest()
         {
-            _shopFactory = new ShopFactory();
+            
         }
 
         [Fact]
         public void ShowShopAddress_ReturnsShopAddressString()
         {
+            // act
             var shop = GetShop();
 
+            // arrange
             var shopAddress = shop.ShowShopAddress();
 
+            // assert
             Assert.NotNull(shopAddress);
             Assert.IsType<string>(shopAddress);
             Assert.Equal("country, city, street, postalCode", shopAddress);
@@ -34,8 +30,10 @@ namespace UnitTest.Domain.Shops
         [Fact]
         public void UpdateShopMethod_SuccessfullyUpdatesShopDetails()
         {
+            // act
             var shop = GetShop();
             
+            // arrange
             shop.UpdateShopDetails("Updated OwnerName",
                                    "Updated OwnerLastName",
                                    null,
@@ -46,16 +44,18 @@ namespace UnitTest.Domain.Shops
                                    null,
                                    null);
 
+            // assert
             Assert.NotNull(shop);
             Assert.Equal("Updated OwnerName", shop.OwnerName);
             Assert.Equal("Updated OwnerLastName", shop.OwnerLastName);
             Assert.IsType<Shop>(shop);
         }
 
-        private Shop GetShop()
+        private static Shop GetShop()
         {
             var address = Address.CreateAddress("country", "city", "street", "postalCode");
-            var shop = _shopFactory.Create(Guid.NewGuid(),
+            
+            var shop = Shop.Create(Guid.NewGuid(),
                                            "mail@example.com",
                                            "passwordHash",
                                            "ownerName",

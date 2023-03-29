@@ -17,7 +17,7 @@ namespace UnitTest.Domain.Products
         {
             _productFactory = productFactory;
         }
-        public Product CreateProduct()
+        public global::Domain.Shops.Entities.Products.Products CreateProduct()
         {
             var productId = Guid.NewGuid();
             var productName = "Product";

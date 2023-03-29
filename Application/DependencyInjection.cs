@@ -2,8 +2,6 @@
 using Application.Authentication.Services;
 using Application.Features.Products.AddProduct;
 using Domain.Customers.Factories;
-using Domain.Shops.Entities.Products.Factories;
-using Domain.Shops.Factories;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,8 +20,6 @@ namespace Application
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<ICustomerFactory, CustomerFactory>();
-            services.AddScoped<IShopFactory, ShopFactory>();
-            services.AddScoped<IProductFactory, ProductFactory>();
 
             services.AddScoped<IValidator<RegisterCustomerRequest>, RegisterCustomerRequestValidator>();
             services.AddScoped<IValidator<RegisterShopRequest>, RegisterShopRequestValidator>();

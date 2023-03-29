@@ -18,7 +18,7 @@ namespace Domain.Shops.Entities.Products
         public ProductUnit Unit { get; private set; }
         public ShopId ShopId { get; private set; }
         public bool IsAvailable { get; private set; } = true;
-        public Shop Shop { get; private set; }
+        public virtual Shop Shop { get; private set; }
 
         private Product() { }
         internal Product(ProductId id,
@@ -37,7 +37,7 @@ namespace Domain.Shops.Entities.Products
             IsAvailable = true;
         }
 
-        public static Product CreateProduct(ProductId id,
+        internal static Product CreateProduct(ProductId id,
                               ProductName productName,
                               ProductDescription productDescription,
                               MoneyValue price,
@@ -45,7 +45,26 @@ namespace Domain.Shops.Entities.Products
                               ShopId shopId)
         {
             return new Product(id, productName, productDescription, price, unit, shopId);
-        }        
+        }
+        
+        internal void ChangeDetails(string productName, string productDescription, string unit)
+        {
+            SetName(productName);
+            SetDescription(productDescription);
+            SetUnit(unit);
+        }
+
+        internal void ChangeAvailability()
+        {
+            if (IsAvailable == true)
+            {
+                Remove();
+            }
+            else
+            {
+                Restore();
+            }
+        }
 
         internal void SetPrice(MoneyValue price)
         {

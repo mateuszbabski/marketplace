@@ -1,9 +1,7 @@
 ﻿using Domain.Shops.ValueObjects;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products;
-using Domain.Shops.Entities.Products.Repositories;
 using Domain.Shops.Entities.Products.ValueObjects;
-using Domain.Shops.Entities.Products.Factories;
 
 namespace Domain.Shops
 {
@@ -19,7 +17,8 @@ namespace Domain.Shops
         public TaxNumber TaxNumber { get; private set; }
         public TelephoneNumber ContactNumber { get; private set; }
         public Roles Role { get; private set; } = Roles.shop;
-        public List<Product> Products { get; private set; }
+
+        private readonly List<Product> _products;
 
         private Shop() { }
         internal Shop(ShopId id,
@@ -42,10 +41,10 @@ namespace Domain.Shops
             TaxNumber = taxNumber;
             ContactNumber = contactNumber;
             Role = Roles.shop;
-            Products = new List<Product>();
+            _products = new List<Product>();
         }
 
-        public static Shop CreateShop(ShopId id,
+        public static Shop Create(ShopId id,
                                       Email email,
                                       PasswordHash passwordHash,
                                       Name ownerName,
@@ -121,11 +120,6 @@ namespace Domain.Shops
                 OwnerLastName = new LastName(ownerLastName);
         }
 
-        public List<Product> ShowProducts()
-        {
-            return Products;
-        }
-
         public string ShowShopAddress()
         {
             return ShopAddress.ToString();
@@ -138,42 +132,40 @@ namespace Domain.Shops
                          ProductUnit unit,
                          ShopId shopId)
         {
-            var product = new Product(id, productName, productDescription, price, unit, shopId);
+            var product = Product.CreateProduct(id, productName, productDescription, price, unit, shopId);
             
             return product;
         }
 
-        public void UpdateProductPrice(ProductId id, decimal amount, string currency)
+        public void ChangeProductPrice(ProductId id, decimal amount, string currency)
         {
-            var product = Products.Single(x => x.Id == id);
+            var product = _products.Single(x => x.Id == id);
 
             product.SetPrice(MoneyValue.Of(amount, currency));            
         }
 
-        public void UpdateProductDetails(ProductId id,
+        public void ChangeProductDetails(ProductId id,
                          string productName,
                          string productDescription,
                          string unit)
         {
-            var product = Products.Single(x => x.Id == id);
+            var product = _products.Single(x => x.Id == id);
 
-            product.SetName(productName);
-            product.SetDescription(productDescription);
-            product.SetUnit(unit);
+            product.ChangeDetails(productName, productDescription, unit);
         }
 
         public void ChangeProductAvailability(ProductId id)
         {
-            var product = Products.Single(x => x.Id == id);
-            
-            if (product.IsAvailable)
-            {
-                product.Remove();
-            }
-            else
-            {
-                product.Restore();
-            }
+            var product = _products.Single(x => x.Id == id);
+
+            product.ChangeAvailability();
+        }
+
+        public void RemoveProduct(ProductId id)
+        {
+            var product = _products.Single(x => x.Id == id);
+
+            product.Remove();
         }
     }
 }

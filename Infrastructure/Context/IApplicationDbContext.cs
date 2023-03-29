@@ -9,7 +9,7 @@ namespace Infrastructure.Context
     {
         DbSet<Customer> Customers { get; set; }
         DbSet<Shop> Shops { get; set; }
-        DbSet<Product> Products { get; set; }
+        DbSet<Products> Products { get; set; }
 
         Task<int> SaveChangesAsync();
     }

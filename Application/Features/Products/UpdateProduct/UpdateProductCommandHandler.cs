@@ -36,7 +36,7 @@ namespace Application.Features.Products.UpdateProduct
                 throw new Exception("Product not found");
             }
             
-            shop.UpdateProductDetails(request.Id,
+            shop.ChangeProductDetails(request.Id,
                                       request.ProductName,
                                       request.ProductDescription,
                                       request.Unit);
