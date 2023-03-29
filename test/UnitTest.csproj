@@ -27,6 +27,7 @@
   <ItemGroup>
     <Folder Include="Application\Products\" />
     <Folder Include="Application\Shop\" />
+    <Folder Include="Domain\Products\" />
   </ItemGroup>
 
   <ItemGroup>
