@@ -15,7 +15,7 @@ using Domain.Shops.Entities.Products.ValueObjects;
 
 namespace Infrastructure.Context.DbConfiguration
 {
-    internal sealed class ShopDbConfiguration : IEntityTypeConfiguration<Shop>, IEntityTypeConfiguration<Products>
+    internal sealed class ShopDbConfiguration : IEntityTypeConfiguration<Shop>, IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Shop> builder)
         {
@@ -58,14 +58,14 @@ namespace Infrastructure.Context.DbConfiguration
                    .HasConversion(v => v.ToString(),
                                    v => (Roles)Enum.Parse(typeof(Roles), v));
 
-            builder.HasMany<Products>(c => c.Products)
+            builder.HasMany<Product>(c => c.ProductList)
                    .WithOne(p => p.Shop)
                    .HasForeignKey(p => p.ShopId);
 
             builder.ToTable("Shops");
         }
 
-        public void Configure(EntityTypeBuilder<Products> builder)
+        public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Id)
@@ -81,7 +81,7 @@ namespace Infrastructure.Context.DbConfiguration
                    .HasConversion(c => c.Value, c => new ProductUnit(c));
 
             builder.HasOne<Shop>(c => c.Shop)
-                   .WithMany(p => p.Products)
+                   .WithMany(p => p.ProductList)
                    .HasForeignKey(c => c.ShopId);
 
             builder.Property(c => c.IsAvailable);

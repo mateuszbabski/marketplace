@@ -20,7 +20,7 @@ namespace Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Products> Add(Products product)
+        public async Task<Product> Add(Product product)
         {
             await _dbContext.Products.AddAsync(product);
             await _dbContext.SaveChangesAsync();
@@ -28,17 +28,17 @@ namespace Infrastructure.Repositories
             return product;
         }
 
-        public async Task Update(Products product)
+        public async Task Update(Product product)
         {
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Products> GetById(ProductId id)
+        public async Task<Product> GetById(ProductId id)
         {
             return await _dbContext.Products.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<List<Products>> GetAllProducts()
+        public async Task<List<Product>> GetAllProducts()
         {
             return await _dbContext.Products.AsQueryable().ToListAsync();
         }
