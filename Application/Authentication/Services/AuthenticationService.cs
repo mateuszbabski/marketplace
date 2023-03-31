@@ -28,10 +28,10 @@ namespace Application.Authentication.Services
 
         public async Task<AuthenticationResult> RegisterCustomer(RegisterCustomerRequest request)
         {            
-            await CheckIfEmailIsFreeToUse(request.Email);
-
             var validator = new RegisterCustomerRequestValidator();
             validator.ValidateAndThrow(request);
+
+            await CheckIfEmailIsFreeToUse(request.Email);
 
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
             var address = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);
@@ -53,10 +53,10 @@ namespace Application.Authentication.Services
 
         public async Task<AuthenticationResult> RegisterShop(RegisterShopRequest request)
         {
-            await CheckIfEmailIsFreeToUse(request.Email);
-
             var validator = new RegisterShopRequestValidator();
             validator.ValidateAndThrow(request);
+
+            await CheckIfEmailIsFreeToUse(request.Email);
 
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
             var shopAddress = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);

@@ -18,10 +18,10 @@ namespace Application.Features.Products.AddProduct
                                               .WithMessage("Field cannot be empty");
 
             RuleFor(c => c.Amount).NotEmpty()
-                                        .WithMessage("Field cannot be empty");
+                                  .WithMessage("Field cannot be empty");
 
             RuleFor(c => c.Currency).NotEmpty()
-                                        .WithMessage("Field cannot be empty");
+                                    .WithMessage("Field cannot be empty");
 
             RuleFor(c => c.Unit).NotEmpty()
                                 .WithMessage("Field cannot be empty");
