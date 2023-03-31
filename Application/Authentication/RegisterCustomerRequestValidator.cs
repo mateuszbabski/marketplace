@@ -32,7 +32,7 @@ namespace Application.Authentication
                                       .WithMessage("Field cannot be empty");
 
             RuleFor(c => c.TelephoneNumber).NotEmpty()
-                                           .Matches("^[0-9]*$")
+                                           .Matches("^[0-9 +-]+$")
                                            .WithMessage("Only digits allowed");
         }
     }
