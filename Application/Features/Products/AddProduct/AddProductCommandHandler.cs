@@ -1,7 +1,5 @@
-﻿using Application.Common.Exceptions;
-using Application.Common.Interfaces;
+﻿using Application.Common.Interfaces;
 using Domain.Shared.ValueObjects;
-using Domain.Shops;
 using Domain.Shops.Entities.Products.Repositories;
 using Domain.Shops.Repositories;
 using FluentValidation;
