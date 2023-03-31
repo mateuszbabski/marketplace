@@ -1,12 +1,10 @@
 ﻿using Application.Common.Interfaces;
-using Application.Common.Exceptions;
 using Domain.Customers.Repositories;
 using Domain.Shared.ValueObjects;
-using Domain.Customers.Factories;
 using Domain.Shops.Repositories;
 using Domain.Shops;
 using FluentValidation;
-using Application.Features.Products.AddProduct;
+using Domain.Customers;
 
 namespace Application.Authentication.Services
 {
@@ -16,19 +14,16 @@ namespace Application.Authentication.Services
         private readonly IShopRepository _shopRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IHashingService _hashingService;
-        private readonly ICustomerFactory _customerFactory;
 
         public AuthenticationService(ITokenManager tokenManager,
                                      IShopRepository shopRepository,
                                      ICustomerRepository customerRepository,
-                                     IHashingService hashingService,
-                                     ICustomerFactory customerFactory)
+                                     IHashingService hashingService)
         {
             _tokenManager = tokenManager;
             _shopRepository = shopRepository;
             _customerRepository = customerRepository;
             _hashingService = hashingService;
-            _customerFactory = customerFactory;
         }
 
         public async Task<AuthenticationResult> RegisterCustomer(RegisterCustomerRequest request)
@@ -41,7 +36,7 @@ namespace Application.Authentication.Services
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
             var address = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);
 
-            var customer = _customerFactory.Create(Guid.NewGuid(),
+            var customer = Customer.Create(Guid.NewGuid(),
                                                    request.Email,
                                                    passwordHash,
                                                    request.Name,
