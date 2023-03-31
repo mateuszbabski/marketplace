@@ -1,9 +1,10 @@
 ﻿using Domain.Customers.ValueObjects;
+using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
 
 namespace Domain.Customers
 {
-    public class Customer
+    public class Customer : IAggregateRoot
     {
         public CustomerId Id { get; private set; }
         public Email Email { get; private set; }

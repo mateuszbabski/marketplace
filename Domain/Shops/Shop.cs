@@ -7,7 +7,7 @@ using Domain.Shared.Rules;
 
 namespace Domain.Shops
 {
-    public class Shop
+    public class Shop : IAggregateRoot
     {
         public ShopId Id { get; private set; }
         public Email Email { get; private set; }
