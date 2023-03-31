@@ -1,9 +1,12 @@
 ﻿using Application.Common.Interfaces;
+using Application.Common.Exceptions;
 using Domain.Customers.Repositories;
 using Domain.Shared.ValueObjects;
 using Domain.Customers.Factories;
 using Domain.Shops.Repositories;
 using Domain.Shops;
+using FluentValidation;
+using Application.Features.Products.AddProduct;
 
 namespace Application.Authentication.Services
 {
@@ -32,6 +35,9 @@ namespace Application.Authentication.Services
         {            
             await CheckIfEmailIsFreeToUse(request.Email);
 
+            var validator = new RegisterCustomerRequestValidator();
+            validator.ValidateAndThrow(request);
+
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
             var address = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);
 
@@ -53,6 +59,9 @@ namespace Application.Authentication.Services
         public async Task<AuthenticationResult> RegisterShop(RegisterShopRequest request)
         {
             await CheckIfEmailIsFreeToUse(request.Email);
+
+            var validator = new RegisterShopRequestValidator();
+            validator.ValidateAndThrow(request);
 
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
             var shopAddress = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);
