@@ -1,6 +1,7 @@
 ﻿using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.ValueObjects;
+using Domain.Shops.Entities.Products.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,6 @@ namespace Domain.Customers.Entities.ShoppingCarts
         public CustomerId CustomerId { get; private set; }
         public List<ShoppingCartItem> Items { get; private set; }
         public MoneyValue TotalPrice { get; private set; }
-        public virtual Customer Customer { get; private set; }
 
         private ShoppingCart(ShoppingCartId id, CustomerId customerId)
         {
@@ -27,7 +27,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
             Items = new List<ShoppingCartItem>();
         }
 
-        internal static ShoppingCart CreateShoppingCart(ShoppingCartId Id, CustomerId customerId)
+        public static ShoppingCart CreateShoppingCart(ShoppingCartId Id, CustomerId customerId)
         {
             return new ShoppingCart(Id, customerId);
         }
@@ -42,6 +42,17 @@ namespace Domain.Customers.Entities.ShoppingCarts
         internal MoneyValue GetPrice()
         {
             return TotalPrice;
+        }
+
+        public void AddProductToShoppingCart(ProductId productId, int quantity, decimal price)
+        {
+            var shoppingCartItem = ShoppingCartItem.CreateShoppingCartItemFromProduct(Guid.NewGuid(),
+                                                                                      productId,
+                                                                                      Id,
+                                                                                      quantity,
+                                                                                      price);
+
+            Items.Add(shoppingCartItem);
         }
     }
 }

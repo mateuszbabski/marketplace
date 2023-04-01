@@ -13,7 +13,7 @@ namespace Domain.Shops.Entities.Products.Exceptions
             
         }
 
-        public InvalidProductPriceException(string? message) : base(message)
+        public InvalidProductPriceException(string message) : base(message)
         {
 
         }

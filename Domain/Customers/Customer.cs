@@ -1,4 +1,5 @@
-﻿using Domain.Customers.ValueObjects;
+﻿using Domain.Customers.Entities.ShoppingCarts;
+using Domain.Customers.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.ValueObjects;
@@ -16,6 +17,8 @@ namespace Domain.Customers
         public TelephoneNumber TelephoneNumber { get; private set; }
 
         public Roles Role { get; private set; } = Roles.customer;
+
+        public ShoppingCart ShoppingCart { get; private set; }  
                 
         private Customer() { }
         internal Customer(CustomerId id,

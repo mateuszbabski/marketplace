@@ -13,34 +13,39 @@ namespace Domain.Customers.Entities.ShoppingCarts
 {
     public class ShoppingCartItem
     {
+        public ShoppingCartItemId Id { get; set; }
         public ProductId ProductId { get; private set; }
         public ShoppingCartId ShoppingCartId { get; private set; }
         public int Quantity { get; private set; } = 1;
         public MoneyValue Value { get; private set; }
-        public virtual Product Product { get; private set; }
+        //public virtual Product Product { get; private set; }
         public virtual ShoppingCart ShoppingCart { get; set; }
 
-        private ShoppingCartItem(ProductId productId, ShoppingCartId shoppingCartId, int quantity)
+        private ShoppingCartItem() { }
+        private ShoppingCartItem(ShoppingCartItemId id, ProductId productId, ShoppingCartId shoppingCartId, int quantity, decimal productPrice)
         {
+            Id = id;
             ProductId = productId;
             ShoppingCartId = shoppingCartId;
             Quantity = quantity;
-            Value = CountCartItemPrice(quantity, Product.Price.Amount);
+            Value = CountCartItemPrice(quantity, productPrice);
         }
 
-        internal static ShoppingCartItem CreateShoppingCartItemFromProduct(ProductId productId,
+        internal static ShoppingCartItem CreateShoppingCartItemFromProduct(ShoppingCartItemId id,
+                                                                           ProductId productId,
                                                                            ShoppingCartId shoppingCartId,
-                                                                           int quantity)
+                                                                           int quantity,
+                                                                           decimal productPrice)
         {
-            return new ShoppingCartItem(productId, shoppingCartId, quantity);
+            return new ShoppingCartItem(id, productId, shoppingCartId, quantity, productPrice);
         }        
 
         private MoneyValue CountCartItemPrice(int quantity, decimal productPrice) 
         {
-            return MoneyValue.Of(quantity * productPrice, Product.Price.Currency);
+            return MoneyValue.Of(quantity * productPrice, Value.Currency);
         }
 
-        internal void ChangeCartItemQuantity(int quantity)
+        internal void ChangeCartItemQuantity(int quantity, decimal productPrice)
         {
             if (quantity <= 0)
             {
@@ -49,7 +54,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
 
             this.Quantity = quantity;
 
-            this.Value = MoneyValue.Of(quantity * Product.Price.Amount, Product.Price.Currency);            
+            this.Value = MoneyValue.Of(quantity * productPrice, Value.Currency);            
         }
 
     }
