@@ -1,7 +1,6 @@
 ﻿using Application.Authentication;
 using Application.Authentication.Services;
 using Application.Features.Products.AddProduct;
-using Domain.Customers.Factories;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,7 +18,6 @@ namespace Application
             services.AddValidatorsFromAssembly(assembly);
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddScoped<ICustomerFactory, CustomerFactory>();
 
             services.AddScoped<IValidator<RegisterCustomerRequest>, RegisterCustomerRequestValidator>();
             services.AddScoped<IValidator<RegisterShopRequest>, RegisterShopRequestValidator>();
