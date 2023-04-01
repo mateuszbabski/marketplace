@@ -1,4 +1,5 @@
 ﻿using Domain.Customers;
+using Domain.Shared.Exceptions;
 using Domain.Shared.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,22 @@ namespace UnitTest.Domain.Customers
             Assert.NotNull(customer);
             Assert.IsType<Customer>(customer);
             Assert.Equal("customer@example.com", customer.Email);
+        }
+
+        [Fact]
+        public void CreateCustomer_ThrowsInvalidEmailExceptionWhenEmailIsInvalid()
+        {
+            var address = Address.CreateAddress("country", "city", "street", "postalCode");
+
+            var act = Assert.Throws<InvalidEmailException>(() => Customer.Create(Guid.NewGuid(),
+                                           "",
+                                           "passwordHash",
+                                           "name",
+                                           "lastName",
+                                           address,
+                                           "telephoneNumber"));
+
+            Assert.IsType<InvalidEmailException>(act);
         }
 
         [Fact]

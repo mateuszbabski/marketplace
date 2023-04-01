@@ -11,12 +11,7 @@ using Domain.Shops.Entities.Products;
 namespace UnitTest.Domain.Shops
 {
     public class ShopDomainTest
-    {
-        
-        public ShopDomainTest()
-        {
-            
-        }        
+    {        
 
         [Fact] 
         public void CreateShop_ReturnsShopIfParamsAreValid()
@@ -38,6 +33,24 @@ namespace UnitTest.Domain.Shops
             Assert.IsType<Shop>(shop);
             Assert.IsType<ShopId>(shop.Id);
             Assert.Equal("test@example.com", shop.Email);
+        }
+
+        [Fact]
+        public void CreateShop_ThrowsWhenEmailParamIsInvalid()
+        {
+            var shopAddress = Address.CreateAddress("country", "city", "street", "postalCode");
+
+            var act = Assert.Throws<InvalidEmailException>(() => Shop.Create(Guid.NewGuid(),
+                                   "",
+                                   "passwordHash",
+                                   "ownerName",
+                                   "ownerLastName",
+                                   "shopName",
+                                   shopAddress,
+                                   "taxNumber",
+                                   "contactNumber"));
+
+            Assert.IsType<InvalidEmailException>(act);          
         }
 
 
