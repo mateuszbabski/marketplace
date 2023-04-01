@@ -1,4 +1,5 @@
 ﻿using Domain.Shared.Rules;
+using Domain.Shops.Entities.Products.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,12 @@ namespace Domain.Shared.ValueObjects
         {
             if (new MoneyMustHaveCurrencyRule(currency.ToString()).IsBroken() || currency.Length > 3)
             {
-                throw new Exception("Invalid currency");
+                throw new InvalidProductPriceException("Invalid currency.");
             }
 
             if (amount <= 0)
             {
-                throw new Exception("Money amount value cannot be zero or negative");
+                throw new InvalidProductPriceException("Money amount value cannot be zero or negative.");
             }
 
             return new MoneyValue(amount, currency);
