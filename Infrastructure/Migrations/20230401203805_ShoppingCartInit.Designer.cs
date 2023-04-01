@@ -4,6 +4,7 @@ using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230401203805_ShoppingCartInit")]
+    partial class ShoppingCartInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,11 +62,18 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CustomerId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId")
                         .IsUnique()
                         .HasFilter("[CustomerId] IS NOT NULL");
+
+                    b.HasIndex("CustomerId1")
+                        .IsUnique()
+                        .HasFilter("[CustomerId1] IS NOT NULL");
 
                     b.ToTable("ShoppingCarts", (string)null);
                 });
@@ -188,9 +198,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Customers.Entities.ShoppingCarts.ShoppingCart", b =>
                 {
+                    b.HasOne("Domain.Customers.Customer", "Customer")
+                        .WithOne()
+                        .HasForeignKey("Domain.Customers.Entities.ShoppingCarts.ShoppingCart", "CustomerId");
+
                     b.HasOne("Domain.Customers.Customer", null)
                         .WithOne("ShoppingCart")
-                        .HasForeignKey("Domain.Customers.Entities.ShoppingCarts.ShoppingCart", "CustomerId");
+                        .HasForeignKey("Domain.Customers.Entities.ShoppingCarts.ShoppingCart", "CustomerId1");
 
                     b.OwnsOne("Domain.Shared.ValueObjects.MoneyValue", "TotalPrice", b1 =>
                         {
@@ -213,6 +227,8 @@ namespace Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ShoppingCartId");
                         });
+
+                    b.Navigation("Customer");
 
                     b.Navigation("TotalPrice");
                 });

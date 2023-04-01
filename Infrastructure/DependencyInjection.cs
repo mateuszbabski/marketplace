@@ -13,6 +13,7 @@ using Domain.Shops.Entities.Products.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Domain.Customers.Entities.ShoppingCarts.Repositories;
 
 namespace Infrastructure
 {
@@ -36,6 +37,7 @@ namespace Infrastructure
             services.AddScoped<ICustomerRepository, CustomerRepository>(); 
             services.AddScoped<IShopRepository, ShopRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
                         
             services.AddAuthentication(opt =>
             {
