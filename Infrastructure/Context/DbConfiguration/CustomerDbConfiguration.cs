@@ -1,13 +1,16 @@
 ﻿using Domain.Customers;
+using Domain.Customers.Entities.ShoppingCarts;
+using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.ValueObjects;
+using Domain.Shops.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Context.DbConfiguration
 {
-    internal sealed class CustomerDbConfiguration : IEntityTypeConfiguration<Customer>
+    internal sealed class CustomerDbConfiguration : IEntityTypeConfiguration<Customer>, IEntityTypeConfiguration<ShoppingCart>
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
@@ -44,7 +47,31 @@ namespace Infrastructure.Context.DbConfiguration
                    .HasConversion(v => v.ToString(),
                                    v => (Roles)Enum.Parse(typeof(Roles), v));
 
+
             builder.ToTable("Customers");
+        }
+
+        public void Configure(EntityTypeBuilder<ShoppingCart> builder)
+        {
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id)
+                   .HasConversion(c => c.Value, c => new ShoppingCartId(c));
+
+            builder.Property(c => c.CustomerId)
+                   .HasConversion(c => c.Value,
+                                  c => new CustomerId(c));
+
+            builder.OwnsOne(c => c.TotalPrice, mv =>
+            {
+                mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("Currency");
+                mv.Property(p => p.Amount).HasColumnName("Amount");
+            });
+
+            builder.HasMany<ShoppingCartItem>(c => c.Items)
+                   .WithOne(i => i.ShoppingCart)
+                   .HasForeignKey(i => i.ShoppingCartId);
+
+            builder.ToTable("ShoppingCarts");
         }
     }
 }
