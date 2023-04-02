@@ -34,9 +34,9 @@ namespace Application.Features.ShoppingCarts.AddProductToShoppingCart
             var product = await _productRepository.GetById(request.ProductId);
             var shoppingCart = await ReturnOrCreateNewShoppingCart(customerId);
 
-            shoppingCart.AddProductToShoppingCart(request.ProductId, request.Quantity, product.Price.Amount);
+            shoppingCart.AddProductToShoppingCart(request.ProductId, request.Quantity, product.GetPrice());
 
-            await _shoppingCartRepository.Create(shoppingCart);            
+            await _shoppingCartRepository.Update(shoppingCart);            
 
             return shoppingCart.Id;
         }
@@ -47,7 +47,9 @@ namespace Application.Features.ShoppingCarts.AddProductToShoppingCart
 
             if (shoppingCart == null)
             {
-                return ShoppingCart.CreateShoppingCart(Guid.NewGuid(), customerId);
+                var newShoppingCart = ShoppingCart.CreateShoppingCart(Guid.NewGuid(), customerId);
+                await _shoppingCartRepository.Create(newShoppingCart);
+                return newShoppingCart;
             }
 
             return shoppingCart;
