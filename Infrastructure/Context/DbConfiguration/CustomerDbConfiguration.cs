@@ -58,10 +58,6 @@ namespace Infrastructure.Context.DbConfiguration
             builder.Property(c => c.Id)
                    .HasConversion(c => c.Value, c => new ShoppingCartId(c));
 
-            //builder.HasOne<Customer>(c => c.Customer)
-            //       .WithOne()
-            //       .HasForeignKey<ShoppingCart>(x => x.CustomerId);
-
             builder.Property(c => c.CustomerId)
                    .HasConversion(c => c.Value, c => new CustomerId(c));
 
@@ -86,9 +82,10 @@ namespace Infrastructure.Context.DbConfiguration
 
             builder.HasOne<ShoppingCart>(c => c.ShoppingCart)
                    .WithMany(p => p.Items)
-                   .HasForeignKey(x => x.ShoppingCartId);
+                   .HasForeignKey(x => x.ShoppingCartId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
-            builder.OwnsOne(c => c.Value, mv =>
+            builder.OwnsOne(c => c.Price, mv =>
             {
                 mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("Currency");
                 mv.Property(p => p.Amount).HasColumnName("Amount");
