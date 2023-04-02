@@ -136,8 +136,6 @@ namespace Domain.Shops
                          ShopId shopId)
         {
             var product = Product.CreateProduct(id, productName, productDescription, price, unit, shopId);
-
-            ProductList.Add(product);
             
             return product;
         }

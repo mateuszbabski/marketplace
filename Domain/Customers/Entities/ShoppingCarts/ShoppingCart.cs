@@ -23,8 +23,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
             Id = id;
             CustomerId = customerId;
             Items = new List<ShoppingCartItem>();
-            TotalPrice = CountTotalPrice(Items);
-            Items = new List<ShoppingCartItem>();
+            TotalPrice = new MoneyValue(0, "PLN");
         }
 
         public static ShoppingCart CreateShoppingCart(ShoppingCartId Id, CustomerId customerId)
@@ -34,7 +33,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
 
         private MoneyValue CountTotalPrice(List<ShoppingCartItem> items) 
         {
-            decimal allProductsPrice = items.Sum(x => x.Value.Amount);
+            decimal allProductsPrice = items.Sum(x => x.Price.Amount);
 
             return MoneyValue.Of(allProductsPrice, TotalPrice.Currency);
         }
@@ -44,15 +43,36 @@ namespace Domain.Customers.Entities.ShoppingCarts
             return TotalPrice;
         }
 
-        public void AddProductToShoppingCart(ProductId productId, int quantity, decimal price)
+        public void AddProductToShoppingCart(ProductId productId, int quantity, MoneyValue productPrice)
         {
-            var shoppingCartItem = ShoppingCartItem.CreateShoppingCartItemFromProduct(Guid.NewGuid(),
-                                                                                      productId,
-                                                                                      Id,
-                                                                                      quantity,
-                                                                                      price);
+            //TODO CONVERT PRODUCT MONEYVALUE TO SHOPPINGCART CURRENCY
+            //TODO WHILE CREATING ORDER CHOOSE CURRENCY AND CONVERT ALL PRICES
+            var isProductInCart = Items.FirstOrDefault(x => x.ProductId == productId);
 
-            Items.Add(shoppingCartItem);
+            if (isProductInCart == null)
+            {
+                var shoppingCartItem = ShoppingCartItem.CreateShoppingCartItemFromProduct(Guid.NewGuid(),
+                                                                                          productId,
+                                                                                          Id,
+                                                                                          quantity,
+                                                                                          productPrice);
+                Items.Add(shoppingCartItem);
+            }
+            else
+            {
+                isProductInCart.ChangeCartItemQuantity(quantity, productPrice);
+            }
+
+            this.TotalPrice = CountTotalPrice(this.Items);
+        }
+
+        public void RemoveItemFromCart(ShoppingCartItemId shoppingCartItemId)
+        {
+            var item = Items.FirstOrDefault(x => x.Id == shoppingCartItemId);
+
+            Items.Remove(item);
+
+            this.TotalPrice = CountTotalPrice(this.Items);
         }
     }
 }
