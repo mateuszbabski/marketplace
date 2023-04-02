@@ -36,6 +36,11 @@ namespace Domain.Customers.Entities.ShoppingCarts
                                                                            int quantity,
                                                                            MoneyValue productPrice)
         {
+            if (quantity <= 0)
+            {
+                throw new InvalidQuantityException();
+            }
+
             return new ShoppingCartItem(id, productId, shoppingCartId, quantity, productPrice);
         }        
 

@@ -1,4 +1,6 @@
 ﻿using Domain.Customers;
+using Domain.Customers.Entities.ShoppingCarts;
+using Domain.Customers.Entities.ShoppingCarts.Exceptions;
 using Domain.Shared.Exceptions;
 using Domain.Shared.ValueObjects;
 using System;
@@ -6,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitTest.Domain.Products;
 
 namespace UnitTest.Domain.Customers
 {
@@ -79,7 +82,7 @@ namespace UnitTest.Domain.Customers
             Assert.NotNull(customer);
             Assert.IsType<Customer>(customer);
             Assert.Equal("name", customer.Name);
-        }
+        }        
 
         private static Customer GetCustomer()
         {

@@ -1,16 +1,8 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Customers;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
-using Domain.Customers.ValueObjects;
-using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.Repositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.ShoppingCarts.AddProductToShoppingCart
 {

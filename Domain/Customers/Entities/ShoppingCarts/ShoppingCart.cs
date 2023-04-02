@@ -47,20 +47,20 @@ namespace Domain.Customers.Entities.ShoppingCarts
         {
             //TODO CONVERT PRODUCT MONEYVALUE TO SHOPPINGCART CURRENCY
             //TODO WHILE CREATING ORDER CHOOSE CURRENCY AND CONVERT ALL PRICES
-            var isProductInCart = Items.FirstOrDefault(x => x.ProductId == productId);
+            var shoppingCartItem = Items.FirstOrDefault(x => x.ProductId == productId);
 
-            if (isProductInCart == null)
+            if (shoppingCartItem == null)
             {
-                var shoppingCartItem = ShoppingCartItem.CreateShoppingCartItemFromProduct(Guid.NewGuid(),
+                var newShoppingCartItem = ShoppingCartItem.CreateShoppingCartItemFromProduct(Guid.NewGuid(),
                                                                                           productId,
                                                                                           Id,
                                                                                           quantity,
                                                                                           productPrice);
-                Items.Add(shoppingCartItem);
+                Items.Add(newShoppingCartItem);
             }
             else
             {
-                isProductInCart.ChangeCartItemQuantity(quantity, productPrice);
+                shoppingCartItem.ChangeCartItemQuantity(quantity, productPrice);
             }
 
             this.TotalPrice = CountTotalPrice(this.Items);
