@@ -10,5 +10,6 @@ namespace Domain.Customers.Entities.ShoppingCarts.Repositories
         Task<ShoppingCart> GetShoppingCartByCustomerId(CustomerId customerId);
         Task<ShoppingCart> GetShoppingCartById(ShoppingCartId id);
         Task Update(ShoppingCart shoppingCart);
+        Task Delete(ShoppingCart shoppingCart);
     }
 }

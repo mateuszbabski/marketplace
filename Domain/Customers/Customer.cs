@@ -1,4 +1,5 @@
 ﻿using Domain.Customers.Entities.ShoppingCarts;
+using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
