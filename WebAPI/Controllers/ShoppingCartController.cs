@@ -1,9 +1,8 @@
-﻿using Application.Features.Products;
-using Application.Features.Products.AddProduct;
-using Application.Features.Products.GetProductById;
+﻿using Application.Features.ShoppingCarts;
 using Application.Features.ShoppingCarts.AddProductToShoppingCart;
 using Application.Features.ShoppingCarts.DeleteShoppingCart;
-using Domain.Shared.ValueObjects;
+using Application.Features.ShoppingCarts.GetShoppingCartByCustomerId;
+using Application.Features.ShoppingCarts.RemoveProductFromShoppingCart;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,26 +29,33 @@ namespace WebAPI.Controllers
 
         [Authorize(Roles = "customer")]
         [HttpDelete("DeleteShoppingCart")]
-        public async Task<ActionResult<Guid>> DeleteShoppingCart(Guid id)
+        public async Task<ActionResult<Guid>> DeleteShoppingCart()
         {
-            await _mediator.Send(new DeleteShoppingCartCommand()
+            await _mediator.Send(new DeleteShoppingCartCommand());
+
+            return NoContent();
+        }
+
+        [Authorize(Roles = "customer")]
+        [HttpDelete("RemoveProductFromCart")]
+        public async Task<ActionResult<Unit>> RemoveProductFromShoppingCart(Guid id)
+        {
+            await _mediator.Send(new RemoveProductFromShoppingCartCommand()
             {
-                ShoppingCartId = id
+                Id = id
             });
 
             return NoContent();
         }
 
-        //[HttpGet("{id}", Name = "GetShoppingCartById")]
-        //public async Task<ActionResult<ShoppingCartDto>> GetShoppingCartById(Guid id)
-        //{
-        //    var shoppingCart = await _mediator.Send(new GetShoppingCartByIdCommand()
-        //    {
-        //        Id = id
-        //    });
+        [Authorize(Roles = "customer")]
+        [HttpGet("GetShoppingCartByCustomerId")]
+        public async Task<ActionResult<ShoppingCartDto>> GetShoppingCartForCustomer()
+        {
+            var shoppingCart = await _mediator.Send(new GetShoppingCartByCustomerIdCommand());
 
-        //    return Ok(shoppingCart);
-        //}
+            return Ok(shoppingCart);
+        }
 
     }
 }
