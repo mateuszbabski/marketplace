@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Domain.Customers.Entities.ShoppingCarts
@@ -18,6 +19,8 @@ namespace Domain.Customers.Entities.ShoppingCarts
         public ShoppingCartId ShoppingCartId { get; private set; }
         public int Quantity { get; private set; } = 1;
         public MoneyValue Price { get; private set; }
+
+        [JsonIgnore]
         public virtual ShoppingCart ShoppingCart { get; set; }
 
         private ShoppingCartItem() { }

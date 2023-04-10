@@ -2,6 +2,7 @@
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
 using Domain.Customers.ValueObjects;
+using Domain.Shops.Entities.Products.ValueObjects;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,15 @@ namespace Infrastructure.Repositories
 
         public async Task Update(ShoppingCart shoppingCart)
         {
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task RemoveItem(ShoppingCart shoppingCart, ShoppingCartItemId shoppingCartItemId)
+        {
+            var product = await _dbContext.ShoppingCartItems.Where(x => x.ShoppingCartId == shoppingCart.Id)
+                                                            .FirstOrDefaultAsync(x => x.Id == shoppingCartItemId);
+
+            _dbContext.ShoppingCartItems.Remove(product);
             await _dbContext.SaveChangesAsync();
         }
 

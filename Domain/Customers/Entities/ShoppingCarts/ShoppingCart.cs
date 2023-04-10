@@ -35,7 +35,8 @@ namespace Domain.Customers.Entities.ShoppingCarts
         {
             decimal allProductsPrice = items.Sum(x => x.Price.Amount);
 
-            return MoneyValue.Of(allProductsPrice, TotalPrice.Currency);
+            return new MoneyValue(allProductsPrice, TotalPrice.Currency);
+            //return MoneyValue.Of(allProductsPrice, TotalPrice.Currency);
         }
 
         internal MoneyValue GetPrice()
@@ -70,7 +71,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
         {
             var item = Items.FirstOrDefault(x => x.Id == shoppingCartItemId);
 
-            Items.Remove(item);
+            Items.Remove(item);        
 
             this.TotalPrice = CountTotalPrice(this.Items);
         }

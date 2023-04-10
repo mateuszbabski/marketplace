@@ -1,10 +1,7 @@
 ﻿using Domain.Customers.Entities.ShoppingCarts;
-using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
-using Domain.Shops.Entities.Products.ValueObjects;
-using Domain.Shops.ValueObjects;
 
 namespace Domain.Customers
 {
