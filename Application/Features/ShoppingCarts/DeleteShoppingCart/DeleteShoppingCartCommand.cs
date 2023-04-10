@@ -9,6 +9,5 @@ namespace Application.Features.ShoppingCarts.DeleteShoppingCart
 {
     public class DeleteShoppingCartCommand : IRequest<Unit>
     {
-        public Guid ShoppingCartId { get; set; }
     }
 }

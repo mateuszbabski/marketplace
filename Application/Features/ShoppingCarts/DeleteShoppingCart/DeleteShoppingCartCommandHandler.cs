@@ -22,7 +22,7 @@ namespace Application.Features.ShoppingCarts.DeleteShoppingCart
         public async Task<Unit> Handle(DeleteShoppingCartCommand request, CancellationToken cancellationToken)
         {
             var userId = _userService.UserId;
-            //var shoppingCart = await _shoppingCartRepository.GetShoppingCartById(request.ShoppingCartId)
+
             var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(userId)
                 ?? throw new Exception("Cart not found.");
 
