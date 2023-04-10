@@ -16,6 +16,7 @@ namespace Infrastructure.Context
         public DbSet<Shop> Shops { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {
