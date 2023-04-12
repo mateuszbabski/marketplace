@@ -77,9 +77,9 @@ namespace Domain.Customers
             SetTelephoneNumber(telephoneNumber);
         }
 
-        public Order PlaceOrder()
+        public Order PlaceOrder(ShoppingCart shoppingCart, Address shippingAddress, DateTime placedOn)
         {
-            var order = Order.CreateNew();
+            var order = Order.CreateNew(shoppingCart, shippingAddress, placedOn);
 
             this.Orders.Add(order);
 
@@ -90,6 +90,11 @@ namespace Domain.Customers
         {
             var order = this.Orders.Single(x => x.Id == Id);
             order.CancelOrder();
+        }
+
+        public ShoppingCart GetShoppingCart()
+        {
+            return this.ShoppingCart;
         }
 
         internal void SetAddress(Address address)

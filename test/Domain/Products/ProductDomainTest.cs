@@ -16,8 +16,7 @@ namespace UnitTest.Domain.Products
         {
             var shop = ShopFactory.Create();
 
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            var product = shop.AddProduct("productName",
                                           "productDescription",
                                           MoneyValue.Of(10, "USD"),
                                           "pieces",
@@ -31,8 +30,7 @@ namespace UnitTest.Domain.Products
         {
             var shop = ShopFactory.Create();
 
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            var product = shop.AddProduct("productName",
                                           "productDescription",
                                           MoneyValue.Of(10, "USD"),
                                           "pieces",
@@ -49,8 +47,7 @@ namespace UnitTest.Domain.Products
         {
             var shop = ShopFactory.Create();
 
-            var act = Assert.Throws<EmptyProductNameException>(() => shop.AddProduct(Guid.NewGuid(),
-                                          "",
+            var act = Assert.Throws<EmptyProductNameException>(() => shop.AddProduct("",
                                           "productDescription",
                                           MoneyValue.Of(10, "USD"),
                                           "pieces",
@@ -65,8 +62,7 @@ namespace UnitTest.Domain.Products
         {
             var shop = ShopFactory.Create();
 
-            var act = Assert.Throws<InvalidProductPriceException>(() => shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            var act = Assert.Throws<InvalidProductPriceException>(() => shop.AddProduct("productName",
                                           "productDescription",
                                           MoneyValue.Of(10, "USDC"),
                                           "pieces",
@@ -80,9 +76,8 @@ namespace UnitTest.Domain.Products
         public void ChangeProductDetails_DoNotChangeWhenParamsAreEmpty()
         {
             var shop = ShopFactory.Create();
-
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            
+            var product = shop.AddProduct("productName",
                                           "productDescription",
                                           MoneyValue.Of(10, "USD"),
                                           "pieces",
@@ -100,8 +95,7 @@ namespace UnitTest.Domain.Products
         {
             var shop = ShopFactory.Create();
 
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            var product = shop.AddProduct("productName",
                                           "productDescription",
                                           MoneyValue.Of(10, "USD"),
                                           "pieces",
@@ -118,8 +112,7 @@ namespace UnitTest.Domain.Products
         {
             var shop = ShopFactory.Create();
 
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            var product = shop.AddProduct("productName",
                                           "productDescription",
                                           MoneyValue.Of(10, "USD"),
                                           "pieces",
@@ -137,8 +130,7 @@ namespace UnitTest.Domain.Products
         {
             var shop = ShopFactory.Create();
 
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            var product = shop.AddProduct("productName",
                                           "productDescription",
                                           MoneyValue.Of(10, "USD"),
                                           "pieces",

@@ -128,7 +128,7 @@ namespace Domain.Shops
             return ShopAddress.ToString();
         }
 
-        public static Product AddProduct(ProductName productName,
+        public Product AddProduct(ProductName productName,
                                   ProductDescription productDescription,
                                   MoneyValue price,
                                   ProductUnit unit,

@@ -46,7 +46,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
             return new ShoppingCartItem(productId, shoppingCartId, quantity, productPrice);
         }        
 
-        private MoneyValue CountCartItemPrice(int quantity, MoneyValue productPrice) 
+        private static MoneyValue CountCartItemPrice(int quantity, MoneyValue productPrice) 
         {
             return MoneyValue.Of(quantity * productPrice.Amount, productPrice.Currency);
         }

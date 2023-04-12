@@ -15,7 +15,7 @@ namespace UnitTest.Domain.Customers
         public void CreateShoppingCart_ReturnsShoppingCartInstance()
         {
             var customer = CustomerFactory.GetCustomer();
-            var shoppingCart = ShoppingCart.CreateShoppingCart(Guid.NewGuid(), customer.Id);
+            var shoppingCart = ShoppingCart.CreateShoppingCart(customer.Id);
 
             Assert.NotNull(shoppingCart);
             Assert.IsType<ShoppingCart>(shoppingCart);          
@@ -31,8 +31,8 @@ namespace UnitTest.Domain.Customers
 
             var cartItem = shoppingCart.Items.FirstOrDefault(x => x.ProductId == product.Id);
 
-            Assert.Equal(1, cartItem.Quantity);
-            Assert.Equal(product.Id, cartItem.ProductId);
+            Assert.Equal(1, cartItem?.Quantity);
+            Assert.Equal(product.Id, cartItem?.ProductId);
             Assert.IsType<ShoppingCartItem>(cartItem);
         }
 
@@ -60,7 +60,7 @@ namespace UnitTest.Domain.Customers
 
             var cartItem = shoppingCart.Items.FirstOrDefault(x => x.ProductId == product.Id);
             
-            Assert.Equal(product.Id, cartItem.ProductId);
+            Assert.Equal(product.Id, cartItem?.ProductId);
             Assert.IsType<ShoppingCartItem>(cartItem);
 
             shoppingCart.RemoveItemFromCart(cartItem.Id);
@@ -70,10 +70,10 @@ namespace UnitTest.Domain.Customers
             Assert.Null(item);
         }
 
-        private ShoppingCart GetShoppingCart()
+        private static ShoppingCart GetShoppingCart()
         {
             var customer = CustomerFactory.GetCustomer();
-            return ShoppingCart.CreateShoppingCart(Guid.NewGuid(), customer.Id);
+            return ShoppingCart.CreateShoppingCart(customer.Id);
         }
     }
 }
