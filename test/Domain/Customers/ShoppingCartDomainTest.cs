@@ -50,24 +50,25 @@ namespace UnitTest.Domain.Customers
             Assert.IsType<InvalidQuantityException>(act);
         }
 
-        //[Fact]
-        //public void RemoveProductFromShoppingCart_RemovesCartItemFromCart()
-        //{
-        //    var product = ProductFactory.CreateProduct();
-        //    var shoppingCart = GetShoppingCart();
+        [Fact]
+        public void RemoveProductFromShoppingCart_RemovesCartItemFromCart()
+        {
+            var product = ProductFactory.CreateProduct();
+            var shoppingCart = GetShoppingCart();
 
-        //    shoppingCart.AddProductToShoppingCart(product.Id, 1, product.Price);
+            shoppingCart.AddProductToShoppingCart(product.Id, 1, product.Price);
 
-        //    var cartItem = shoppingCart.Items.FirstOrDefault(x => x.ProductId == product.Id);
+            var cartItem = shoppingCart.Items.FirstOrDefault(x => x.ProductId == product.Id);
+            
+            Assert.Equal(product.Id, cartItem.ProductId);
+            Assert.IsType<ShoppingCartItem>(cartItem);
 
-        //    Assert.Equal(product.Id, cartItem.ProductId);
-        //    Assert.IsType<ShoppingCartItem>(cartItem);
+            shoppingCart.RemoveItemFromCart(cartItem.Id);
+            var item = shoppingCart.Items.FirstOrDefault(x => x.Id == cartItem.Id);
 
-        //    shoppingCart.RemoveItemFromCart(cartItem.Id);
-        //    var item = shoppingCart.Items.FirstOrDefault(x => x.Id == cartItem.Id);
-
-        //    Assert.IsType<ShoppingCartItem>(item);
-        //}
+            Assert.IsNotType<ShoppingCartItem>(item);
+            Assert.Null(item);
+        }
 
         private ShoppingCart GetShoppingCart()
         {
