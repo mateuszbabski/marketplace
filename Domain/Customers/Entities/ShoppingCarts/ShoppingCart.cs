@@ -2,13 +2,6 @@
 using Domain.Customers.ValueObjects;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Domain.Customers.Entities.ShoppingCarts
 {
     public class ShoppingCart
@@ -18,17 +11,17 @@ namespace Domain.Customers.Entities.ShoppingCarts
         public List<ShoppingCartItem> Items { get; private set; }
         public MoneyValue TotalPrice { get; private set; }
 
-        private ShoppingCart(ShoppingCartId id, CustomerId customerId)
+        private ShoppingCart(CustomerId customerId)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             CustomerId = customerId;
             Items = new List<ShoppingCartItem>();
             TotalPrice = new MoneyValue(0, "PLN");
         }
 
-        public static ShoppingCart CreateShoppingCart(ShoppingCartId Id, CustomerId customerId)
+        public static ShoppingCart CreateShoppingCart(CustomerId customerId)
         {
-            return new ShoppingCart(Id, customerId);
+            return new ShoppingCart(customerId);
         }
 
         private MoneyValue CountTotalPrice(List<ShoppingCartItem> items) 
@@ -52,11 +45,10 @@ namespace Domain.Customers.Entities.ShoppingCarts
 
             if (shoppingCartItem == null)
             {
-                var newShoppingCartItem = ShoppingCartItem.CreateShoppingCartItemFromProduct(Guid.NewGuid(),
-                                                                                          productId,
-                                                                                          Id,
-                                                                                          quantity,
-                                                                                          productPrice);
+                var newShoppingCartItem = ShoppingCartItem.CreateShoppingCartItemFromProduct(productId,
+                                                                                             Id,
+                                                                                             quantity,
+                                                                                             productPrice);
                 Items.Add(newShoppingCartItem);
             }
             else

@@ -24,17 +24,16 @@ namespace Domain.Customers.Entities.ShoppingCarts
         public virtual ShoppingCart ShoppingCart { get; set; }
 
         private ShoppingCartItem() { }
-        private ShoppingCartItem(ShoppingCartItemId id, ProductId productId, ShoppingCartId shoppingCartId, int quantity, MoneyValue productPrice)
+        private ShoppingCartItem(ProductId productId, ShoppingCartId shoppingCartId, int quantity, MoneyValue productPrice)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             ProductId = productId;
             ShoppingCartId = shoppingCartId;
             Quantity = quantity;
             Price = CountCartItemPrice(quantity, productPrice);
         }
 
-        internal static ShoppingCartItem CreateShoppingCartItemFromProduct(ShoppingCartItemId id,
-                                                                           ProductId productId,
+        internal static ShoppingCartItem CreateShoppingCartItemFromProduct(ProductId productId,
                                                                            ShoppingCartId shoppingCartId,
                                                                            int quantity,
                                                                            MoneyValue productPrice)
@@ -44,7 +43,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
                 throw new InvalidQuantityException();
             }
 
-            return new ShoppingCartItem(id, productId, shoppingCartId, quantity, productPrice);
+            return new ShoppingCartItem(productId, shoppingCartId, quantity, productPrice);
         }        
 
         private MoneyValue CountCartItemPrice(int quantity, MoneyValue productPrice) 
