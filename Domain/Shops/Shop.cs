@@ -128,14 +128,13 @@ namespace Domain.Shops
             return ShopAddress.ToString();
         }
 
-        public Product AddProduct(ProductId id,
-                         ProductName productName,
-                         ProductDescription productDescription,
-                         MoneyValue price,
-                         ProductUnit unit,
-                         ShopId shopId)
+        public static Product AddProduct(ProductName productName,
+                                  ProductDescription productDescription,
+                                  MoneyValue price,
+                                  ProductUnit unit,
+                                  ShopId shopId)
         {
-            var product = Product.CreateProduct(id, productName, productDescription, price, unit, shopId);
+            var product = Product.CreateProduct(productName, productDescription, price, unit, shopId);
             
             return product;
         }

@@ -21,14 +21,13 @@ namespace Domain.Shops.Entities.Products
         public virtual Shop Shop { get; private set; }
 
         private Product() { }
-        internal Product(ProductId id,
-                         ProductName productName,
+        internal Product(ProductName productName,
                          ProductDescription productDescription,
                          MoneyValue price,
                          ProductUnit unit,
                          ShopId shopId)
         {
-            Id = id;
+            Id = new ProductId(Guid.NewGuid());
             ProductName = productName;
             ProductDescription = productDescription;
             Price = price;
@@ -37,14 +36,13 @@ namespace Domain.Shops.Entities.Products
             IsAvailable = true;
         }
 
-        internal static Product CreateProduct(ProductId id,
-                              ProductName productName,
+        internal static Product CreateProduct(ProductName productName,
                               ProductDescription productDescription,
                               MoneyValue price,
                               ProductUnit unit,
                               ShopId shopId)
         {
-            return new Product(id, productName, productDescription, price, unit, shopId);
+            return new Product(productName, productDescription, price, unit, shopId);
         }
         
         internal void ChangeDetails(string productName, string productDescription, string unit)

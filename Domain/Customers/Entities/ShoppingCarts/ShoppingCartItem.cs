@@ -26,7 +26,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
         private ShoppingCartItem() { }
         private ShoppingCartItem(ProductId productId, ShoppingCartId shoppingCartId, int quantity, MoneyValue productPrice)
         {
-            Id = Guid.NewGuid();
+            Id = new ShoppingCartItemId(Guid.NewGuid());
             ProductId = productId;
             ShoppingCartId = shoppingCartId;
             Quantity = quantity;

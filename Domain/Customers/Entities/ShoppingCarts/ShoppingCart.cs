@@ -13,7 +13,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
 
         private ShoppingCart(CustomerId customerId)
         {
-            Id = Guid.NewGuid();
+            Id = new ShoppingCartId(Guid.NewGuid());
             CustomerId = customerId;
             Items = new List<ShoppingCartItem>();
             TotalPrice = new MoneyValue(0, "PLN");

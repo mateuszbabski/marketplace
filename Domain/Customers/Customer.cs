@@ -1,4 +1,6 @@
-﻿using Domain.Customers.Entities.ShoppingCarts;
+﻿using Domain.Customers.Entities.Orders;
+using Domain.Customers.Entities.Orders.ValueObjects;
+using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
@@ -18,6 +20,7 @@ namespace Domain.Customers
         public Roles Role { get; private set; } = Roles.customer;
 
         public ShoppingCart ShoppingCart { get; private set; }  
+        public List<Order> Orders { get; private set; }
                 
         private Customer() { }
         internal Customer(CustomerId id,
@@ -35,6 +38,7 @@ namespace Domain.Customers
             LastName = lastName;
             Address = address;
             TelephoneNumber = telephoneNumber;
+            Orders = new List<Order>();
             Role = Roles.customer;
         }
 
@@ -71,6 +75,21 @@ namespace Domain.Customers
             SetName(name);
             SetLastName(lastName);
             SetTelephoneNumber(telephoneNumber);
+        }
+
+        public Order PlaceOrder()
+        {
+            var order = Order.CreateNew();
+
+            this.Orders.Add(order);
+
+            return order;
+        }
+
+        public void CancelOrder(OrderId Id)
+        {
+            var order = this.Orders.Single(x => x.Id == Id);
+            order.CancelOrder();
         }
 
         internal void SetAddress(Address address)
