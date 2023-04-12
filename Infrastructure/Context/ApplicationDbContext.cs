@@ -1,4 +1,5 @@
 ﻿using Domain.Customers;
+using Domain.Customers.Entities.Orders;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Shops;
 using Domain.Shops.Entities.Products;
@@ -17,6 +18,7 @@ namespace Infrastructure.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {
