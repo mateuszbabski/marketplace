@@ -57,6 +57,7 @@ $ dotnet run
 Done:
 - Register/Login for Customer and Shop separately
 - Adding, updating and deleting products available to buy
+- Creating shopping cart. Adding, removing products and deleting cart.
 
 To implement:
 - Searching products
