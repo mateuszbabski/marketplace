@@ -32,7 +32,7 @@ namespace Application.Features.Products.AddProduct
 
             var price = MoneyValue.Of(request.Amount, request.Currency);
             
-            var product = Domain.Shops.Shop.AddProduct(request.ProductName,
+            var product = shop.AddProduct(request.ProductName,
                                           request.ProductDescription,
                                           price,
                                           request.Unit,

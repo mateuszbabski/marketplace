@@ -21,7 +21,6 @@
     <Folder Include="Features\Orders\GetOrders\" />
     <Folder Include="Features\Orders\GetOrderById\" />
     <Folder Include="Features\Orders\CancelOrder\" />
-    <Folder Include="Features\Orders\PlaceOrder\" />
   </ItemGroup>
 
 </Project>
