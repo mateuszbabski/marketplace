@@ -39,7 +39,7 @@ namespace Application.Features.ShoppingCarts.AddProductToShoppingCart
 
             if (shoppingCart == null)
             {
-                var newShoppingCart = ShoppingCart.CreateShoppingCart(Guid.NewGuid(), customerId);
+                var newShoppingCart = ShoppingCart.CreateShoppingCart(customerId);
                 await _shoppingCartRepository.Create(newShoppingCart);
                 return newShoppingCart;
             }

@@ -32,12 +32,11 @@ namespace Application.Features.Products.AddProduct
 
             var price = MoneyValue.Of(request.Amount, request.Currency);
             
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                                 request.ProductName,
-                                                 request.ProductDescription,
-                                                 price,
-                                                 request.Unit,
-                                                 shopId);
+            var product = Domain.Shops.Shop.AddProduct(request.ProductName,
+                                          request.ProductDescription,
+                                          price,
+                                          request.Unit,
+                                          shopId);
 
             await _productRepository.Add(product);
             
