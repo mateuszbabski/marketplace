@@ -23,17 +23,16 @@ namespace Domain.Shops
         public List<Product> ProductList { get; private set; }
 
         private Shop() { }
-        internal Shop(ShopId id,
-                                   Email email,
-                                   PasswordHash passwordHash,
-                                   Name ownerName,
-                                   LastName ownerLastName,
-                                   ShopName shopName,
-                                   Address shopAddress,
-                                   TaxNumber taxNumber,
-                                   TelephoneNumber contactNumber)
+        internal Shop(Email email,
+                      PasswordHash passwordHash,
+                      Name ownerName,
+                      LastName ownerLastName,
+                      ShopName shopName,
+                      Address shopAddress,
+                      TaxNumber taxNumber,
+                      TelephoneNumber contactNumber)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             Email = email;
             PasswordHash = passwordHash;
             OwnerName = ownerName;
@@ -46,29 +45,28 @@ namespace Domain.Shops
             ProductList = new List<Product>();
         }
 
-        public static Shop Create(ShopId id,
-                                      Email email,
-                                      PasswordHash passwordHash,
-                                      Name ownerName,
-                                      LastName ownerLastName,
-                                      ShopName shopName,
-                                      Address shopAddress,
-                                      TaxNumber taxNumber,
-                                      TelephoneNumber contactNumber)
+        public static Shop Create(Email email,
+                                  PasswordHash passwordHash,
+                                  Name ownerName,
+                                  LastName ownerLastName,
+                                  ShopName shopName,
+                                  Address shopAddress,
+                                  TaxNumber taxNumber,
+                                  TelephoneNumber contactNumber)
         {           
 
-            return new Shop(id, email, passwordHash, ownerName, ownerLastName, shopName, shopAddress, taxNumber, contactNumber);
+            return new Shop(email, passwordHash, ownerName, ownerLastName, shopName, shopAddress, taxNumber, contactNumber);
         }
 
         public void UpdateShopDetails(string ownerName,
-                                   string ownerLastName,
-                                   string shopName,
-                                   string country,
-                                   string city,
-                                   string street,
-                                   string postalCode,
-                                   string taxNumber,
-                                   string contactNumber)
+                                      string ownerLastName,
+                                      string shopName,
+                                      string country,
+                                      string city,
+                                      string street,
+                                      string postalCode,
+                                      string taxNumber,
+                                      string contactNumber)
         {
             var addressParams = new List<string>()
             {
@@ -147,9 +145,9 @@ namespace Domain.Shops
         }
 
         public void ChangeProductDetails(ProductId id,
-                         string productName,
-                         string productDescription,
-                         string unit)
+                                         string productName,
+                                         string productDescription,
+                                         string unit)
         {
             var product = ProductList.Single(x => x.Id == id);
 

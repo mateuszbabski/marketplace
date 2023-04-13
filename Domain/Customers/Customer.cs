@@ -23,15 +23,14 @@ namespace Domain.Customers
         public List<Order> Orders { get; private set; }
                 
         private Customer() { }
-        internal Customer(CustomerId id,
-                          Email email,
+        internal Customer(Email email,
                           PasswordHash passwordHash,
                           Name name,
                           LastName lastName,
                           Address address,
                           TelephoneNumber telephoneNumber)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             Email = email;
             PasswordHash = passwordHash;
             Name = name;
@@ -42,15 +41,14 @@ namespace Domain.Customers
             Role = Roles.customer;
         }
 
-        public static Customer Create(CustomerId id,
-                          Email email,
-                          PasswordHash passwordHash,
-                          Name name,
-                          LastName lastName,
-                          Address address,
-                          TelephoneNumber telephoneNumber)
+        public static Customer Create(Email email,
+                                      PasswordHash passwordHash,
+                                      Name name,
+                                      LastName lastName,
+                                      Address address,
+                                      TelephoneNumber telephoneNumber)
         {
-            return new Customer(id, email, passwordHash, name, lastName, address, telephoneNumber);
+            return new Customer(email, passwordHash, name, lastName, address, telephoneNumber);
         }
 
         public void UpdateCustomerDetails(string name,

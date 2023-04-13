@@ -36,13 +36,12 @@ namespace Application.Authentication.Services
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
             var address = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);
 
-            var customer = Customer.Create(Guid.NewGuid(),
-                                                   request.Email,
-                                                   passwordHash,
-                                                   request.Name,
-                                                   request.LastName,
-                                                   address,
-                                                   request.TelephoneNumber);
+            var customer = Customer.Create(request.Email,
+                                           passwordHash,
+                                           request.Name,
+                                           request.LastName,
+                                           address,
+                                           request.TelephoneNumber);
 
             await _customerRepository.Add(customer);
 
@@ -61,15 +60,14 @@ namespace Application.Authentication.Services
             var passwordHash = _hashingService.GenerateHashPassword(request.Password);
             var shopAddress = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);
             
-            var shop = Shop.Create(Guid.NewGuid(),
-                                                   request.Email,
-                                                   passwordHash,
-                                                   request.OwnerName,
-                                                   request.OwnerLastName,
-                                                   request.ShopName,
-                                                   shopAddress,
-                                                   request.TaxNumber,
-                                                   request.ContactNumber);
+            var shop = Shop.Create(request.Email,
+                                   passwordHash,
+                                   request.OwnerName,
+                                   request.OwnerLastName,
+                                   request.ShopName,
+                                   shopAddress,
+                                   request.TaxNumber,
+                                   request.ContactNumber);
 
             await _shopRepository.Add(shop);
 
@@ -110,6 +108,7 @@ namespace Application.Authentication.Services
         {
             var customer = await _customerRepository.GetCustomerByEmail(email);
             var shop = await _shopRepository.GetShopByEmail(email);
+
             if (customer != null || shop != null)
                 throw new Exception("Email cannot be used");
             return true;

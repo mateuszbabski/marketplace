@@ -20,7 +20,6 @@ namespace Domain.Customers.Entities.Orders
         public MoneyValue TotalPrice { get; private set; }
         public Address ShippingAddress { get; private set; }
         public List<OrderItem> OrderItems { get; private set; }
-        //public PaymentStatus PaymentStatus { get; private set; } = PaymentStatus.WaitingForPayment;
         public DateTime PlacedOn { get; private set; } = DateTime.UtcNow;
 
         private Order() 
@@ -60,7 +59,6 @@ namespace Domain.Customers.Entities.Orders
         internal void CancelOrder() 
         {
             if (this.OrderStatus == OrderStatus.WaitingForPayment || this.OrderStatus == OrderStatus.InProgress)
-            //if (this.PaymentStatus == PaymentStatus.WaitingForPayment)
             {
                 this.OrderStatus = OrderStatus.Cancelled;
             }

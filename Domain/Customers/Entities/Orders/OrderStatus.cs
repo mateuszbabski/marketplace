@@ -10,8 +10,10 @@ namespace Domain.Customers.Entities.Orders
     {
         InProgress,
         WaitingForPayment,
-        PaymentReceived,        
+        PaymentReceived,
+        PackingInProgress,
         OrderPacked,
+        WaitingForShipping,
         OrderShipped,
         Cancelled,
         Closed,
