@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Domain.Shops.Entities.Products
@@ -18,6 +19,7 @@ namespace Domain.Shops.Entities.Products
         public ProductUnit Unit { get; private set; }
         public ShopId ShopId { get; private set; }
         public bool IsAvailable { get; private set; } = true;
+        [JsonIgnore]
         public virtual Shop Shop { get; private set; }
 
         private Product() { }

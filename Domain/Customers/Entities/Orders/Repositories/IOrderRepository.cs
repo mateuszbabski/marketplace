@@ -9,5 +9,6 @@ namespace Domain.Customers.Entities.Orders.Repositories
     public interface IOrderRepository
     {
         Task<Order> Add(Order order);
+        Task Update(Order order);
     }
 }

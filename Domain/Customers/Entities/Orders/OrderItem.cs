@@ -21,6 +21,8 @@ namespace Domain.Customers.Entities.Orders
         [JsonIgnore]
         public virtual Order Order { get; set; }
 
+        private OrderItem() { }
+
         private OrderItem(OrderId orderId, ShoppingCartItem shoppingCartItem)
         {
             Id = new OrderItemId(Guid.NewGuid());

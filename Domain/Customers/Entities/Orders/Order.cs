@@ -8,6 +8,7 @@ using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Domain.Customers.Entities.Orders
@@ -21,6 +22,8 @@ namespace Domain.Customers.Entities.Orders
         public Address ShippingAddress { get; private set; }
         public List<OrderItem> OrderItems { get; private set; }
         public DateTime PlacedOn { get; private set; } = DateTime.UtcNow;
+        [JsonIgnore]
+        public virtual Customer Customer { get; private set; }
 
         private Order() 
         {
