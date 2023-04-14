@@ -18,9 +18,6 @@
   <ItemGroup>
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Common\Services\" />
-    <Folder Include="Features\Orders\GetOrders\" />
-    <Folder Include="Features\Orders\GetOrderById\" />
-    <Folder Include="Features\Orders\CancelOrder\" />
   </ItemGroup>
 
 </Project>
