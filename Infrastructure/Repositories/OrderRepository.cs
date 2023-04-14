@@ -1,11 +1,6 @@
 ﻿using Domain.Customers.Entities.Orders;
 using Domain.Customers.Entities.Orders.Repositories;
 using Infrastructure.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
@@ -24,6 +19,11 @@ namespace Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
 
             return order;
+        }
+
+        public async Task Update(Order order)
+        {
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

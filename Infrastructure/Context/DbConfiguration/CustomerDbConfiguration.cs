@@ -1,4 +1,6 @@
 ﻿using Domain.Customers;
+using Domain.Customers.Entities.Orders;
+using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
 using Domain.Customers.ValueObjects;
@@ -12,7 +14,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Context.DbConfiguration
 {
-    internal sealed class CustomerDbConfiguration : IEntityTypeConfiguration<Customer>, IEntityTypeConfiguration<ShoppingCart>, IEntityTypeConfiguration<ShoppingCartItem>
+    internal sealed class CustomerDbConfiguration : IEntityTypeConfiguration<Customer>, IEntityTypeConfiguration<ShoppingCart>, IEntityTypeConfiguration<ShoppingCartItem>, IEntityTypeConfiguration<Order>, IEntityTypeConfiguration<OrderItem>
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
@@ -45,9 +47,14 @@ namespace Infrastructure.Context.DbConfiguration
                 sa.Property(x => x.PostalCode).HasColumnName("PostalCode");
             });
 
+            builder.HasMany(c => c.Orders)
+                   .WithOne(i => i.Customer)
+                   .HasForeignKey(c => c.CustomerId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
             builder.Property(c => c.Role)
                    .HasConversion(v => v.ToString(),
-                                   v => (Roles)Enum.Parse(typeof(Roles), v));            
+                                  v => (Roles)Enum.Parse(typeof(Roles), v));            
                 
             builder.ToTable("Customers");
         }
@@ -69,6 +76,7 @@ namespace Infrastructure.Context.DbConfiguration
 
             builder.HasMany(c => c.Items)
                    .WithOne(i => i.ShoppingCart)
+                   .HasForeignKey(c => c.ShoppingCartId)
                    .OnDelete(DeleteBehavior.Cascade);            
 
             builder.ToTable("ShoppingCarts");
@@ -80,9 +88,8 @@ namespace Infrastructure.Context.DbConfiguration
             builder.Property(c => c.Id)
                    .HasConversion(c => c.Value, c => new ShoppingCartItemId(c));
 
-            builder.HasOne<ShoppingCart>(c => c.ShoppingCart)
+            builder.HasOne(c => c.ShoppingCart)
                    .WithMany(p => p.Items)
-                   .HasForeignKey(x => x.ShoppingCartId)
                    .OnDelete(DeleteBehavior.Cascade);
 
             builder.OwnsOne(c => c.Price, mv =>
@@ -97,6 +104,69 @@ namespace Infrastructure.Context.DbConfiguration
             builder.Property(c => c.Quantity).HasColumnName("Quantity");
 
             builder.ToTable("ShoppingCartItems");
+        }
+
+        public void Configure(EntityTypeBuilder<Order> builder)
+        {
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id)
+                   .HasConversion(c => c.Value, c => new OrderId(c));
+
+            builder.OwnsOne(c => c.TotalPrice, mv =>
+            {
+                mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("Currency");
+                mv.Property(p => p.Amount).HasColumnName("Amount");
+            });
+
+            builder.Property(c => c.PlacedOn).HasColumnName("PlacedOn");
+
+            builder.Property(c => c.OrderStatus)
+                   .HasConversion(v => v.ToString(),
+                                  v => (OrderStatus)Enum.Parse(typeof(OrderStatus), v));
+
+            builder.OwnsOne(c => c.ShippingAddress, sa =>
+            {
+                sa.Property(x => x.Country).HasColumnName("Country");
+                sa.Property(x => x.City).HasColumnName("City");
+                sa.Property(x => x.Street).HasColumnName("Street");
+                sa.Property(x => x.PostalCode).HasColumnName("PostalCode");
+            });
+
+            builder.HasOne(c => c.Customer)
+                   .WithMany(p => p.Orders)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(c => c.OrderItems)
+                   .WithOne(c => c.Order)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.ToTable("Orders");
+        }
+
+        public void Configure(EntityTypeBuilder<OrderItem> builder)
+        {
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id)
+                   .HasConversion(c => c.Value, c => new OrderItemId(c));
+
+            builder.Property(c => c.ProductId)
+                   .HasConversion(c => c.Value, c => new ProductId(c));
+
+            builder.HasOne(c => c.Order)
+                   .WithMany(p => p.OrderItems)
+                   .HasForeignKey(c => c.OrderId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(c => c.Quantity)
+                   .HasColumnName("Quantity");
+
+            builder.OwnsOne(c => c.Price, mv =>
+            {
+                mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("Currency");
+                mv.Property(p => p.Amount).HasColumnName("Amount");
+            });
+
+            builder.ToTable("OrderItems");
         }
     }
 }
