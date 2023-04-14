@@ -14,8 +14,7 @@ namespace UnitTest.Domain.Customers
         {
             var address = Address.CreateAddress("country", "city", "street", "postalCode");
 
-            var customer = Customer.Create(Guid.NewGuid(),
-                                           "customer@example.com",
+            var customer = Customer.Create("customer@example.com",
                                            "passwordHash",
                                            "name",
                                            "lastName",

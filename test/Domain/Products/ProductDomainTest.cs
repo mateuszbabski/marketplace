@@ -71,60 +71,6 @@ namespace UnitTest.Domain.Products
             Assert.IsType<InvalidProductPriceException>(act);
             Assert.Equal("Invalid currency.", act.Message);
         }
-
-        [Fact]
-        public void ChangeProductDetails_DoNotChangeWhenParamsAreEmpty()
-        {
-            var shop = ShopFactory.Create();
-            
-            var product = shop.AddProduct("productName",
-                                          "productDescription",
-                                          MoneyValue.Of(10, "USD"),
-                                          "pieces",
-                                          shop.Id);
-
-            shop.ChangeProductDetails(product.Id, "", "", "");
-
-            Assert.Equal("productName", product.ProductName);
-            Assert.Equal("productDescription", product.ProductDescription);
-            Assert.Equal("pieces", product.Unit);
-        }
-
-        [Fact]
-        public void ChangeProductPrice_ProductPriceChangedIfParamsAreValid()
-        {
-            var shop = ShopFactory.Create();
-
-            var product = shop.AddProduct("productName",
-                                          "productDescription",
-                                          MoneyValue.Of(10, "USD"),
-                                          "pieces",
-                                          shop.Id);
-
-            shop.ChangeProductPrice(product.Id, 20, "CAD");
-
-            Assert.Equal(20, product.Price.Amount);
-            Assert.Equal("CAD", product.Price.Currency);
-        }
-
-        [Fact]
-        public void ChangeProductAvailability_ProductAvailability()
-        {
-            var shop = ShopFactory.Create();
-
-            var product = shop.AddProduct("productName",
-                                          "productDescription",
-                                          MoneyValue.Of(10, "USD"),
-                                          "pieces",
-                                          shop.Id);
-
-            Assert.True(product.IsAvailable);
-
-            shop.ChangeProductAvailability(product.Id);
-
-            Assert.False(product.IsAvailable);
-        }
-
         [Fact]
         public void GetProductPrice_ReturnsProductPrice()
         {

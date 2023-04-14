@@ -7,20 +7,21 @@ using Domain.Shared.Abstractions;
 using System.Net;
 using System.ComponentModel.DataAnnotations;
 using Domain.Shops.Entities.Products;
+using UnitTest.Domain.Products;
+using Domain.Shops.Entities.Products.ValueObjects;
 
 namespace UnitTest.Domain.Shops
 {
     public class ShopDomainTest
-    {        
+    {
 
-        [Fact] 
+        [Fact]
         public void CreateShop_ReturnsShopIfParamsAreValid()
         {
             var shopAddress = Address.CreateAddress("country", "city", "street", "postalCode");
 
 
-            var shop = Shop.Create(Guid.NewGuid(),
-                                   "test@example.com",
+            var shop = Shop.Create("test@example.com",
                                    "passwordHash",
                                    "ownerName",
                                    "ownerLastName",
@@ -40,8 +41,7 @@ namespace UnitTest.Domain.Shops
         {
             var shopAddress = Address.CreateAddress("country", "city", "street", "postalCode");
 
-            var act = Assert.Throws<InvalidEmailException>(() => Shop.Create(Guid.NewGuid(),
-                                   "",
+            var act = Assert.Throws<InvalidEmailException>(() => Shop.Create("",
                                    "passwordHash",
                                    "ownerName",
                                    "ownerLastName",
@@ -50,7 +50,7 @@ namespace UnitTest.Domain.Shops
                                    "taxNumber",
                                    "contactNumber"));
 
-            Assert.IsType<InvalidEmailException>(act);          
+            Assert.IsType<InvalidEmailException>(act);
         }
 
 
@@ -59,7 +59,7 @@ namespace UnitTest.Domain.Shops
         {
             // act
             var shop = GetShop();
-            
+
             // arrange
             shop.UpdateShopDetails("Updated OwnerName",
                                    "Updated OwnerLastName",
@@ -99,8 +99,7 @@ namespace UnitTest.Domain.Shops
             var shop = GetShop();
             var productPrice = MoneyValue.Of(10, "USD");
 
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            var product = shop.AddProduct("productName",
                                           "productDescription",
                                           productPrice,
                                           "productUnit",
@@ -117,8 +116,7 @@ namespace UnitTest.Domain.Shops
             var shop = GetShop();
             var productPrice = MoneyValue.Of(10, "USD");
 
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            var product = shop.AddProduct("productName",
                                           "productDescription",
                                           productPrice,
                                           "productUnit",
@@ -137,8 +135,7 @@ namespace UnitTest.Domain.Shops
             var shop = GetShop();
             var productPrice = MoneyValue.Of(10, "USD");
 
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            var product = shop.AddProduct("productName",
                                           "productDescription",
                                           productPrice,
                                           "productUnit",
@@ -157,8 +154,7 @@ namespace UnitTest.Domain.Shops
             var shop = GetShop();
             var productPrice = MoneyValue.Of(10, "USD");
 
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            var product = shop.AddProduct("productName",
                                           "productDescription",
                                           productPrice,
                                           "productUnit",
@@ -167,23 +163,22 @@ namespace UnitTest.Domain.Shops
             Assert.True(product.IsAvailable);
 
             shop.ChangeProductAvailability(product.Id);
-            
+
             Assert.False(product.IsAvailable);
         }
 
         private static Shop GetShop()
         {
             var address = Address.CreateAddress("country", "city", "street", "postalCode");
-            
-            var shop = Shop.Create(Guid.NewGuid(),
-                                           "mail@example.com",
-                                           "passwordHash",
-                                           "ownerName",
-                                           "ownerLastName",
-                                           "shopName",
-                                           address,
-                                           "taxNumber",
-                                           "1234567890");
+
+            var shop = Shop.Create("mail@example.com",
+                                   "passwordHash",
+                                   "ownerName",
+                                   "ownerLastName",
+                                   "shopName",
+                                   address,
+                                   "taxNumber",
+                                   "1234567890");
 
             return shop;
         }

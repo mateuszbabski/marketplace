@@ -15,8 +15,7 @@ namespace UnitTest.Domain.Products
         {
             var shop = ShopFactory.Create();
 
-            var product = shop.AddProduct(Guid.NewGuid(),
-                                          "productName",
+            var product = shop.AddProduct("productName",
                                           "productDescription",
                                           MoneyValue.Of(10, "USD"),
                                           "pieces",

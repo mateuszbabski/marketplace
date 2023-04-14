@@ -9,15 +9,14 @@ namespace UnitTest.Domain.Shops
         {
             var address = Address.CreateAddress("country", "city", "street", "postalCode");
 
-            var shop = Shop.Create(Guid.NewGuid(),
-                                                           "mail@example.com",
-                                                           "passwordHash",
-                                                           "ownerName",
-                                                           "ownerLastName",
-                                                           "shopName",
-                                                           address,
-                                                           "taxNumber",
-                                                           "1234567890");
+            var shop = Shop.Create("mail@example.com",
+                                   "passwordHash",
+                                   "ownerName",
+                                   "ownerLastName",
+                                   "shopName",
+                                   address,
+                                   "taxNumber",
+                                   "1234567890");
 
             return shop;
         }
