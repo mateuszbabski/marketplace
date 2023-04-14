@@ -22,7 +22,10 @@ namespace Domain.Customers
         public ShoppingCart ShoppingCart { get; private set; }  
         public List<Order> Orders { get; private set; }
                 
-        private Customer() { }
+        private Customer() 
+        {
+            Orders = new List<Order>();
+        }
         internal Customer(Email email,
                           PasswordHash passwordHash,
                           Name name,
@@ -30,7 +33,7 @@ namespace Domain.Customers
                           Address address,
                           TelephoneNumber telephoneNumber)
         {
-            Id = Guid.NewGuid();
+            Id = new CustomerId(Guid.NewGuid());
             Email = email;
             PasswordHash = passwordHash;
             Name = name;
@@ -39,6 +42,7 @@ namespace Domain.Customers
             TelephoneNumber = telephoneNumber;
             Orders = new List<Order>();
             Role = Roles.customer;
+            Orders = new List<Order>();
         }
 
         public static Customer Create(Email email,

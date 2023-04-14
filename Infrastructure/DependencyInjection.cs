@@ -40,6 +40,7 @@ namespace Infrastructure
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
                         
             services.AddAuthentication(opt =>
             {

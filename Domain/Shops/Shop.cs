@@ -19,10 +19,12 @@ namespace Domain.Shops
         public TaxNumber TaxNumber { get; private set; }
         public TelephoneNumber ContactNumber { get; private set; }
         public Roles Role { get; private set; } = Roles.shop;
-
         public List<Product> ProductList { get; private set; }
 
-        private Shop() { }
+        private Shop() 
+        { 
+            ProductList = new List<Product>();  
+        }
         internal Shop(Email email,
                       PasswordHash passwordHash,
                       Name ownerName,
@@ -32,7 +34,7 @@ namespace Domain.Shops
                       TaxNumber taxNumber,
                       TelephoneNumber contactNumber)
         {
-            Id = Guid.NewGuid();
+            Id = new ShopId(Guid.NewGuid());
             Email = email;
             PasswordHash = passwordHash;
             OwnerName = ownerName;
@@ -132,8 +134,10 @@ namespace Domain.Shops
                                   ProductUnit unit,
                                   ShopId shopId)
         {
-            var product = Product.CreateProduct(productName, productDescription, price, unit, shopId);
-            
+            Product product = Product.CreateProduct(productName, productDescription, price, unit, shopId);            
+
+            ProductList.Add(product);
+
             return product;
         }
 
@@ -141,7 +145,7 @@ namespace Domain.Shops
         {
             var product = ProductList.Single(x => x.Id == id);
 
-            product.SetPrice(MoneyValue.Of(amount, currency));            
+            product.SetPrice(MoneyValue.Of(amount, currency));
         }
 
         public void ChangeProductDetails(ProductId id,
