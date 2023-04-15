@@ -94,11 +94,6 @@ namespace Domain.Customers
             order.CancelOrder();
         }
 
-        public ShoppingCart GetShoppingCart()
-        {
-            return this.ShoppingCart;
-        }
-
         internal void SetAddress(Address address)
         {
             if (address is not null)

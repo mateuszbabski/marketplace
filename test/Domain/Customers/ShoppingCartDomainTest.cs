@@ -1,10 +1,5 @@
 ﻿using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.Entities.ShoppingCarts.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnitTest.Domain.Products;
 
 namespace UnitTest.Domain.Customers
