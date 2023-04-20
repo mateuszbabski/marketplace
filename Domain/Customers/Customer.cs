@@ -88,6 +88,11 @@ namespace Domain.Customers
             return ShoppingCart;
         }
 
+        public ShoppingCart GetShoppingCart()
+        {
+            return ShoppingCart;
+        }
+
         public Order PlaceOrder(ShoppingCart shoppingCart, Address shippingAddress, DateTime placedOn)
         {
             var order = Order.CreateNew(shoppingCart, shippingAddress, placedOn);
@@ -97,9 +102,9 @@ namespace Domain.Customers
             return order;
         }
 
-        public void CancelOrder(OrderId Id)
+        public void CancelOrder(OrderId orderId)
         {
-            var order = this.Orders.Single(x => x.Id == Id);
+            var order = this.Orders.Single(x => x.Id == orderId);
             order.CancelOrder();
         }
 

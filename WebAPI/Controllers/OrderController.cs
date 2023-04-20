@@ -1,4 +1,6 @@
-﻿using Application.Features.Orders.PlaceOrder;
+﻿using Application.Features.Orders.CancelOrder;
+using Application.Features.Orders.PlaceOrder;
+using Application.Features.ShoppingCarts.RemoveProductFromShoppingCart;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +23,18 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<Guid>> PlaceOrder([FromBody] PlaceOrderCommand command)
         {
             return await _mediator.Send(command);
+        }
+
+        [Authorize(Roles = "customer")]
+        [HttpPatch("CancelOrder")]
+        public async Task<ActionResult<Unit>> CancelOrder(Guid id)
+        {
+            await _mediator.Send(new CancelOrderCommand()
+            {
+                Id = id
+            });
+
+            return NoContent();
         }
     }
 }

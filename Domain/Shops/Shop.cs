@@ -8,7 +8,7 @@ using Domain.Shared.Rules;
 namespace Domain.Shops
 {
     public class Shop : IAggregateRoot
-    {
+    {   /// TODO REFACTOR CQRS FOR SHOPS AND PRODUCTS DELIMIT DB TRIPS
         public ShopId Id { get; private set; }
         public Email Email { get; private set; }
         public PasswordHash PasswordHash { get; private set; }

@@ -9,5 +9,6 @@ namespace Domain.Shops.Repositories
         Task Update(Shop shop);
         Task<Shop> GetShopByEmail(string email);
         Task<Shop> GetShopById(ShopId id);
+        Task<List<Shop>> GetAllShops();
     }
 }
