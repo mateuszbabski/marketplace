@@ -59,6 +59,7 @@ namespace Domain.Customers.Entities.Orders
         {
             return new Order(shoppingCart, shippingAddress, placedOn);
         }
+
         internal void CancelOrder() 
         {
             if (this.OrderStatus == OrderStatus.WaitingForPayment || this.OrderStatus == OrderStatus.InProgress)
@@ -66,6 +67,7 @@ namespace Domain.Customers.Entities.Orders
                 this.OrderStatus = OrderStatus.Cancelled;
             }
         }
+
         internal MoneyValue GetPrice() 
         {
             return TotalPrice;

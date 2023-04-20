@@ -79,11 +79,20 @@ namespace Domain.Customers
             SetTelephoneNumber(telephoneNumber);
         }
 
+        public ShoppingCart CreateCart(CustomerId Id)
+        {
+            var newCart = ShoppingCart.CreateShoppingCart(Id);
+
+            ShoppingCart = newCart;
+
+            return ShoppingCart;
+        }
+
         public Order PlaceOrder(ShoppingCart shoppingCart, Address shippingAddress, DateTime placedOn)
         {
             var order = Order.CreateNew(shoppingCart, shippingAddress, placedOn);
 
-            this.Orders.Add(order);
+            this.Orders.Add(order);            
 
             return order;
         }

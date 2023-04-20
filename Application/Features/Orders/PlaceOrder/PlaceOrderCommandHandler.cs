@@ -20,23 +20,26 @@ namespace Application.Features.Orders.PlaceOrder
         private readonly ICurrentUserService _userService;
         private readonly ICustomerRepository _customerRepository;
         private readonly IDateTimeProvider _dateTimeProvider;
+        private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly IOrderRepository _orderRepository;
 
         public PlaceOrderCommandHandler(ICurrentUserService userService,
                                         ICustomerRepository customerRepository,
                                         IDateTimeProvider dateTimeProvider,
+                                        IShoppingCartRepository shoppingCartRepository,
                                         IOrderRepository orderRepository)
         {
             _userService = userService;
             _customerRepository = customerRepository;
             _dateTimeProvider = dateTimeProvider;
+            _shoppingCartRepository = shoppingCartRepository;
             _orderRepository = orderRepository;
         }
         public async Task<Guid> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
         {
             var customerId = _userService.UserId;
             var customer = await _customerRepository.GetCustomerById(customerId);
-            var shoppingCart = customer.GetShoppingCart();
+            var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(customerId);
 
             if (shoppingCart == null)
             {
@@ -48,6 +51,8 @@ namespace Application.Features.Orders.PlaceOrder
             var order = customer.PlaceOrder(shoppingCart, shippingAddress, _dateTimeProvider.UtcNow);
 
             await _orderRepository.Add(order);
+
+            await _shoppingCartRepository.Delete(shoppingCart);
 
             return order.Id;
         }

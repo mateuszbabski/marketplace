@@ -34,6 +34,7 @@ namespace UnitTest.Domain.Customers
 
             Assert.Equal(OrderStatus.Cancelled, order.OrderStatus);
         }
+
         private static ShoppingCart GetSampleCart(Guid customerId)
         {
             var shoppingCart = ShoppingCart.CreateShoppingCart(customerId);
