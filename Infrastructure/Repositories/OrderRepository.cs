@@ -1,6 +1,8 @@
 ﻿using Domain.Customers.Entities.Orders;
 using Domain.Customers.Entities.Orders.Repositories;
+using Domain.Customers.Entities.Orders.ValueObjects;
 using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -24,6 +26,11 @@ namespace Infrastructure.Repositories
         public async Task Update(Order order)
         {
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Order> GetOrderById(OrderId Id)
+        {
+            return await _dbContext.Orders.FirstOrDefaultAsync(o => o.Id == Id);
         }
     }
 }
