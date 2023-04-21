@@ -40,7 +40,7 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Product>> GetAllProducts()
         {
-            return await _dbContext.Products.AsQueryable().ToListAsync();
+            return await _dbContext.Products.ToListAsync();
         }
     }
 }

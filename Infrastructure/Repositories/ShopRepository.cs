@@ -42,7 +42,7 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Shop>> GetAllShops()
         {
-            return await _dbContext.Shops.AsQueryable().ToListAsync();
+            return await _dbContext.Shops.ToListAsync();
         }
     }
 }

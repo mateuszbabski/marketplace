@@ -31,6 +31,7 @@ namespace Infrastructure.Repositories
         {
             return await _dbContext.Customers.Include(x => x.Orders)
                                              .Include(x => x.ShoppingCart)
+                                             .Include(x => x.ShoppingCart.Items)
                                              .FirstOrDefaultAsync(c => c.Id == id);
         }
     }

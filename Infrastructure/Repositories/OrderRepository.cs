@@ -1,6 +1,7 @@
 ﻿using Domain.Customers.Entities.Orders;
 using Domain.Customers.Entities.Orders.Repositories;
 using Domain.Customers.Entities.Orders.ValueObjects;
+using Domain.Customers.ValueObjects;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,9 +29,17 @@ namespace Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Order> GetOrderById(OrderId Id)
+        public async Task<Order> GetOrderById(OrderId Id, CustomerId customerId)
         {
-            return await _dbContext.Orders.FirstOrDefaultAsync(o => o.Id == Id);
+            return await _dbContext.Orders.Where(o => o.CustomerId == customerId)
+                                          .Include(o => o.OrderItems)
+                                          .FirstOrDefaultAsync(o => o.Id == Id);
+        }
+
+        public async Task<IEnumerable<Order>> GetAllOrdersForCustomer(CustomerId customerId)
+        {
+            return await _dbContext.Orders.Where(o => o.CustomerId == customerId)
+                                          .ToListAsync();
         }
     }
 }
