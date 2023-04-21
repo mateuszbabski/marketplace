@@ -40,17 +40,15 @@ namespace Domain.Customers.Entities.Orders
             CustomerId = shoppingCart.CustomerId;
             TotalPrice = shoppingCart.TotalPrice;
             ShippingAddress = shippingAddress;
+            OrderItems = new List<OrderItem>();
 
-            var orderItemsList = new List<OrderItem>();
             var cartItemsList = shoppingCart.Items;
 
             foreach (var cartItem in cartItemsList) 
             {
                 var orderItem = OrderItem.CreateFromShoppingCartItem(this.Id, cartItem);
-                orderItemsList.Add(orderItem);
+                OrderItems.Add(orderItem);
             }
-
-            OrderItems = orderItemsList;
         }
 
         internal static Order CreateNew(ShoppingCart shoppingCart,

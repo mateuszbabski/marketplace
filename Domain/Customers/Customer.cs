@@ -42,7 +42,6 @@ namespace Domain.Customers
             TelephoneNumber = telephoneNumber;
             Orders = new List<Order>();
             Role = Roles.customer;
-            Orders = new List<Order>();
         }
 
         public static Customer Create(Email email,
@@ -79,9 +78,9 @@ namespace Domain.Customers
             SetTelephoneNumber(telephoneNumber);
         }
 
-        public ShoppingCart CreateCart(CustomerId Id)
+        public ShoppingCart CreateCart(CustomerId CustomerId)
         {
-            var newCart = ShoppingCart.CreateShoppingCart(Id);
+            var newCart = ShoppingCart.CreateShoppingCart(CustomerId);
 
             ShoppingCart = newCart;
 

@@ -20,7 +20,7 @@ namespace Application.Features.Products.GetProductById
         {
             var product = await _productRepository.GetById(request.Id) ?? throw new Exception("Product not found");
 
-            var productVM = new ProductDto()
+            var productDto = new ProductDto()
             {
                 Id = product.Id,
                 ProductName = product.ProductName, 
@@ -31,7 +31,7 @@ namespace Application.Features.Products.GetProductById
                 Price = product.Price                
             };
 
-            return productVM;
+            return productDto;
         }
     }
 }
