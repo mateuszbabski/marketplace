@@ -29,33 +29,8 @@ namespace Application.Features.Orders.GetOrderById
                 throw new Exception("There is no Order with requested Id");
             }
 
-            var orderItemListDto = new List<OrderItemDto>();
-
-            foreach (var item in order.OrderItems)
-            {
-                var itemDto = new OrderItemDto()
-                {
-                    Id = item.Id,
-                    OrderId = item.Id,
-                    ProductId = item.ProductId,
-                    Quantity = item.Quantity,
-                    Price = item.Price
-                };
-
-                orderItemListDto.Add(itemDto);
-            }
-
-            var orderDto = new OrderDetailsDto()
-            {
-                Id = order.Id,
-                CustomerId = customerId,
-                OrderStatus = order.OrderStatus.ToString(),
-                TotalPrice = order.TotalPrice,
-                ShippingAddress = order.ShippingAddress,
-                PlacedOn = order.PlacedOn,
-                OrderItems = orderItemListDto
-            };
-
+            var orderDto = OrderDetailsDto.CreateOrderDetailsDtoFromObject(order);
+            
             return orderDto;
         }
     }

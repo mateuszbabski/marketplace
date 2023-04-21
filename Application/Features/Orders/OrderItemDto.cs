@@ -1,4 +1,5 @@
-﻿using Domain.Customers.Entities.Orders.ValueObjects;
+﻿using Domain.Customers.Entities.Orders;
+using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products.ValueObjects;
 using System;
@@ -9,12 +10,22 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Orders
 {
-    public class OrderItemDto
+    public record OrderItemDto
     {
-        public Guid Id { get; set; }
-        public Guid OrderId { get; set; }
-        public Guid ProductId { get; set; }
-        public int Quantity { get; set; }
-        public MoneyValue Price { get; set; }
+        public Guid Id { get; private set; }
+        public Guid ProductId { get; private set; }
+        public int Quantity { get; private set; }
+        public MoneyValue Price { get; private set; }
+
+        public static OrderItemDto CreateOrderItemDtoFromObject(OrderItem orderItem)
+        {
+            return new OrderItemDto()
+            {
+                Id = orderItem.Id,
+                ProductId = orderItem.ProductId,
+                Quantity = orderItem.Quantity,
+                Price = orderItem.Price,
+            };
+        }
     }
 }

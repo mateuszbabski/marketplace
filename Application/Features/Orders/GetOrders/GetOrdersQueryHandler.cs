@@ -33,14 +33,7 @@ namespace Application.Features.Orders.GetOrders
 
             foreach (var order in orders)
             {
-                var orderDto = new OrderDto()
-                {
-                    Id = order.Id,
-                    CustomerId = customerId,
-                    OrderStatus = order.OrderStatus.ToString(),
-                    TotalPrice = order.TotalPrice,
-                    PlacedOn = order.PlacedOn
-                };
+                var orderDto = OrderDto.CreateOrderDtoFromObject(order);               
 
                 orderList.Add(orderDto);
             }
