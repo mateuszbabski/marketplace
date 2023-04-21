@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Shops.GetShopDetails
 {
-    public class GetShopDetailsQuery : IRequest<ShopDto>
+    public class GetShopDetailsQuery : IRequest<ShopDetailsDto>
     {
         public Guid Id { get; set; }
     }
