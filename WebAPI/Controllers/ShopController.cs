@@ -1,11 +1,9 @@
 ﻿using Application.Features.Shops;
-using Application.Features.Shops.GetShopDetails;
+using Application.Features.Shops.GetAllShops;
+using Application.Features.Shops.GetShopById;
 using Application.Features.Shops.UpdateShopDetails;
-using Domain.Shops;
-using Domain.Shops.Entities.Products;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -29,15 +27,23 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}", Name = "Get-detailed-shop")]
-        public async Task<ActionResult<ShopDto>> GetShopAsync(Guid id)
+        [HttpGet("{id}", Name = "GetShopById")]
+        public async Task<ActionResult<ShopDetailsDto>> GetShopAsync(Guid id)
         {
-            var shop = await _mediator.Send(new GetShopDetailsQuery()
+            var shop = await _mediator.Send(new GetShopByIdQuery()
             {
                 Id = id
             });
 
             return Ok(shop);
-        }        
+        }
+
+        [HttpGet("GetAllShops")]
+        public async Task<ActionResult<IEnumerable<ShopDto>>> GetAllShops()
+        {
+            var shops = await _mediator.Send(new GetAllShopsQuery());
+
+            return Ok(shops);
+        }
     }
 }

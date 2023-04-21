@@ -1,7 +1,6 @@
 ﻿using Application.Authentication;
 using Application.Authentication.Services;
 using Application.Features.Customers.GetCustomerDetails;
-using Application.Features.Shops.GetShopDetails;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
