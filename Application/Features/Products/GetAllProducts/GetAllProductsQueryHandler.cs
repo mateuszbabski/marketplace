@@ -25,16 +25,7 @@ namespace Application.Features.Products.GetAllProducts
 
             foreach (var product in products)
             {
-                var productDto = new ProductDto()
-                {
-                    Id = product.Id,
-                    ProductName = product.ProductName,
-                    ProductDescription = product.ProductDescription,
-                    Unit = product.Unit,
-                    IsAvailable = product.IsAvailable,
-                    ShopId = product.ShopId,
-                    Price = product.Price
-                };
+                var productDto = ProductDto.CreateProductDtoFromObject(product);
 
                 productList.Add(productDto);                
             }            

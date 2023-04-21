@@ -20,16 +20,7 @@ namespace Application.Features.Products.GetProductById
         {
             var product = await _productRepository.GetById(request.Id) ?? throw new Exception("Product not found");
 
-            var productDto = new ProductDto()
-            {
-                Id = product.Id,
-                ProductName = product.ProductName, 
-                ProductDescription = product.ProductDescription,
-                Unit = product.Unit,
-                IsAvailable = product.IsAvailable,
-                ShopId = product.ShopId,
-                Price = product.Price                
-            };
+            var productDto = ProductDto.CreateProductDtoFromObject(product);
 
             return productDto;
         }
