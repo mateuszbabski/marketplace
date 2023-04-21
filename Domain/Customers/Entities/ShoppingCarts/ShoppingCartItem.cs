@@ -14,7 +14,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
 {
     public class ShoppingCartItem
     {
-        public ShoppingCartItemId Id { get; set; }
+        public ShoppingCartItemId Id { get; private set; }
         public ProductId ProductId { get; private set; }
         public ShoppingCartId ShoppingCartId { get; private set; }
         public int Quantity { get; private set; } = 1;

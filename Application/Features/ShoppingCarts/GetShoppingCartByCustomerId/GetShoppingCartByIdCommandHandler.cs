@@ -24,15 +24,30 @@ namespace Application.Features.ShoppingCarts.GetShoppingCartByCustomerId
                 throw new Exception("Cart not found.");
             }
 
-            var shoppingCartVM = new ShoppingCartDto()
+            var shoppingCartItemsList = new List<ShoppingCartItemDto>();
+
+            foreach (var item in shoppingCart.Items)
+            {
+                var itemDto = new ShoppingCartItemDto()
+                {
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    Price = item.Price,
+                    Quantity = item.Quantity
+                };
+
+                shoppingCartItemsList.Add(itemDto);
+            }
+
+            var shoppingCartDto = new ShoppingCartDto()
             {
                 Id = shoppingCart.Id,
                 CustomerId = shoppingCart.CustomerId,
                 TotalPrice = shoppingCart.TotalPrice,
-                Items = shoppingCart.Items
+                Items = shoppingCartItemsList
             };
 
-            return shoppingCartVM;
+            return shoppingCartDto;
         }
     }
 }

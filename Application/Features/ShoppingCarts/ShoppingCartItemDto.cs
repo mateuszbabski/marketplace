@@ -1,7 +1,6 @@
 ﻿using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
-using Domain.Customers.Entities.ShoppingCarts;
-using Domain.Customers.ValueObjects;
 using Domain.Shared.ValueObjects;
+using Domain.Shops.Entities.Products.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.ShoppingCarts
 {
-    public class ShoppingCartDto
+    public class ShoppingCartItemDto
     {
         public Guid Id { get; set; }
-        public Guid CustomerId { get; set; }
-        public List<ShoppingCartItemDto> Items { get; set; }
-        public MoneyValue TotalPrice { get; set; }
+        public Guid ProductId { get; set; }
+        public int Quantity { get; set; }
+        public MoneyValue Price { get; set; }
     }
 }

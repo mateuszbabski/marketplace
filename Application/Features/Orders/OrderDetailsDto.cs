@@ -15,7 +15,7 @@ namespace Application.Features.Orders
         public Guid CustomerId { get; set; }
         public MoneyValue TotalPrice { get; set; }
         public Address ShippingAddress { get; set; }
-        public IEnumerable<OrderItem> OrderItems { get; set; }
+        public List<OrderItemDto> OrderItems { get; set; }
         public DateTime PlacedOn { get; set; }
     }
 }
