@@ -10,11 +10,31 @@ using System.Threading.Tasks;
 
 namespace Application.Features.ShoppingCarts
 {
-    public class ShoppingCartDto
+    public record ShoppingCartDto
     {
-        public Guid Id { get; set; }
-        public Guid CustomerId { get; set; }
-        public List<ShoppingCartItemDto> Items { get; set; }
-        public MoneyValue TotalPrice { get; set; }
+        public Guid Id { get; private set; }
+        public Guid CustomerId { get; private set; }
+        public List<ShoppingCartItemDto> Items { get; private set; }
+        public MoneyValue TotalPrice { get; private set; }
+
+        public static ShoppingCartDto CreateShoppingCartDtoFromObject(ShoppingCart shoppingCart)
+        {
+            var shoppingCartItemsList = new List<ShoppingCartItemDto>();
+
+            foreach (var item in shoppingCart.Items)
+            {
+                var shoppingCartItemDto = ShoppingCartItemDto.CreateCartItemDtoFromObject(item);
+
+                shoppingCartItemsList.Add(shoppingCartItemDto);
+            }
+
+            return new ShoppingCartDto()
+            {
+                Id = shoppingCart.Id,
+                CustomerId = shoppingCart.CustomerId,
+                TotalPrice = shoppingCart.TotalPrice,
+                Items = shoppingCartItemsList
+            };
+        }
     }
 }
