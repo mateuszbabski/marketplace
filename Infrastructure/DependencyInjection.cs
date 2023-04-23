@@ -34,13 +34,13 @@ namespace Infrastructure
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddSingleton<ITokenManager, TokenManager>();
             services.AddSingleton<IHashingService, HashingService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<ICustomerRepository, CustomerRepository>(); 
             services.AddScoped<IShopRepository, ShopRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
                         
             services.AddAuthentication(opt =>
             {
