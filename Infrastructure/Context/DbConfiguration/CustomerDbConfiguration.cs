@@ -120,6 +120,8 @@ namespace Infrastructure.Context.DbConfiguration
 
             builder.Property(c => c.PlacedOn).HasColumnName("PlacedOn");
 
+            builder.Property(c => c.StatusChanged).HasColumnName("StatusChanged");
+
             builder.Property(c => c.OrderStatus)
                    .HasConversion(v => v.ToString(),
                                   v => (OrderStatus)Enum.Parse(typeof(OrderStatus), v));

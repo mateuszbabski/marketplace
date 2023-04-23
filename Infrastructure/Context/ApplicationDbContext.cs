@@ -3,6 +3,7 @@ using Domain.Customers.Entities.Orders;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Shops;
 using Domain.Shops.Entities.Products;
+using Domain.Shops.Entities.ShopOrders;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Context
@@ -20,6 +21,8 @@ namespace Infrastructure.Context
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ShopOrder> ShopOrders { get; set; }
+        public DbSet<ShopOrderItem> ShopOrderItems { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {
