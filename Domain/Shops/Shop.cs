@@ -4,6 +4,7 @@ using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.Rules;
+using Domain.Shops.Entities.ShopOrders;
 
 namespace Domain.Shops
 {
@@ -20,10 +21,12 @@ namespace Domain.Shops
         public TelephoneNumber ContactNumber { get; private set; }
         public Roles Role { get; private set; } = Roles.shop;
         public List<Product> ProductList { get; private set; }
+        public List<ShopOrder> ShopOrdersList { get; private set; }
 
         private Shop() 
         { 
-            ProductList = new List<Product>();  
+            ProductList = new List<Product>();
+            ShopOrdersList = new List<ShopOrder>();
         }
         internal Shop(Email email,
                       PasswordHash passwordHash,
@@ -45,6 +48,7 @@ namespace Domain.Shops
             ContactNumber = contactNumber;
             Role = Roles.shop;
             ProductList = new List<Product>();
+            ShopOrdersList = new List<ShopOrder>();
         }
 
         public static Shop Create(Email email,

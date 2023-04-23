@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Customers.Entities.Orders.Repositories;
+using Domain.Shops.Entities.ShopOrders.Repositories;
 
 namespace Infrastructure
 {
@@ -41,7 +42,8 @@ namespace Infrastructure
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
-                        
+            services.AddScoped<IShopOrderRepository, ShopOrderRepository>();
+
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
