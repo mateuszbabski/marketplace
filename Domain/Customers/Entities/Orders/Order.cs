@@ -22,6 +22,7 @@ namespace Domain.Customers.Entities.Orders
         public Address ShippingAddress { get; private set; }
         public List<OrderItem> OrderItems { get; private set; }
         public DateTime PlacedOn { get; private set; } = DateTime.UtcNow;
+        //public DateTime? StatusChanged { get; private set; } = null;
         [JsonIgnore]
         public virtual Customer Customer { get; private set; }
 
@@ -62,6 +63,7 @@ namespace Domain.Customers.Entities.Orders
         {
             if (this.OrderStatus == OrderStatus.WaitingForPayment || this.OrderStatus == OrderStatus.InProgress)
             {
+                //this.StatusChanged = DateTime.Now;
                 this.OrderStatus = OrderStatus.Cancelled;
             }
         }
