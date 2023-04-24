@@ -57,11 +57,11 @@ $ dotnet run
 Done:
 - Register/Login for Customer and Shop separately
 - Adding, updating and deleting products available to buy
-- Creating shopping cart. Adding, removing products and deleting cart.
+- Creating shopping cart. Adding, removing products and deleting cart
+- Placing and cancelling orders
 
 To implement:
 - Searching products
-- Placing orders
 - Splitting order to notify all shops owners about products to prepare
 - Creating and sending invoices
 - Sending email notifications about orders
