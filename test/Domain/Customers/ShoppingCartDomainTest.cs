@@ -22,7 +22,7 @@ namespace UnitTest.Domain.Customers
             var product = ProductFactory.CreateProduct();
             var shoppingCart = GetShoppingCart();
 
-            shoppingCart.AddProductToShoppingCart(product.Id, 1, product.Price);
+            shoppingCart.AddProductToShoppingCart(product, 1);
 
             var cartItem = shoppingCart.Items.FirstOrDefault(x => x.ProductId == product.Id);
 
@@ -37,7 +37,7 @@ namespace UnitTest.Domain.Customers
             var product = ProductFactory.CreateProduct();
             var shoppingCart = GetShoppingCart();
 
-            var act = Assert.Throws<InvalidQuantityException>(() => shoppingCart.AddProductToShoppingCart(product.Id, 0, product.Price));
+            var act = Assert.Throws<InvalidQuantityException>(() => shoppingCart.AddProductToShoppingCart(product, 0));
 
             var cartItem = shoppingCart.Items.FirstOrDefault(x => x.ProductId == product.Id);
             
@@ -51,7 +51,7 @@ namespace UnitTest.Domain.Customers
             var product = ProductFactory.CreateProduct();
             var shoppingCart = GetShoppingCart();
 
-            shoppingCart.AddProductToShoppingCart(product.Id, 1, product.Price);
+            shoppingCart.AddProductToShoppingCart(product, 1);
 
             var cartItem = shoppingCart.Items.FirstOrDefault(x => x.ProductId == product.Id);
             

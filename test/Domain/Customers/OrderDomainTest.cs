@@ -39,7 +39,7 @@ namespace UnitTest.Domain.Customers
         {
             var shoppingCart = ShoppingCart.CreateShoppingCart(customerId);
             var product = ProductFactory.CreateProduct();
-            shoppingCart.AddProductToShoppingCart(product.Id, 10, MoneyValue.Of(10, "PLN"));
+            shoppingCart.AddProductToShoppingCart(product, 10);
 
             return shoppingCart;
         }    
