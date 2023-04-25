@@ -11,13 +11,13 @@ namespace Application.Features.Products
 {
     public record ProductDto
     {
-        public Guid Id { get; private set; }
-        public string ProductName { get; private set; }
-        public string ProductDescription { get; private set; }
-        public MoneyValue Price { get; private set; }
-        public string Unit { get; private set; }
-        public Guid ShopId { get; private set; }
-        public bool IsAvailable { get; private set; }
+        public Guid Id { get; init; }
+        public string ProductName { get; init; }
+        public string ProductDescription { get; init; }
+        public MoneyValue Price { get; init; }
+        public string Unit { get; init; }
+        public Guid ShopId { get; init; }
+        public bool IsAvailable { get; init; }
 
         public static ProductDto CreateProductDtoFromObject(Product product)
         {

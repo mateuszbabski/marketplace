@@ -10,14 +10,14 @@ namespace Application.Features.Shops
 {
     public record ShopDto
     {
-        public Guid Id { get; private set; }
-        public string Email { get; private set; }
-        public string ShopName { get; private set; }
-        public string ContactNumber { get; private set; }
-        public string Country { get; private set; }
-        public string City { get; private set; }
-        public string Street { get; private set; }
-        public string PostalCode { get; private set; }
+        public Guid Id { get; init; }
+        public string Email { get; init; }
+        public string ShopName { get; init; }
+        public string ContactNumber { get; init; }
+        public string Country { get; init; }
+        public string City { get; init; }
+        public string Street { get; init; }
+        public string PostalCode { get; init; }
 
         public static ShopDto CreateShopDtoFromObject(Shop shop)
         {

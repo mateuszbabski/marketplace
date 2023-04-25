@@ -12,10 +12,10 @@ namespace Application.Features.Orders
 {
     public record OrderItemDto
     {
-        public Guid Id { get; private set; }
-        public Guid ProductId { get; private set; }
-        public int Quantity { get; private set; }
-        public MoneyValue Price { get; private set; }
+        public Guid Id { get; init; }
+        public Guid ProductId { get; init; }
+        public int Quantity { get; init; }
+        public MoneyValue Price { get; init; }
 
         public static OrderItemDto CreateOrderItemDtoFromObject(OrderItem orderItem)
         {

@@ -7,11 +7,11 @@ namespace Application.Features.Orders
 {
     public record OrderDto
     {
-        public Guid Id { get; private set; }
-        public string OrderStatus { get; private set; }
-        public Guid CustomerId { get; private set; }
-        public MoneyValue TotalPrice { get; private set; }
-        public DateTime PlacedOn { get; private set; }
+        public Guid Id { get; init; }
+        public string OrderStatus { get; init; }
+        public Guid CustomerId { get; init; }
+        public MoneyValue TotalPrice { get; init; }
+        public DateTime PlacedOn { get; init; }
 
         public static OrderDto CreateOrderDtoFromObject(Order order)
         {

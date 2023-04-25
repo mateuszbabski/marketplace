@@ -12,10 +12,10 @@ namespace Application.Features.ShoppingCarts
 {
     public record ShoppingCartItemDto
     {
-        public Guid Id { get; private set; }
-        public Guid ProductId { get; private set; }
-        public int Quantity { get; private set; }
-        public MoneyValue Price { get; private set; }
+        public Guid Id { get; init; }
+        public Guid ProductId { get; init; }
+        public int Quantity { get; init; }
+        public MoneyValue Price { get; init; }
 
         public static ShoppingCartItemDto CreateCartItemDtoFromObject(ShoppingCartItem shoppingCartItem)
         {

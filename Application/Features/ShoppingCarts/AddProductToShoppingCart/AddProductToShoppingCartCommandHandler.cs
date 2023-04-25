@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
+using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.Repositories;
 using MediatR;
 
@@ -25,8 +26,8 @@ namespace Application.Features.ShoppingCarts.AddProductToShoppingCart
             var customerId = _userService.UserId;
             var product = await _productRepository.GetById(request.ProductId);
             var shoppingCart = await ReturnOrCreateNewShoppingCart(customerId);
-
-            shoppingCart.AddProductToShoppingCart(request.ProductId, request.Quantity, product.GetPrice());
+                        
+            shoppingCart.AddProductToShoppingCart(product, request.Quantity);
 
             await _shoppingCartRepository.Update(shoppingCart);            
 
