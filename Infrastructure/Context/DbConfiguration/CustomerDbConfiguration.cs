@@ -8,6 +8,7 @@ using Domain.Shared.ValueObjects;
 using Domain.Shops;
 using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.ValueObjects;
+using Domain.Shops.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -100,6 +101,9 @@ namespace Infrastructure.Context.DbConfiguration
 
             builder.Property(c => c.ProductId)
                    .HasConversion(c => c.Value, c => new ProductId(c));
+
+            builder.Property(c => c.ShopId)
+                   .HasConversion(c => c.Value, c => new ShopId(c));
 
             builder.Property(c => c.Quantity).HasColumnName("Quantity");
 
