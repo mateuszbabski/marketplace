@@ -2,12 +2,7 @@
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Domain.Customers.Entities.Orders
 {

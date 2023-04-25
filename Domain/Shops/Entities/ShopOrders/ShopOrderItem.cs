@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Domain.Shops.Entities.ShopOrders.ValueObjects;
+using Domain.Customers.Entities.ShoppingCarts;
 
 namespace Domain.Shops.Entities.ShopOrders
 {
@@ -21,15 +22,20 @@ namespace Domain.Shops.Entities.ShopOrders
         public MoneyValue Price { get; private set; }
         [JsonIgnore]
         public virtual ShopOrder ShopOrder { get; set; }
-        //private ShopOrderItem() { }
-        private ShopOrderItem() 
+
+        private ShopOrderItem() { }
+        private ShopOrderItem(ShopOrderId shopOrderId, ShoppingCartItem shoppingCartItem) 
         {
             Id = Guid.NewGuid();
+            ShopOrderId = shopOrderId;
+            ProductId = shoppingCartItem.ProductId;
+            Quantity = shoppingCartItem.Quantity;
+            Price = shoppingCartItem.Price;
         }
 
-        public static ShopOrderItem CreateShopOrderItem()
+        public static ShopOrderItem CreateShopOrderItem(ShopOrderId shopOrderId, ShoppingCartItem shoppingCartItem)
         {
-            return new ShopOrderItem();
+            return new ShopOrderItem(shopOrderId, shoppingCartItem);
         }
     }
 }

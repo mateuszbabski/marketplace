@@ -1,6 +1,7 @@
 ﻿using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.ValueObjects;
+using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.ValueObjects;
 namespace Domain.Customers.Entities.ShoppingCarts
 {
@@ -36,28 +37,49 @@ namespace Domain.Customers.Entities.ShoppingCarts
         {
             return TotalPrice;
         }
-
-        public void AddProductToShoppingCart(ProductId productId, int quantity, MoneyValue productPrice)
+        
+        public void AddProductToShoppingCart(Product product, int quantity)
         {
             //TODO CONVERT PRODUCT MONEYVALUE TO SHOPPINGCART CURRENCY
             //TODO WHILE CREATING ORDER CHOOSE CURRENCY AND CONVERT ALL PRICES
-            var shoppingCartItem = Items.FirstOrDefault(x => x.ProductId == productId);
+            var shoppingCartItem = Items.FirstOrDefault(x => x.ProductId == product.Id);
 
             if (shoppingCartItem == null)
             {
-                var newShoppingCartItem = ShoppingCartItem.CreateShoppingCartItemFromProduct(productId,
+                var newShoppingCartItem = ShoppingCartItem.CreateShoppingCartItemFromProduct(product,
                                                                                              Id,
-                                                                                             quantity,
-                                                                                             productPrice);
+                                                                                             quantity);
                 Items.Add(newShoppingCartItem);
             }
             else
             {
-                shoppingCartItem.ChangeCartItemQuantity(quantity, productPrice);
+                shoppingCartItem.ChangeCartItemQuantity(quantity, product.Price);
             }
 
             this.TotalPrice = CountTotalPrice(this.Items);
         }
+
+        //public void AddProductToShoppingCart(ProductId productId, int quantity, MoneyValue productPrice)            
+        //{            
+        //    //TODO CONVERT PRODUCT MONEYVALUE TO SHOPPINGCART CURRENCY
+        //    //TODO WHILE CREATING ORDER CHOOSE CURRENCY AND CONVERT ALL PRICES
+        //    var shoppingCartItem = Items.FirstOrDefault(x => x.ProductId == productId);            
+
+        //    if (shoppingCartItem == null)
+        //    {
+        //        var newShoppingCartItem = ShoppingCartItem.CreateShoppingCartItemFromProduct(productId,
+        //                                                                                     Id,
+        //                                                                                     quantity,
+        //                                                                                     productPrice);
+        //        Items.Add(newShoppingCartItem);
+        //    }
+        //    else
+        //    {
+        //        shoppingCartItem.ChangeCartItemQuantity(quantity, productPrice);
+        //    }
+
+        //    this.TotalPrice = CountTotalPrice(this.Items);
+        //}
 
         public void RemoveItemFromCart(ShoppingCartItemId shoppingCartItemId)
         {
