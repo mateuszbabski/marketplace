@@ -2,6 +2,8 @@
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.ValueObjects;
+using Domain.Shops.Entities.ShopOrders;
+using Domain.Shops.Entities.ShopOrders.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -23,12 +25,14 @@ namespace Domain.Customers.Entities.Orders
         public List<OrderItem> OrderItems { get; private set; }
         public DateTime PlacedOn { get; private set; } = DateTime.UtcNow;
         public DateTime? StatusChanged { get; private set; } = null;
+        public List<ShopOrder> ShopOrders { get; private set; }
         [JsonIgnore]
         public virtual Customer Customer { get; private set; }
 
         private Order() 
         {
             OrderItems = new List<OrderItem>();
+            ShopOrders = new List<ShopOrder>();
         }
 
         private Order(ShoppingCart shoppingCart,
@@ -42,6 +46,7 @@ namespace Domain.Customers.Entities.Orders
             TotalPrice = shoppingCart.TotalPrice;
             ShippingAddress = shippingAddress;
             OrderItems = new List<OrderItem>();
+            ShopOrders = new List<ShopOrder>();
 
             var cartItemsList = shoppingCart.Items;
 
@@ -51,10 +56,9 @@ namespace Domain.Customers.Entities.Orders
                 OrderItems.Add(orderItem);
             }
         }
-
         internal static Order CreateNew(ShoppingCart shoppingCart,
                                         Address shippingAddress,
-                                        DateTime placedOn) 
+                                        DateTime placedOn)
         {
             return new Order(shoppingCart, shippingAddress, placedOn);
         }

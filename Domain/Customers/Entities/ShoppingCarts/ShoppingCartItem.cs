@@ -26,28 +26,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
         [JsonIgnore]
         public virtual ShoppingCart ShoppingCart { get; set; }
 
-        private ShoppingCartItem() { }
-        //private ShoppingCartItem(ProductId productId, ShoppingCartId shoppingCartId, int quantity, MoneyValue productPrice)
-        //{
-        //    Id = new ShoppingCartItemId(Guid.NewGuid());
-        //    ProductId = productId;
-        //    ShoppingCartId = shoppingCartId;
-        //    Quantity = quantity;
-        //    Price = CountCartItemPrice(quantity, productPrice);
-        //}
-
-        //internal static ShoppingCartItem CreateShoppingCartItemFromProduct(ProductId productId,
-        //                                                                   ShoppingCartId shoppingCartId,
-        //                                                                   int quantity,
-        //                                                                   MoneyValue productPrice)
-        //{
-        //    if (quantity <= 0)
-        //    {
-        //        throw new InvalidQuantityException();
-        //    }
-
-        //    return new ShoppingCartItem(productId, shoppingCartId, quantity, productPrice);
-        //}
+        private ShoppingCartItem() { }      
         
         private ShoppingCartItem(Product product, ShoppingCartId shoppingCartId, int quantity)
         {

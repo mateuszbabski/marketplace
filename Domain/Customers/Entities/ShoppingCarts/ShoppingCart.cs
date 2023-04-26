@@ -58,29 +58,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
 
             this.TotalPrice = CountTotalPrice(this.Items);
         }
-
-        //public void AddProductToShoppingCart(ProductId productId, int quantity, MoneyValue productPrice)            
-        //{            
-        //    //TODO CONVERT PRODUCT MONEYVALUE TO SHOPPINGCART CURRENCY
-        //    //TODO WHILE CREATING ORDER CHOOSE CURRENCY AND CONVERT ALL PRICES
-        //    var shoppingCartItem = Items.FirstOrDefault(x => x.ProductId == productId);            
-
-        //    if (shoppingCartItem == null)
-        //    {
-        //        var newShoppingCartItem = ShoppingCartItem.CreateShoppingCartItemFromProduct(productId,
-        //                                                                                     Id,
-        //                                                                                     quantity,
-        //                                                                                     productPrice);
-        //        Items.Add(newShoppingCartItem);
-        //    }
-        //    else
-        //    {
-        //        shoppingCartItem.ChangeCartItemQuantity(quantity, productPrice);
-        //    }
-
-        //    this.TotalPrice = CountTotalPrice(this.Items);
-        //}
-
+        
         public void RemoveItemFromCart(ShoppingCartItemId shoppingCartItemId)
         {
             var item = Items.FirstOrDefault(x => x.Id == shoppingCartItemId);

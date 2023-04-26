@@ -2,6 +2,7 @@
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products.ValueObjects;
+using Domain.Shops.ValueObjects;
 using System.Text.Json.Serialization;
 
 namespace Domain.Customers.Entities.Orders
