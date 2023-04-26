@@ -146,6 +146,10 @@ namespace Infrastructure.Context.DbConfiguration
                    .WithOne(c => c.Order)
                    .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(c => c.ShopOrders)
+                   .WithOne(c => c.Order)
+                   .OnDelete(DeleteBehavior.Cascade);
+
             builder.ToTable("Orders");
         }
 

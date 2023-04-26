@@ -112,12 +112,15 @@ namespace Infrastructure.Context.DbConfiguration
             builder.Property(c => c.CustomerId)
                    .HasConversion(c => c.Value, c => new CustomerId(c));
 
+            builder.Property(c => c.OrderId)
+                   .HasConversion(c => c.Value, c => new OrderId(c));
+
             builder.OwnsOne(c => c.ShippingAddress, sa =>
             {
-                sa.Property(x => x.Country).HasColumnName("Country");
-                sa.Property(x => x.City).HasColumnName("City");
-                sa.Property(x => x.Street).HasColumnName("Street");
-                sa.Property(x => x.PostalCode).HasColumnName("PostalCode");
+                sa.Property(x => x.Country).HasColumnName("Country").IsRequired();
+                sa.Property(x => x.City).HasColumnName("City").IsRequired();
+                sa.Property(x => x.Street).HasColumnName("Street").IsRequired();
+                sa.Property(x => x.PostalCode).HasColumnName("PostalCode").IsRequired();
             });
 
             builder.OwnsOne(c => c.TotalPrice, mv =>
@@ -136,6 +139,10 @@ namespace Infrastructure.Context.DbConfiguration
 
             builder.HasOne(c => c.Shop)
                    .WithMany(p => p.ShopOrdersList)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(c => c.Order)
+                   .WithMany(p => p.ShopOrders)
                    .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(c => c.ShopOrderItems)
