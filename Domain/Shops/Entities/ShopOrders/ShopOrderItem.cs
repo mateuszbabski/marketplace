@@ -26,7 +26,7 @@ namespace Domain.Shops.Entities.ShopOrders
         private ShopOrderItem() { }
         private ShopOrderItem(ShopOrderId shopOrderId, ShoppingCartItem shoppingCartItem) 
         {
-            Id = Guid.NewGuid();
+            Id = new ShopOrderItemId(Guid.NewGuid());
             ShopOrderId = shopOrderId;
             ProductId = shoppingCartItem.ProductId;
             Quantity = shoppingCartItem.Quantity;

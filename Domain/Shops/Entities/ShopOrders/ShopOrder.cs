@@ -15,6 +15,7 @@ namespace Domain.Shops.Entities.ShopOrders
         public ShopOrderId Id { get; private set; }
         public ShopId ShopId { get; private set; }
         public CustomerId CustomerId { get; private set; }
+        public OrderId OrderId { get; private set; }
         public Address ShippingAddress { get; private set; }
         public MoneyValue TotalPrice { get; private set; }
         public ShopOrderStatus ShopOrderStatus { get; private set; } = ShopOrderStatus.InProgress;
@@ -25,13 +26,20 @@ namespace Domain.Shops.Entities.ShopOrders
         [JsonIgnore]
         public virtual Shop Shop { get; private set; }
 
-        private ShopOrder() { }
-        private ShopOrder(Order order, List<ShoppingCartItem> shoppingCartItems) 
+        [JsonIgnore]
+        public virtual Order Order { get; private set; }
+
+        private ShopOrder() 
         {
-            Id = Guid.NewGuid();            
+            ShopOrderItems = new List<ShopOrderItem>();
+        }
+        private ShopOrder(Order order, Address shippingAddress, List<ShoppingCartItem> shoppingCartItems) 
+        {            
+            Id = new ShopOrderId(Guid.NewGuid());            
             ShopId = shoppingCartItems.First().ShopId;
             CustomerId = order.CustomerId;
-            ShippingAddress = order.ShippingAddress;
+            OrderId = order.Id;
+            ShippingAddress = shippingAddress;
             PlacedOn = order.PlacedOn;
             ShopOrderStatus = ShopOrderStatus.WaitingForPayment;
             ShopOrderItems = new List<ShopOrderItem>();
@@ -48,10 +56,15 @@ namespace Domain.Shops.Entities.ShopOrders
         }
         public static ShopOrder CreateShopOrder(Order order, List<ShoppingCartItem> shoppingCartItems)
         {
-            return new ShopOrder(order, shoppingCartItems);
+            var shippingAddress = Address.CreateAddress(order.ShippingAddress.Country,
+                                                order.ShippingAddress.City,
+                                                order.ShippingAddress.Street,
+                                                order.ShippingAddress.PostalCode);
+
+            return new ShopOrder(order, shippingAddress, shoppingCartItems);
         }
 
-        private MoneyValue CountTotalPrice(List<ShoppingCartItem> items, string currency)
+        private static MoneyValue CountTotalPrice(List<ShoppingCartItem> items, string currency)
         {
             decimal allProductsPrice = items.Sum(x => x.Price.Amount);
 
