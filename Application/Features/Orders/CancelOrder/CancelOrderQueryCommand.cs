@@ -32,6 +32,8 @@ namespace Application.Features.Orders.CancelOrder
 
             customer.CancelOrder(request.Id);
 
+            // cancelling order by user cancels all related for shops or deletes them
+
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
