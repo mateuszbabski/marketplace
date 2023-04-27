@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.GetAllProducts
 {
-    public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, List<ProductDto>>
+    public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, IEnumerable<ProductDto>>
     {
         private readonly IProductRepository _productRepository;
 
@@ -17,18 +17,11 @@ namespace Application.Features.Products.GetAllProducts
         {
             _productRepository = productRepository;
         }
-        public async Task<List<ProductDto>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProductDto>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
             var products = await _productRepository.GetAllProducts() ?? throw new Exception("Products not found");
 
-            var productList = new List<ProductDto>();
-
-            foreach (var product in products)
-            {
-                var productDto = ProductDto.CreateProductDtoFromObject(product);
-
-                productList.Add(productDto);                
-            }            
+            var productList = ProductDto.CreateProductDtoFromObject(products);    
             
             return productList;
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.GetProductById
 {
-    public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductDto>
+    public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductDetailsDto>
     {
         private readonly IProductRepository _productRepository;
 
@@ -16,11 +16,11 @@ namespace Application.Features.Products.GetProductById
         {
             _productRepository = productRepository;
         }
-        public async Task<ProductDto> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ProductDetailsDto> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetById(request.Id) ?? throw new Exception("Product not found");
 
-            var productDto = ProductDto.CreateProductDtoFromObject(product);
+            var productDto = ProductDetailsDto.CreateProductDtoFromObject(product);
 
             return productDto;
         }

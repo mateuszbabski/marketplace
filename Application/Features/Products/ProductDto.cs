@@ -1,4 +1,5 @@
-﻿using Domain.Shared.ValueObjects;
+﻿using Application.Features.Shops;
+using Domain.Shared.ValueObjects;
 using Domain.Shops;
 using Domain.Shops.Entities.Products;
 using System;
@@ -19,18 +20,26 @@ namespace Application.Features.Products
         public Guid ShopId { get; init; }
         public bool IsAvailable { get; init; }
 
-        public static ProductDto CreateProductDtoFromObject(Product product)
+        public static IEnumerable<ProductDto> CreateProductDtoFromObject(IEnumerable<Product> products)
         {
-            return new ProductDto()
+            var productList = new List<ProductDto>();
+
+            foreach (var product in products)
             {
-                Id = product.Id,
-                ProductName = product.ProductName,
-                ProductDescription = product.ProductDescription,
-                Price = product.Price,
-                Unit = product.Unit,
-                ShopId = product.ShopId,
-                IsAvailable = product.IsAvailable,
-            };
+                var productDto = new ProductDto()
+                {
+                    Id = product.Id,
+                    ProductName = product.ProductName,
+                    ProductDescription = product.ProductDescription,
+                    Price = product.Price,
+                    Unit = product.Unit,
+                    ShopId = product.ShopId,
+                    IsAvailable = product.IsAvailable,
+                };
+
+                productList.Add(productDto);
+            }
+            return productList;
         }
     }
 }

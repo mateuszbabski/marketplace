@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.GetAllProducts
 {
-    public class GetAllProductsQuery : IRequest<List<ProductDto>>
+    public class GetAllProductsQuery : IRequest<IEnumerable<ProductDto>>
     {
     }
 }
