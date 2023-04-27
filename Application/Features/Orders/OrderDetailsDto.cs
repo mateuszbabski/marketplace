@@ -1,5 +1,7 @@
-﻿using Domain.Customers.Entities.Orders;
+﻿using Application.Features.ShopOrders;
+using Domain.Customers.Entities.Orders;
 using Domain.Shared.ValueObjects;
+using Domain.Shops.Entities.ShopOrders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +17,10 @@ namespace Application.Features.Orders
         public Guid CustomerId { get; init; }
         public MoneyValue TotalPrice { get; init; }
         public Address ShippingAddress { get; init; }
-        public List<OrderItemDto> OrderItems { get; init; }
         public DateTime PlacedOn { get; init; }
+        public DateTime? StatusChanged { get; init; }
+        public List<OrderItemDto> OrderItems { get; init; }
+        public List<ShopOrderDto> ShopOrders { get; init; }
 
         public static OrderDetailsDto CreateOrderDetailsDtoFromObject(Order order)
         {
@@ -29,6 +33,8 @@ namespace Application.Features.Orders
                 orderItemList.Add(orderItemDto);
             }
 
+            var shopOrderList = ShopOrderDto.CreateShopOrderDtoFromObject(order.ShopOrders);
+
             return new OrderDetailsDto()
             {
                 Id = order.Id,
@@ -37,7 +43,9 @@ namespace Application.Features.Orders
                 TotalPrice = order.TotalPrice,
                 ShippingAddress = order.ShippingAddress,
                 PlacedOn = order.PlacedOn,
-                OrderItems = orderItemList
+                StatusChanged = order.StatusChanged,
+                OrderItems = orderItemList,
+                ShopOrders = shopOrderList.ToList(),
             };
         }
     }

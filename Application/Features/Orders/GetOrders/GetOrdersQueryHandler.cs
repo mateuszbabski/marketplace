@@ -22,23 +22,11 @@ namespace Application.Features.Orders.GetOrders
         public async Task<IEnumerable<OrderDto>> Handle(GetOrdersQuery request, CancellationToken cancellationToken)
         {
             var customerId = _userService.UserId;
-            var orders = await _orderRepository.GetAllOrdersForCustomer(customerId);
+            var orders = await _orderRepository.GetAllOrdersForCustomer(customerId) ?? throw new Exception("There is no orders available for current user");
 
-            if (orders == null)
-            {
-                throw new Exception("There is no orders available for current user");
-            }
+            var orderList = OrderDto.CreateOrderDtoFromObject(orders);
 
-            var orderList = new List<OrderDto>();
-
-            foreach (var order in orders)
-            {
-                var orderDto = OrderDto.CreateOrderDtoFromObject(order);               
-
-                orderList.Add(orderDto);
-            }
-
-            return orderList.AsEnumerable();
+            return orderList;
         }
     }
 }
