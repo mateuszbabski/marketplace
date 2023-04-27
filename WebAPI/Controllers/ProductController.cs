@@ -58,7 +58,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id}", Name = "GetProductById")]
-        public async Task<ActionResult<ProductDto>> GetProductById(Guid id)
+        public async Task<ActionResult<ProductDetailsDto>> GetProductById(Guid id)
         {
             var product = await _mediator.Send(new GetProductByIdQuery()
             {
