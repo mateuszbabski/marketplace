@@ -1,5 +1,7 @@
-﻿using Domain.Shops;
+﻿using Application.Features.ShopOrders;
+using Domain.Shops;
 using Domain.Shops.Entities.Products;
+using Domain.Shops.Entities.ShopOrders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,19 +21,42 @@ namespace Application.Features.Shops
         public string Street { get; init; }
         public string PostalCode { get; init; }
 
-        public static ShopDto CreateShopDtoFromObject(Shop shop)
+        //public static ShopDto CreateShopDtoFromObject(Shop shop)
+        //{
+        //    return new ShopDto()
+        //    {
+        //        Id = shop.Id,
+        //        Email = shop.Email,
+        //        ShopName = shop.ShopName,
+        //        ContactNumber = shop.ContactNumber,
+        //        Country = shop.ShopAddress.Country,
+        //        City = shop.ShopAddress.City,
+        //        Street = shop.ShopAddress.Street,
+        //        PostalCode = shop.ShopAddress.PostalCode
+        //    };
+        //}
+
+        public static IEnumerable<ShopDto> CreateShopDtoFromObject(IEnumerable<Shop> shops)
         {
-            return new ShopDto()
+            var shopList = new List<ShopDto>();
+
+            foreach (var shop in shops)
             {
-                Id = shop.Id,
-                Email = shop.Email,
-                ShopName = shop.ShopName,
-                ContactNumber = shop.ContactNumber,
-                Country = shop.ShopAddress.Country,
-                City = shop.ShopAddress.City,
-                Street = shop.ShopAddress.Street,
-                PostalCode = shop.ShopAddress.PostalCode
-            };
+                var shopDto = new ShopDto()
+                {
+                    Id = shop.Id,
+                    Email = shop.Email,
+                    ShopName = shop.ShopName,
+                    ContactNumber = shop.ContactNumber,
+                    Country = shop.ShopAddress.Country,
+                    City = shop.ShopAddress.City,
+                    Street = shop.ShopAddress.Street,
+                    PostalCode = shop.ShopAddress.PostalCode
+                };
+
+                shopList.Add(shopDto);
+            }
+            return shopList;
         }
     }
 }

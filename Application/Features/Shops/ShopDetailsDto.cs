@@ -26,14 +26,7 @@ namespace Application.Features.Shops
 
         public static ShopDetailsDto CreateShopDetailsDtoFromObject(Shop shop)
         {
-            var shopProductList = new List<ProductDto>();
-
-            foreach (var product in shop.ProductList)
-            {
-                var productDto = ProductDto.CreateProductDtoFromObject(product);
-
-                shopProductList.Add(productDto);
-            }
+            var shopProductList = ProductDto.CreateProductDtoFromObject(shop.ProductList);
 
             return new ShopDetailsDto()
             {
@@ -48,7 +41,7 @@ namespace Application.Features.Shops
                 OwnerLastName = shop.OwnerLastName,
                 OwnerName = shop.OwnerName,
                 TaxNumber = shop.TaxNumber,
-                ProductList = shopProductList
+                ProductList = shopProductList.ToList()
             };
         }
     }

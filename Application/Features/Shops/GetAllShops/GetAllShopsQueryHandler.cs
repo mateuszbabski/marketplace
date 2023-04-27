@@ -1,4 +1,5 @@
-﻿using Domain.Shops.Repositories;
+﻿using Domain.Shops;
+using Domain.Shops.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -18,18 +19,11 @@ namespace Application.Features.Shops.GetAllShops
         }
         public async Task<IEnumerable<ShopDto>> Handle(GetAllShopsQuery request, CancellationToken cancellationToken)
         {
-            var shops = await _shopRepository.GetAllShops();
+            var shops = await _shopRepository.GetAllShops() ?? throw new Exception("Shops not found");
 
-            var shopListDto = new List<ShopDto>();
+            var shopListDto = ShopDto.CreateShopDtoFromObject(shops);
 
-            foreach (var shop in shops)
-            {
-                var shopDto = ShopDto.CreateShopDtoFromObject(shop);
-
-                shopListDto.Add(shopDto);
-            }
-
-            return shopListDto.AsEnumerable();
+            return shopListDto;
         }
     }
 }
