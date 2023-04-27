@@ -33,6 +33,7 @@ namespace Infrastructure.Repositories
         {
             return await _dbContext.Orders.Where(o => o.CustomerId == customerId)
                                           .Include(o => o.OrderItems)
+                                          .Include(o => o.ShopOrders)
                                           .FirstOrDefaultAsync(o => o.Id == Id);
         }
 
