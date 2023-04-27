@@ -11,7 +11,7 @@ namespace Domain.Shops.Entities.ShopOrders.Repositories
     public interface IShopOrderRepository
     {
         Task<ShopOrder> Add(ShopOrder order);
-        Task<IEnumerable<ShopOrder>> GetAllShopOrdersForCustomer(ShopId shopId);
+        Task<IEnumerable<ShopOrder>> GetAllShopOrdersForShop(ShopId shopId);
         Task<ShopOrder> GetShopOrderById(ShopOrderId Id, ShopId shopId);
     }
 }

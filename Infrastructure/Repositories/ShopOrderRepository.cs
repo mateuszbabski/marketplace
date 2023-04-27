@@ -32,11 +32,11 @@ namespace Infrastructure.Repositories
         public async Task<ShopOrder> GetShopOrderById(ShopOrderId Id, ShopId shopId)
         {
             return await _dbContext.ShopOrders.Where(o => o.ShopId == shopId)
-                                              .Include(o => o.ShopOrderItems)
+                                              .Include(o => o.ShopOrderItems)                                              
                                               .FirstOrDefaultAsync(o => o.Id == Id);
         }
 
-        public async Task<IEnumerable<ShopOrder>> GetAllShopOrdersForCustomer(ShopId shopId)
+        public async Task<IEnumerable<ShopOrder>> GetAllShopOrdersForShop(ShopId shopId)
         {
             return await _dbContext.ShopOrders.Where(o => o.ShopId == shopId)
                                               .ToListAsync();
