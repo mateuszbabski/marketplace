@@ -59,10 +59,11 @@ Done:
 - Adding, updating and deleting products available to buy
 - Creating shopping cart. Adding, removing products and deleting cart
 - Placing and cancelling orders
+- Splitting order by shops
 
 To implement:
 - Searching products
-- Splitting order to notify all shops owners about products to prepare
+- Notify all shops owners about products to prepare
 - Creating and sending invoices
 - Sending email notifications about orders
 - Confirm account, forgot/reset password features
