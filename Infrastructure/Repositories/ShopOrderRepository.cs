@@ -41,5 +41,11 @@ namespace Infrastructure.Repositories
             return await _dbContext.ShopOrders.Where(o => o.ShopId == shopId)
                                               .ToListAsync();
         }
+
+        public async Task<List<ShopOrder>> GetShopOrdersByOrderId(OrderId orderId)
+        {
+            return await _dbContext.ShopOrders.Where(o => o.OrderId == orderId)
+                                              .ToListAsync();
+        }
     }
 }

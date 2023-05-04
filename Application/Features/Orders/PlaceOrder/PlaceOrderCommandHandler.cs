@@ -73,10 +73,8 @@ namespace Application.Features.Orders.PlaceOrder
                 var newShopAddress = Address.CreateAddress(request.Country, request.City, request.Street, request.PostalCode);
                 return newShopAddress;
             }
-            else
-            {
-                return customerAddress;
-            }
+            
+            return customerAddress;
         }
 
         private static void SplitOrderByShops(Order order, ShoppingCart shoppingCart)

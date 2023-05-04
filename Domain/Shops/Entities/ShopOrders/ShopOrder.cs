@@ -70,5 +70,14 @@ namespace Domain.Shops.Entities.ShopOrders
 
             return MoneyValue.Of(allProductsPrice, currency);
         }
+
+        public void CancelOrder()
+        {
+            if (this.OrderStatus == OrderStatus.WaitingForPayment || this.OrderStatus == OrderStatus.InProgress)
+            {
+                this.OrderStatus = OrderStatus.Cancelled;
+                this.StatusChanged = DateTime.Now;
+            }
+        }
     }
 }

@@ -67,7 +67,8 @@ namespace Domain.Customers.Entities.Orders
         {
             if (this.OrderStatus == OrderStatus.WaitingForPayment || this.OrderStatus == OrderStatus.InProgress)
             {
-                //this.StatusChanged = DateTime.Now;
+
+                this.StatusChanged = DateTime.Now;
                 this.OrderStatus = OrderStatus.Cancelled;
             }
         }

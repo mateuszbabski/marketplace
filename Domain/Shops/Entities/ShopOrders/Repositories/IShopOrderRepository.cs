@@ -1,4 +1,5 @@
-﻿using Domain.Shops.Entities.ShopOrders.ValueObjects;
+﻿using Domain.Customers.Entities.Orders.ValueObjects;
+using Domain.Shops.Entities.ShopOrders.ValueObjects;
 using Domain.Shops.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,6 @@ namespace Domain.Shops.Entities.ShopOrders.Repositories
         Task<ShopOrder> Add(ShopOrder order);
         Task<IEnumerable<ShopOrder>> GetAllShopOrdersForShop(ShopId shopId);
         Task<ShopOrder> GetShopOrderById(ShopOrderId Id, ShopId shopId);
+        Task<List<ShopOrder>> GetShopOrdersByOrderId(OrderId orderId);
     }
 }
