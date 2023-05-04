@@ -54,8 +54,7 @@ namespace Infrastructure.Context.DbConfiguration
                    .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(c => c.Role)
-                   .HasConversion(v => v.ToString(),
-                                  v => (Roles)Enum.Parse(typeof(Roles), v));            
+                   .HasColumnName("Role");           
                 
             builder.ToTable("Customers");
         }
@@ -127,8 +126,7 @@ namespace Infrastructure.Context.DbConfiguration
             builder.Property(c => c.StatusChanged).HasColumnName("StatusChanged");
 
             builder.Property(c => c.OrderStatus)
-                   .HasConversion(v => v.ToString(),
-                                  v => (OrderStatus)Enum.Parse(typeof(OrderStatus), v));
+                   .HasColumnName("OrderStatus");
 
             builder.OwnsOne(c => c.ShippingAddress, sa =>
             {

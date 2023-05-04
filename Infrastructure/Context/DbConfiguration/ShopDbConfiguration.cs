@@ -59,8 +59,7 @@ namespace Infrastructure.Context.DbConfiguration
                    .HasConversion(c => c.Value, c => new TelephoneNumber(c));
 
             builder.Property(c => c.Role)
-                   .HasConversion(v => v.ToString(),
-                                   v => (Roles)Enum.Parse(typeof(Roles), v));
+                   .HasColumnName("Role");
 
             builder.HasMany<Product>(c => c.ProductList)
                    .WithOne(p => p.Shop)
@@ -129,9 +128,8 @@ namespace Infrastructure.Context.DbConfiguration
                 mv.Property(p => p.Amount).HasColumnName("Amount");
             });
 
-            builder.Property(c => c.ShopOrderStatus)
-                   .HasConversion(v => v.ToString(),
-                                  v => (ShopOrderStatus)Enum.Parse(typeof(ShopOrderStatus), v));
+            builder.Property(c => c.OrderStatus)
+                   .HasColumnName("ShopOrderStatus");                  
 
             builder.Property(c => c.PlacedOn).HasColumnName("PlacedOn");
 

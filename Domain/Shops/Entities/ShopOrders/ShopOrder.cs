@@ -18,7 +18,7 @@ namespace Domain.Shops.Entities.ShopOrders
         public OrderId OrderId { get; private set; }
         public Address ShippingAddress { get; private set; }
         public MoneyValue TotalPrice { get; private set; }
-        public ShopOrderStatus ShopOrderStatus { get; private set; } = ShopOrderStatus.InProgress;
+        public OrderStatus OrderStatus { get; private set; } = OrderStatus.InProgress;
         public DateTime PlacedOn { get; private set; } = DateTime.UtcNow;
         public DateTime? StatusChanged { get; private set; } = null;
         public List<ShopOrderItem> ShopOrderItems { get; private set; }
@@ -41,7 +41,7 @@ namespace Domain.Shops.Entities.ShopOrders
             OrderId = order.Id;
             ShippingAddress = shippingAddress;
             PlacedOn = order.PlacedOn;
-            ShopOrderStatus = ShopOrderStatus.WaitingForPayment;
+            OrderStatus = OrderStatus.WaitingForPayment;
             ShopOrderItems = new List<ShopOrderItem>();
 
             var shopItemsList = shoppingCartItems;

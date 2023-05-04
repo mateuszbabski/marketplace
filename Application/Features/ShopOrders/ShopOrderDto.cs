@@ -42,7 +42,7 @@ namespace Application.Features.ShopOrders
                     ShopId = shopOrder.ShopId,
                     CustomerId = shopOrder.CustomerId,
                     TotalPrice = shopOrder.TotalPrice,
-                    ShopOrderStatus = shopOrder.ShopOrderStatus.ToString(),
+                    ShopOrderStatus = shopOrder.OrderStatus.ToString(),
                     PlacedOn = shopOrder.PlacedOn,
                 };
 

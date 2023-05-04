@@ -46,7 +46,7 @@ namespace Application.Features.ShopOrders
                 OrderId = shopOrder.OrderId,
                 ShippingAddress = shopOrder.ShippingAddress,
                 TotalPrice = shopOrder.TotalPrice,
-                ShopOrderStatus = shopOrder.ShopOrderStatus.ToString(),
+                ShopOrderStatus = shopOrder.OrderStatus.ToString(),
                 PlacedOn = shopOrder.PlacedOn,
                 StatusChanged = shopOrder.StatusChanged,
                 ShopOrderItems = orderItemList
