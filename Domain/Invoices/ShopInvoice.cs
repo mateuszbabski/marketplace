@@ -1,19 +1,13 @@
-﻿using Domain.Customers.ValueObjects;
-using Domain.Invoices.ValueObjects;
+﻿using Domain.Invoices.ValueObjects;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.ShopOrders.ValueObjects;
 using Domain.Shops.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Invoices
 {
-    public class PartialInvoice
+    public class ShopInvoice
     {
-        public PartialInvoiceId Id { get; private set; }
+        public ShopInvoiceId Id { get; private set; }
         public InvoiceId InvoiceId { get; private set; }
         public ShopId ShopId { get; private set; }
         public MoneyValue PartialOrderPrice { get; private set; }
@@ -22,14 +16,14 @@ namespace Domain.Invoices
         public InvoiceStatus InvoiceStatus { get; private set; } = InvoiceStatus.Created;
         public DateTime? DateOfPayment { get; private set; } = null;
 
-        //private PartialInvoice() { }
-        private PartialInvoice() 
+        //private ShopInvoice() { }
+        private ShopInvoice() 
         {
-            Id = Guid.NewGuid();
+            Id = new ShopInvoiceId(Guid.NewGuid());
         }
-        internal static PartialInvoice CreatePartialInvoice()
+        internal static ShopInvoice CreateShopInvoice()
         {
-            return new PartialInvoice();
+            return new ShopInvoice();
         }
     }
 }

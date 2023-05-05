@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Invoices.ValueObjects
 {
-    public record PartialInvoiceId
+    public record ShopInvoiceId
     {
         public Guid Value { get; }
 
-        public PartialInvoiceId(Guid value)
+        public ShopInvoiceId(Guid value)
         {
             if (value == Guid.Empty)
             {
@@ -21,7 +21,7 @@ namespace Domain.Invoices.ValueObjects
             Value = value;
         }
 
-        public static implicit operator Guid(PartialInvoiceId id) => id.Value;
-        public static implicit operator PartialInvoiceId(Guid value) => new(value);
+        public static implicit operator Guid(ShopInvoiceId id) => id.Value;
+        public static implicit operator ShopInvoiceId(Guid value) => new(value);
     }
 }

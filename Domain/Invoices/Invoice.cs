@@ -3,11 +3,6 @@ using Domain.Customers.ValueObjects;
 using Domain.Invoices.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Invoices
 {
@@ -20,14 +15,14 @@ namespace Domain.Invoices
         public DateTime CreatedAt { get; private set; }
         public InvoiceStatus InvoiceStatus { get; private set; } = InvoiceStatus.Created;
         public DateTime? DateOfPayment { get; private set; } = null;
-        public List<PartialInvoice> PartialInvoices { get; private set; }
+        public List<ShopInvoice> ShopInvoices { get; private set; }
 
         //private Invoice() { }
 
         private Invoice()
         {
-            Id = Guid.NewGuid();
-            PartialInvoices = new List<PartialInvoice>();
+            Id = new InvoiceId(Guid.NewGuid());
+            ShopInvoices = new List<ShopInvoice>();
         }
 
         public static Invoice CreateInvoice()
