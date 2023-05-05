@@ -43,6 +43,7 @@ namespace Infrastructure
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IShopOrderRepository, ShopOrderRepository>();
+            //services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 
             services.AddAuthentication(opt =>
             {
