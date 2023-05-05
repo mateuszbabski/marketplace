@@ -3,15 +3,7 @@ using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.ShopOrders;
-using Domain.Shops.Entities.ShopOrders.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Domain.Customers.Entities.Orders
 {
@@ -56,6 +48,7 @@ namespace Domain.Customers.Entities.Orders
                 OrderItems.Add(orderItem);
             }
         }
+
         internal static Order CreateNew(ShoppingCart shoppingCart,
                                         Address shippingAddress,
                                         DateTime placedOn)
@@ -63,11 +56,10 @@ namespace Domain.Customers.Entities.Orders
             return new Order(shoppingCart, shippingAddress, placedOn);
         }
 
-        internal void CancelOrder() 
+        internal void CancelOrder()
         {
             if (this.OrderStatus == OrderStatus.WaitingForPayment || this.OrderStatus == OrderStatus.InProgress)
             {
-
                 this.StatusChanged = DateTime.Now;
                 this.OrderStatus = OrderStatus.Cancelled;
             }

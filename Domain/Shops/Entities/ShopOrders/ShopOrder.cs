@@ -33,6 +33,7 @@ namespace Domain.Shops.Entities.ShopOrders
         {
             ShopOrderItems = new List<ShopOrderItem>();
         }
+
         private ShopOrder(Order order, Address shippingAddress, List<ShoppingCartItem> shoppingCartItems) 
         {            
             Id = new ShopOrderId(Guid.NewGuid());            
@@ -54,6 +55,7 @@ namespace Domain.Shops.Entities.ShopOrders
 
             TotalPrice = CountTotalPrice(shopItemsList, order.TotalPrice.Currency);
         }
+
         public static ShopOrder CreateShopOrder(Order order, List<ShoppingCartItem> shoppingCartItems)
         {
             var shippingAddress = Address.CreateAddress(order.ShippingAddress.Country,

@@ -5,6 +5,7 @@ using Domain.Customers.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.ShopOrders;
+using System.Linq;
 
 namespace Domain.Customers
 {
@@ -105,6 +106,7 @@ namespace Domain.Customers
         public void CancelOrder(OrderId orderId)
         {
             var order = this.Orders.Single(x => x.Id == orderId);
+
             order.CancelOrder();
         }
 

@@ -2,6 +2,7 @@
 using Domain.Customers.Entities.Orders.Repositories;
 using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.Repositories;
+using Domain.Shops.Entities.ShopOrders;
 using Domain.Shops.Entities.ShopOrders.Repositories;
 using MediatR;
 using System;
@@ -43,13 +44,13 @@ namespace Application.Features.Orders.CancelOrder
             return Unit.Value;
         }
 
-        private async void CancelRelatedShopOrders(Guid Id)
+        private async void CancelRelatedShopOrders(OrderId Id)
         {
             var shopOrderList = await _shopOrderRepository.GetShopOrdersByOrderId(Id);
 
-            foreach(var order in shopOrderList)
+            foreach (var shopOrder in shopOrderList)
             {
-                order.CancelOrder();
+                shopOrder.CancelOrder();
             }
         }
     }
