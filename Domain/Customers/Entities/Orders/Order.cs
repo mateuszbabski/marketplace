@@ -53,7 +53,11 @@ namespace Domain.Customers.Entities.Orders
                                         Address shippingAddress,
                                         DateTime placedOn)
         {
-            return new Order(shoppingCart, shippingAddress, placedOn);
+            var order = new Order(shoppingCart, shippingAddress, placedOn);
+
+            SplitOrderByShops(order, shoppingCart);
+
+            return order;
         }
 
         internal void CancelOrder()
@@ -74,6 +78,22 @@ namespace Domain.Customers.Entities.Orders
         {
             if(shippingAddress is not null)
                 ShippingAddress = shippingAddress;
-        }        
+        }
+
+        private static void SplitOrderByShops(Order order, ShoppingCart shoppingCart)
+        {
+            foreach (var productByShopList in shoppingCart.Items.GroupBy(x => x.ShopId))
+            {
+                var productList = new List<ShoppingCartItem>();
+
+                var productsToAdd = productByShopList.ToList();
+
+                productList.AddRange(productsToAdd);
+
+                var shopOrder = ShopOrder.CreateShopOrder(order, productList);
+
+                order.ShopOrders.Add(shopOrder);
+            }
+        }
     }
 }
