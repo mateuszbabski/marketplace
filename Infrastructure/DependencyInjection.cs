@@ -36,6 +36,7 @@ namespace Infrastructure
             services.AddSingleton<ITokenManager, TokenManager>();
             services.AddSingleton<IHashingService, HashingService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDomainEventsDispatcher, DomainEventsDispatcher>();
 
             services.AddScoped<ICustomerRepository, CustomerRepository>(); 
             services.AddScoped<IShopRepository, ShopRepository>();

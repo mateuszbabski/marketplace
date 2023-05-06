@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
-    public class DomainEventsDispatcher : IDomainEventsDispatcher
+    internal sealed class DomainEventsDispatcher : IDomainEventsDispatcher
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly Mediator _mediator;

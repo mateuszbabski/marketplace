@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,18 @@ namespace Infrastructure.Context
     internal sealed class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly IDomainEventsDispatcher _domainEventsDispatcher;
 
-        public UnitOfWork(ApplicationDbContext dbContext)
+        public UnitOfWork(ApplicationDbContext dbContext, IDomainEventsDispatcher domainEventsDispatcher)
         {
             _dbContext = dbContext;
+            _domainEventsDispatcher = domainEventsDispatcher;
         }
 
-        public Task SaveChangesAsync(CancellationToken cancellationToken = default)
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            return _dbContext.SaveChangesAsync(cancellationToken);
+            await _domainEventsDispatcher.DispatchEventsAsync();
+            return await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
