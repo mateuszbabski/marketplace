@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Common\Exceptions\" />
-    <Folder Include="Common\Services\" />
+    <Folder Include="Common\Services\DomainEvents\" />
   </ItemGroup>
 
 </Project>

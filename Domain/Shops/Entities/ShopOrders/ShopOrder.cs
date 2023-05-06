@@ -7,6 +7,7 @@ using Domain.Shops.ValueObjects;
 using Domain.Customers.Entities.Orders;
 using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.Entities.ShoppingCarts;
+using Domain.Shared.Abstractions;
 
 namespace Domain.Shops.Entities.ShopOrders
 {
@@ -79,7 +80,7 @@ namespace Domain.Shops.Entities.ShopOrders
             {
                 this.OrderStatus = OrderStatus.Cancelled;
                 this.StatusChanged = DateTime.Now;
-            }
+            }            
         }
     }
 }

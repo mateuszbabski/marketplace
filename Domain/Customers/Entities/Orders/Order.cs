@@ -55,7 +55,7 @@ namespace Domain.Customers.Entities.Orders
         {
             var order = new Order(shoppingCart, shippingAddress, placedOn);
 
-            SplitOrderByShops(order, shoppingCart);
+            SplitOrderByShops(order, shoppingCart);            
 
             return order;
         }
