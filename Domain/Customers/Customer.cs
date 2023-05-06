@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Domain.Customers
 {
-    public class Customer : IAggregateRoot
+    public class Customer : Entity, IAggregateRoot
     {
         public CustomerId Id { get; private set; }
         public Email Email { get; private set; }

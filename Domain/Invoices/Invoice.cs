@@ -6,7 +6,7 @@ using Domain.Shared.ValueObjects;
 
 namespace Domain.Invoices
 {
-    public class Invoice : IAggregateRoot
+    public class Invoice : Entity, IAggregateRoot
     {
         public InvoiceId Id { get; private set; }
         public CustomerId CustomerId { get; private set; }

@@ -8,7 +8,7 @@ using Domain.Shops.Entities.ShopOrders;
 
 namespace Domain.Shops
 {
-    public class Shop : IAggregateRoot
+    public class Shop : Entity, IAggregateRoot
     {   /// TODO REFACTOR CQRS FOR SHOPS AND PRODUCTS DELIMIT DB TRIPS
         public ShopId Id { get; private set; }
         public Email Email { get; private set; }

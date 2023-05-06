@@ -1,13 +1,14 @@
 ﻿using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.ValueObjects;
+using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.ShopOrders;
 using System.Text.Json.Serialization;
 
 namespace Domain.Customers.Entities.Orders
 {
-    public class Order
+    public class Order : Entity
     {
         public OrderId Id { get; private set; }
         public OrderStatus OrderStatus { get; private set; } = OrderStatus.InProgress;

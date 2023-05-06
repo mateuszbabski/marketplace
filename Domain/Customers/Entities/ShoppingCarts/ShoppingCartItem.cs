@@ -1,5 +1,6 @@
 ﻿using Domain.Customers.Entities.ShoppingCarts.Exceptions;
 using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
+using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
 using Domain.Shops;
 using Domain.Shops.Entities.Products;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Customers.Entities.ShoppingCarts
 {
-    public class ShoppingCartItem
+    public class ShoppingCartItem : Entity
     {
         public ShoppingCartItemId Id { get; private set; }
         public ProductId ProductId { get; private set; }

@@ -1,4 +1,5 @@
-﻿using Domain.Shared.ValueObjects;
+﻿using Domain.Shared.Abstractions;
+using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products.ValueObjects;
 using Domain.Shops.ValueObjects;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Shops.Entities.Products
 {
-    public class Product
+    public class Product : Entity
     {
         public ProductId Id { get; private set; }
         public ProductName ProductName { get; private set; }

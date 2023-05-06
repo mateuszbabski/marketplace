@@ -11,7 +11,7 @@ using Domain.Shared.Abstractions;
 
 namespace Domain.Shops.Entities.ShopOrders
 {
-    public class ShopOrder
+    public class ShopOrder : Entity
     {
         public ShopOrderId Id { get; private set; }
         public ShopId ShopId { get; private set; }

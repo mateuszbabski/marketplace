@@ -10,10 +10,11 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Domain.Shops.Entities.ShopOrders.ValueObjects;
 using Domain.Customers.Entities.ShoppingCarts;
+using Domain.Shared.Abstractions;
 
 namespace Domain.Shops.Entities.ShopOrders
 {
-    public class ShopOrderItem
+    public class ShopOrderItem : Entity
     {
         public ShopOrderItemId Id { get; private set; }
         public ShopOrderId ShopOrderId { get; private set; }

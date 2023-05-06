@@ -1,5 +1,6 @@
 ﻿using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.Entities.ShoppingCarts;
+using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products.ValueObjects;
 using Domain.Shops.ValueObjects;
@@ -7,7 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace Domain.Customers.Entities.Orders
 {
-    public class OrderItem
+    public class OrderItem : Entity
     {
         public OrderItemId Id { get; private set; }
         public OrderId OrderId {  get; private set; }
