@@ -12,6 +12,6 @@ namespace Domain.Shops.Entities.Products.Repositories
         Task<Product> Add(Product product);
         Task Update(Product product);
         Task<Product> GetById(ProductId id);
-        Task<List<Product>> GetAllProducts();
+        Task<IEnumerable<Product>> GetAllProducts();
     }
 }
