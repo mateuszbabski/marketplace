@@ -1,20 +1,15 @@
 ﻿using Domain.Shared.Abstractions;
 using Infrastructure.Context;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
     internal sealed class DomainEventsDispatcher : IDomainEventsDispatcher
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly Mediator _mediator;
+        private readonly IMediator _mediator;
 
-        public DomainEventsDispatcher(ApplicationDbContext dbContext, Mediator mediator)
+        public DomainEventsDispatcher(ApplicationDbContext dbContext, IMediator mediator)
         {
             _dbContext = dbContext;
             _mediator = mediator;
