@@ -16,6 +16,14 @@
 //            _dbContext = dbContext;
 //        }
 
+
+//        public async Task<T> Add(T entity)
+//        {
+//            await _dbContext.Set<T>().AddAsync(entity);
+
+//            return entity;
+//        }
+
 //        public async Task<Invoice> Add(Invoice invoice)
 //        {
 //            await _dbContext.Invoices.AddAsync(invoice);

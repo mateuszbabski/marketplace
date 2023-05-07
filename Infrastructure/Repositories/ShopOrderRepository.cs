@@ -42,7 +42,7 @@ namespace Infrastructure.Repositories
                                               .ToListAsync();
         }
 
-        public async Task<List<ShopOrder>> GetShopOrdersByOrderId(OrderId orderId)
+        public async Task<IEnumerable<ShopOrder>> GetShopOrdersByOrderId(OrderId orderId)
         {
             return await _dbContext.ShopOrders.Where(o => o.OrderId == orderId)
                                               .ToListAsync();

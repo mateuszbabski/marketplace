@@ -38,7 +38,7 @@ namespace Infrastructure.Repositories
             return await _dbContext.Products.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<List<Product>> GetAllProducts()
+        public async Task<IEnumerable<Product>> GetAllProducts()
         {
             return await _dbContext.Products.ToListAsync();
         }

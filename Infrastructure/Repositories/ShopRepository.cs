@@ -40,7 +40,7 @@ namespace Infrastructure.Repositories
                                          .FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<List<Shop>> GetAllShops()
+        public async Task<IEnumerable<Shop>> GetAllShops()
         {
             return await _dbContext.Shops.ToListAsync();
         }
