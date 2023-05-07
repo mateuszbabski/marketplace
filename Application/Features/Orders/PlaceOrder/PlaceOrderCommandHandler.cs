@@ -5,6 +5,7 @@ using Domain.Customers.Entities.Orders.Repositories;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Customers.Repositories;
+using Domain.Invoices;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.ShopOrders;
 using Domain.Shops.Entities.ShopOrders.Repositories;
@@ -51,7 +52,7 @@ namespace Application.Features.Orders.PlaceOrder
             //SplitOrderByShops(order, shoppingCart);
 
             // create invoices for customer and shop
-            // CreateInvoice(order, _dateTimeProvider.UtcNow);
+            // CreateInvoices(order, _dateTimeProvider.UtcNow);
 
             await _shoppingCartRepository.Delete(shoppingCart);
 
@@ -72,6 +73,19 @@ namespace Application.Features.Orders.PlaceOrder
             }
             
             return customerAddress;
+        }
+
+        private static Invoice CreateInvoices(Order order, DateTime createdOn)
+        {
+            if (order == null) 
+            {
+                throw new Exception("Order does not exist");
+            }
+
+            var invoice = Invoice.CreateInvoice(order, createdOn);
+
+            // add invoice/s to db
+            return invoice;
         }
 
         //private static void SplitOrderByShops(Order order, ShoppingCart shoppingCart)

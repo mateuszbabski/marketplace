@@ -17,6 +17,10 @@
 
   <ItemGroup>
     <Folder Include="Common\Exceptions\" />
+    <Folder Include="Features\Invoices\GetAllInvoices\" />
+    <Folder Include="Features\Invoices\GetInvoiceById\" />
+    <Folder Include="Features\ShopInvoices\GetAllShopInvoices\" />
+    <Folder Include="Features\ShopInvoices\GetShopInvoiceById\" />
   </ItemGroup>
 
 </Project>
