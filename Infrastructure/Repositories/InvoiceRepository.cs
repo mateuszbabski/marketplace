@@ -1,47 +1,59 @@
-﻿//using Domain.Invoices;
-//using Domain.Invoices.Repositories;
-//using Infrastructure.Context;
-//using Microsoft.EntityFrameworkCore;
-//using Domain.Invoices.ValueObjects;
-//using Domain.Customers.ValueObjects;
+﻿using Domain.Invoices;
+using Domain.Invoices.Repositories;
+using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
+using Domain.Invoices.ValueObjects;
+using Domain.Customers.ValueObjects;
+using Domain.Shops.ValueObjects;
+using Domain.Customers;
 
-//namespace Infrastructure.Repositories
-//{
-//    internal sealed class InvoiceRepository : IInvoiceRepository
-//    {
-//        private readonly IApplicationDbContext _dbContext;
+namespace Infrastructure.Repositories
+{
+    internal sealed class InvoiceRepository : IInvoiceRepository
+    {
+        private readonly IApplicationDbContext _dbContext;
 
-//        public InvoiceRepository(IApplicationDbContext dbContext)
-//        {
-//            _dbContext = dbContext;
-//        }
+        public InvoiceRepository(IApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
+        public async Task<Invoice> Add(Invoice invoice)
+        {
+            await _dbContext.Invoices.AddAsync(invoice);
 
-//        public async Task<T> Add(T entity)
-//        {
-//            await _dbContext.Set<T>().AddAsync(entity);
+            return invoice;
+        }
 
-//            return entity;
-//        }
+        public async Task<Invoice> GetByIdForCustomer(InvoiceId id, CustomerId customerId)
+        {
+            return await _dbContext.Invoices.Where(x => x.CustomerId == customerId)
+                                            .FirstOrDefaultAsync(e => e.Id == id);
+        }
 
-//        public async Task<Invoice> Add(Invoice invoice)
-//        {
-//            await _dbContext.Invoices.AddAsync(invoice);
-//            await _dbContext.SaveChangesAsync();
+        public async Task<IEnumerable<Invoice>> GetAllInvoicesForCustomer(CustomerId customerId)
+        {
+            return await _dbContext.Invoices.Where(x => x.CustomerId == customerId)
+                                            .ToListAsync();
+        }
 
-//            return invoice;
-//        }
+        public async Task<ShopInvoice> Add(ShopInvoice shopInvoice)
+        {
+            await _dbContext.ShopInvoices.AddAsync(shopInvoice);
 
-//        public async Task<Invoice> GetByIdForCustomer(InvoiceId id, CustomerId customerId)
-//        {
-//            return await _dbContext.Invoices.Where(x => x.CustomerId == customerId)
-//                                            .FirstOrDefaultAsync(e => e.Id == id);
-//        }
+            return shopInvoice;
+        }
 
-//        public async Task<IEnumerable<Invoice>> GetAllInvoicesForCustomer(CustomerId customerId)
-//        {
-//            return await _dbContext.Invoices.Where(x => x.CustomerId == customerId)
-//                                            .ToListAsync();
-//        }
-//    }
-//}
+        public async Task<ShopInvoice> GetByIdForShop(ShopInvoiceId id, ShopId shopId)
+        {
+            return await _dbContext.ShopInvoices.Where(x => x.ShopId == shopId)
+                                            .FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<IEnumerable<ShopInvoice>> GetAllInvoicesForShop(ShopId shopId)
+        {
+            return await _dbContext.ShopInvoices.Where(x => x.ShopId == shopId)
+                                            .ToListAsync();
+        }
+    }
+}

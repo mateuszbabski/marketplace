@@ -123,8 +123,7 @@ namespace Infrastructure.Context.DbConfiguration
 
             builder.Property(c => c.StatusChanged).HasColumnName("StatusChanged");
 
-            builder.Property(c => c.OrderStatus)
-                   .HasColumnName("OrderStatus");
+            builder.Property(c => c.OrderStatus).HasColumnName("OrderStatus");
 
             builder.OwnsOne(c => c.ShippingAddress, sa =>
             {
@@ -163,8 +162,7 @@ namespace Infrastructure.Context.DbConfiguration
                    .HasForeignKey(c => c.OrderId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Property(c => c.Quantity)
-                   .HasColumnName("Quantity");
+            builder.Property(c => c.Quantity).HasColumnName("Quantity");
 
             builder.OwnsOne(c => c.Price, mv =>
             {

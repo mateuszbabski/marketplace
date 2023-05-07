@@ -11,17 +11,22 @@ namespace Infrastructure.Context
     internal sealed class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IDomainEventsDispatcher _domainEventsDispatcher;
+        //private readonly IDomainEventsDispatcher _domainEventsDispatcher;
 
-        public UnitOfWork(ApplicationDbContext dbContext, IDomainEventsDispatcher domainEventsDispatcher)
+        public UnitOfWork(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            _domainEventsDispatcher = domainEventsDispatcher;
         }
+
+        //public UnitOfWork(ApplicationDbContext dbContext, IDomainEventsDispatcher domainEventsDispatcher)
+        //{
+        //    _dbContext = dbContext;
+        //    _domainEventsDispatcher = domainEventsDispatcher;
+        //}
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            await _domainEventsDispatcher.DispatchEventsAsync();
+            //await _domainEventsDispatcher.DispatchEventsAsync();
             return await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }

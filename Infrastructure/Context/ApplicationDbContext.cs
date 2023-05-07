@@ -24,8 +24,8 @@ namespace Infrastructure.Context
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<ShopOrder> ShopOrders { get; set; }
         public DbSet<ShopOrderItem> ShopOrderItems { get; set; }
-        //public DbSet<Invoice> Invoices { get; set; }
-        //public DbSet<ShopInvoice> ShopInvoices { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<ShopInvoice> ShopInvoices { get; set; }
 
         public async Task<int> SaveChangesAsync()
         {

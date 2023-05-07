@@ -16,6 +16,7 @@ using System.Text;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Customers.Entities.Orders.Repositories;
 using Domain.Shops.Entities.ShopOrders.Repositories;
+using Domain.Invoices.Repositories;
 
 namespace Infrastructure
 {
@@ -36,7 +37,7 @@ namespace Infrastructure
             services.AddSingleton<ITokenManager, TokenManager>();
             services.AddSingleton<IHashingService, HashingService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IDomainEventsDispatcher, DomainEventsDispatcher>();
+            //services.AddScoped<IDomainEventsDispatcher, DomainEventsDispatcher>();
 
             services.AddScoped<ICustomerRepository, CustomerRepository>(); 
             services.AddScoped<IShopRepository, ShopRepository>();
@@ -44,7 +45,7 @@ namespace Infrastructure
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IShopOrderRepository, ShopOrderRepository>();
-            //services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 
             services.AddAuthentication(opt =>
             {

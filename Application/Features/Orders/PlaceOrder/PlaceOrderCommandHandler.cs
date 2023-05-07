@@ -6,6 +6,7 @@ using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Customers.Repositories;
 using Domain.Invoices;
+using Domain.Invoices.Repositories;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.ShopOrders;
 using Domain.Shops.Entities.ShopOrders.Repositories;
@@ -26,16 +27,19 @@ namespace Application.Features.Orders.PlaceOrder
         private readonly ICustomerRepository _customerRepository;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IShoppingCartRepository _shoppingCartRepository;
+        private readonly IInvoiceRepository _invoiceRepository;
 
         public PlaceOrderCommandHandler(ICurrentUserService userService,
                                         ICustomerRepository customerRepository,
                                         IDateTimeProvider dateTimeProvider,
-                                        IShoppingCartRepository shoppingCartRepository)
+                                        IShoppingCartRepository shoppingCartRepository,
+                                        IInvoiceRepository invoiceRepository)
         {
             _userService = userService;
             _customerRepository = customerRepository;
             _dateTimeProvider = dateTimeProvider;
             _shoppingCartRepository = shoppingCartRepository;
+            _invoiceRepository = invoiceRepository;
         }
         public async Task<Guid> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
         {
@@ -48,14 +52,12 @@ namespace Application.Features.Orders.PlaceOrder
 
             var order = customer.PlaceOrder(shoppingCart, shippingAddress, _dateTimeProvider.UtcNow);
 
-            // move to order domain layer
-            //SplitOrderByShops(order, shoppingCart);
+            var invoice = Invoice.CreateInvoice(order, _dateTimeProvider.UtcNow);
 
-            // create invoices for customer and shop
-            // CreateInvoices(order, _dateTimeProvider.UtcNow);
+            await _invoiceRepository.Add(invoice);
 
             await _shoppingCartRepository.Delete(shoppingCart);
-
+            
             return order.Id;
         }
 
@@ -74,34 +76,5 @@ namespace Application.Features.Orders.PlaceOrder
             
             return customerAddress;
         }
-
-        private static Invoice CreateInvoices(Order order, DateTime createdOn)
-        {
-            if (order == null) 
-            {
-                throw new Exception("Order does not exist");
-            }
-
-            var invoice = Invoice.CreateInvoice(order, createdOn);
-
-            // add invoice/s to db
-            return invoice;
-        }
-
-        //private static void SplitOrderByShops(Order order, ShoppingCart shoppingCart)
-        //{
-        //    foreach (var productByShopList in shoppingCart.Items.GroupBy(x => x.ShopId))
-        //    {
-        //        var productList = new List<ShoppingCartItem>();
-
-        //        var productsToAdd = productByShopList.ToList();
-
-        //        productList.AddRange(productsToAdd);
-
-        //        var shopOrder = ShopOrder.CreateShopOrder(order, productList);
-
-        //        order.ShopOrders.Add(shopOrder);
-        //    }
-        //}
     }
 }
