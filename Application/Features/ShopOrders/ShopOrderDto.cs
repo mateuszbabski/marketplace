@@ -17,19 +17,6 @@ namespace Application.Features.ShopOrders
         public string ShopOrderStatus { get; init; }
         public DateTime PlacedOn { get; init; }
 
-        //public static ShopOrderDto CreateShopOrderDtoFromObject(ShopOrder shopOrder)
-        //{
-        //    return new ShopOrderDto()
-        //    {
-        //        Id = shopOrder.Id,
-        //        CustomerId = shopOrder.CustomerId,
-        //        TotalPrice = shopOrder.TotalPrice,
-        //        ShopOrderStatus = shopOrder.ShopOrderStatus.ToString(),
-        //        PlacedOn = shopOrder.PlacedOn,
-        //    };
-
-        //}
-
         public static IEnumerable<ShopOrderDto> CreateShopOrderDtoFromObject(IEnumerable<ShopOrder> shopOrders)
         {
             var orderList = new List<ShopOrderDto>();

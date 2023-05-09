@@ -17,12 +17,8 @@ namespace Application.Features.ShoppingCarts.RemoveProductFromShoppingCart
         public async Task<Unit> Handle(RemoveProductFromShoppingCartCommand request, CancellationToken cancellationToken)
         {
             var customerId = _userService.UserId;
-            var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(customerId);
-
-            if (shoppingCart == null)
-            {
-                throw new Exception("Cart not found.");
-            }
+            var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(customerId) 
+                ?? throw new Exception("Cart not found.");
 
             shoppingCart.RemoveItemFromCart(request.Id);
 
