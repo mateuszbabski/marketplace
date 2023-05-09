@@ -1,11 +1,6 @@
 ﻿using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnitTest.Domain.Shops;
 
 namespace UnitTest.Domain.Products
@@ -71,6 +66,7 @@ namespace UnitTest.Domain.Products
             Assert.IsType<InvalidProductPriceException>(act);
             Assert.Equal("Invalid currency.", act.Message);
         }
+
         [Fact]
         public void GetProductPrice_ReturnsProductPrice()
         {
