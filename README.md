@@ -60,11 +60,12 @@ Done:
 - Creating shopping cart. Adding, removing products and deleting cart
 - Placing and cancelling orders
 - Splitting order by shops
+- Creating invoice for customer and split them for shops
 
 To implement:
 - Searching products
 - Notify all shops owners about products to prepare
-- Creating and sending invoices
+- Sending invoices
 - Sending email notifications about orders
 - Confirm account, forgot/reset password features
 - Unit tests
