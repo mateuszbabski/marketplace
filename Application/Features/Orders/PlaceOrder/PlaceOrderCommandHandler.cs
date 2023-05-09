@@ -1,23 +1,10 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Customers;
-using Domain.Customers.Entities.Orders;
-using Domain.Customers.Entities.Orders.Repositories;
-using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Customers.Repositories;
 using Domain.Invoices;
 using Domain.Invoices.Repositories;
 using Domain.Shared.ValueObjects;
-using Domain.Shops.Entities.ShopOrders;
-using Domain.Shops.Entities.ShopOrders.Repositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Orders.PlaceOrder
 {

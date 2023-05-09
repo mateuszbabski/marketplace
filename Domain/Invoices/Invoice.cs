@@ -43,5 +43,15 @@ namespace Domain.Invoices
 
             return invoice;
         }
+
+        public void CancelInvoice()
+        {
+            if (this.InvoiceStatus != InvoiceStatus.Paid)
+            {
+                this.InvoiceStatus = InvoiceStatus.Cancelled;
+            }
+
+            this.ShopInvoices.ForEach(x => x.CancelInvoice());
+        }
     }
 }

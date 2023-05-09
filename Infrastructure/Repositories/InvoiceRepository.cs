@@ -6,6 +6,8 @@ using Domain.Invoices.ValueObjects;
 using Domain.Customers.ValueObjects;
 using Domain.Shops.ValueObjects;
 using Domain.Customers;
+using Domain.Customers.Entities.Orders.ValueObjects;
+using Domain.Shops;
 
 namespace Infrastructure.Repositories
 {
@@ -30,6 +32,12 @@ namespace Infrastructure.Repositories
             return await _dbContext.Invoices.Where(x => x.CustomerId == customerId)
                                             .FirstOrDefaultAsync(e => e.Id == id);
         }
+        public async Task<Invoice> GetInvoiceByOrderId(OrderId id)
+        {
+            return await _dbContext.Invoices.Where(x => x.OrderId == id)
+                                            .Include(x => x.ShopInvoices)
+                                            .FirstOrDefaultAsync();
+        }
 
         public async Task<IEnumerable<Invoice>> GetAllInvoicesForCustomer(CustomerId customerId)
         {
@@ -37,23 +45,16 @@ namespace Infrastructure.Repositories
                                             .ToListAsync();
         }
 
-        public async Task<ShopInvoice> Add(ShopInvoice shopInvoice)
-        {
-            await _dbContext.ShopInvoices.AddAsync(shopInvoice);
-
-            return shopInvoice;
-        }
-
         public async Task<ShopInvoice> GetByIdForShop(ShopInvoiceId id, ShopId shopId)
         {
             return await _dbContext.ShopInvoices.Where(x => x.ShopId == shopId)
-                                            .FirstOrDefaultAsync(e => e.Id == id);
+                                                .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<IEnumerable<ShopInvoice>> GetAllInvoicesForShop(ShopId shopId)
         {
             return await _dbContext.ShopInvoices.Where(x => x.ShopId == shopId)
-                                            .ToListAsync();
-        }
+                                                .ToListAsync();
+        }        
     }
 }

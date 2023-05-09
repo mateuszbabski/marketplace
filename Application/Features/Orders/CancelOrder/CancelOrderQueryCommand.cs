@@ -2,6 +2,7 @@
 using Domain.Customers.Entities.Orders.Repositories;
 using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.Repositories;
+using Domain.Invoices.Repositories;
 using Domain.Shops.Entities.ShopOrders;
 using Domain.Shops.Entities.ShopOrders.Repositories;
 using MediatR;
@@ -18,16 +19,19 @@ namespace Application.Features.Orders.CancelOrder
         private readonly ICurrentUserService _userService;
         private readonly ICustomerRepository _customerRepository;
         private readonly IShopOrderRepository _shopOrderRepository;
+        private readonly IInvoiceRepository _invoiceRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public CancelOrderQueryCommand(ICurrentUserService userService,
                                        ICustomerRepository customerRepository,
                                        IShopOrderRepository shopOrderRepository,
+                                       IInvoiceRepository invoiceRepository,
                                        IUnitOfWork unitOfWork)
         {
             _userService = userService;
             _customerRepository = customerRepository;
             _shopOrderRepository = shopOrderRepository;
+            _invoiceRepository = invoiceRepository;
             _unitOfWork = unitOfWork;
         }
         public async Task<Unit> Handle(CancelOrderCommand request, CancellationToken cancellationToken)
@@ -39,6 +43,9 @@ namespace Application.Features.Orders.CancelOrder
 
             CancelRelatedShopOrders(request.Id);
 
+            // cancel or just delete invoices if order is cancelled
+            CancelAllInvoices(request.Id);
+
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
@@ -46,12 +53,19 @@ namespace Application.Features.Orders.CancelOrder
 
         private async void CancelRelatedShopOrders(OrderId Id)
         {
-            var shopOrderList = await _shopOrderRepository.GetShopOrdersByOrderId(Id);
+            var shopOrderList = await _shopOrderRepository.GetShopOrdersByOrderId(Id);            
 
             foreach (var shopOrder in shopOrderList)
             {
-                shopOrder.CancelOrder();
+                shopOrder.CancelOrder();                
             }
+        }
+
+        private async void CancelAllInvoices(OrderId orderId)
+        {
+            var invoice = await _invoiceRepository.GetInvoiceByOrderId(orderId);
+
+            invoice.CancelInvoice();
         }
     }
 }

@@ -5,6 +5,7 @@
         Created,
         Sent,
         WaitingForPayment,
-        Paid
+        Paid,
+        Cancelled
     }
 }

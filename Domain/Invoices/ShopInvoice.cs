@@ -35,5 +35,13 @@ namespace Domain.Invoices
         {
             return new ShopInvoice(invoiceId, shopOrder, createdOn);
         }
+
+        internal void CancelInvoice()
+        {
+            if (this.InvoiceStatus != InvoiceStatus.Paid)
+            {
+                this.InvoiceStatus = InvoiceStatus.Cancelled;
+            }
+        }
     }
 }
