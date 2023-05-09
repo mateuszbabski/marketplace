@@ -35,6 +35,26 @@ namespace UnitTest.Domain.Invoices
             Assert.NotEqual(shopInvoicesList[0].ShopId, shopInvoicesList[1].ShopId);
         }
 
+        [Fact]
+        public void CancelInvoice_SuccessfullWhenInvoiceIsNotPaidYet()
+        {
+            var order = SampleOrder();
+
+            var invoice = Invoice.CreateInvoice(order, DateTime.UtcNow);
+            var shopInvoicesList = invoice.ShopInvoices.ToList();
+
+            Assert.IsType<Invoice>(invoice);
+            Assert.NotEqual(InvoiceStatus.Paid, invoice.InvoiceStatus);
+            Assert.NotEqual(InvoiceStatus.Paid, shopInvoicesList[0].InvoiceStatus);
+            Assert.NotEqual(InvoiceStatus.Paid, shopInvoicesList[1].InvoiceStatus);
+
+            invoice.CancelInvoice();
+
+            Assert.Equal(InvoiceStatus.Cancelled, invoice.InvoiceStatus);
+            Assert.Equal(InvoiceStatus.Cancelled, shopInvoicesList[0].InvoiceStatus);
+            Assert.Equal(InvoiceStatus.Cancelled, shopInvoicesList[1].InvoiceStatus);
+        }
+
         private static Order SampleOrder()
         {
             var customer = CustomerFactory.GetCustomer();
