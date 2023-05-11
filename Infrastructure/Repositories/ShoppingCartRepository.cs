@@ -36,6 +36,12 @@ namespace Infrastructure.Repositories
                                                             .FirstOrDefaultAsync(x => x.Id == shoppingCartItemId);
 
             _dbContext.ShoppingCartItems.Remove(product);
+
+            if (shoppingCart.Items.Count == 0)
+            {
+                _dbContext.ShoppingCarts.Remove(shoppingCart);
+            }
+
             await _dbContext.SaveChangesAsync();
         }
 
