@@ -1,8 +1,8 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products.Repositories;
 using Domain.Shops.Repositories;
-using FluentValidation;
 using MediatR;
 
 namespace Application.Features.Products.AddProduct
@@ -28,7 +28,9 @@ namespace Application.Features.Products.AddProduct
             var shop = await _shopRepository.GetShopById(shopId);
 
             var validator = new AddProductCommandValidator();
-            validator.ValidateAndThrow(request);
+            var validationResult = await validator.ValidateAsync(request);
+            if (!validationResult.IsValid)
+                throw new ValidationException(validationResult.Errors);
 
             var price = MoneyValue.Of(request.Amount, request.Currency);
             

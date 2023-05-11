@@ -12,19 +12,19 @@ namespace Application.Features.Products.AddProduct
         public AddProductCommandValidator()
         {
             RuleFor(c => c.ProductName).NotEmpty()
-                                       .WithMessage("Password is too short");
+                                       .WithMessage("Product name cannot be empty");
 
             RuleFor(c => c.ProductDescription).NotEmpty()
-                                              .WithMessage("Field cannot be empty");
+                                              .WithMessage("Description cannot be empty");
 
             RuleFor(c => c.Amount).NotEmpty()
-                                  .WithMessage("Field cannot be empty");
+                                  .WithMessage("Amount field cannot be empty");
 
             RuleFor(c => c.Currency).NotEmpty()
-                                    .WithMessage("Field cannot be empty");
+                                    .WithMessage("Currency field cannot be empty");
 
             RuleFor(c => c.Unit).NotEmpty()
-                                .WithMessage("Field cannot be empty");
+                                .WithMessage("Unit field cannot be empty");
         }
     }
 }
