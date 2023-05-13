@@ -21,6 +21,7 @@ namespace Application
             configuration.RegisterServicesFromAssembly(assembly));
 
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PerformanceBehavior<,>));
 
             services.AddValidatorsFromAssembly(assembly);
 

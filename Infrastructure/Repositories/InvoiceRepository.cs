@@ -30,11 +30,13 @@ namespace Infrastructure.Repositories
         public async Task<Invoice> GetByIdForCustomer(InvoiceId id, CustomerId customerId)
         {
             return await _dbContext.Invoices.Where(x => x.CustomerId == customerId)
+                                            .AsNoTracking()
                                             .FirstOrDefaultAsync(e => e.Id == id);
         }
         public async Task<Invoice> GetInvoiceByOrderId(OrderId id)
         {
             return await _dbContext.Invoices.Where(x => x.OrderId == id)
+                                            .AsNoTracking()
                                             .Include(x => x.ShopInvoices)
                                             .FirstOrDefaultAsync();
         }
@@ -42,18 +44,21 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Invoice>> GetAllInvoicesForCustomer(CustomerId customerId)
         {
             return await _dbContext.Invoices.Where(x => x.CustomerId == customerId)
+                                            .AsNoTracking()
                                             .ToListAsync();
         }
 
         public async Task<ShopInvoice> GetByIdForShop(ShopInvoiceId id, ShopId shopId)
         {
             return await _dbContext.ShopInvoices.Where(x => x.ShopId == shopId)
+                                                .AsNoTracking()
                                                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<IEnumerable<ShopInvoice>> GetAllInvoicesForShop(ShopId shopId)
         {
             return await _dbContext.ShopInvoices.Where(x => x.ShopId == shopId)
+                                                .AsNoTracking()
                                                 .ToListAsync();
         }        
     }

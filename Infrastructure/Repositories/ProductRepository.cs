@@ -1,4 +1,5 @@
-﻿using Domain.Shops.Entities.Products;
+﻿using Application.Features.Products;
+using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.Repositories;
 using Domain.Shops.Entities.Products.ValueObjects;
 using Infrastructure.Context;
@@ -35,12 +36,12 @@ namespace Infrastructure.Repositories
 
         public async Task<Product> GetById(ProductId id)
         {
-            return await _dbContext.Products.FirstOrDefaultAsync(e => e.Id == id);
+            return await _dbContext.Products.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<IEnumerable<Product>> GetAllProducts()
         {
-            return await _dbContext.Products.ToListAsync();
+            return await _dbContext.Products.AsNoTracking().ToListAsync();
         }
     }
 }

@@ -19,7 +19,6 @@ namespace Application.Middleware
             catch (Exception exception) 
             { 
                 string errorId = Guid.NewGuid().ToString();
-
                 LogContext.PushProperty("ErrorId", errorId);
                 LogContext.PushProperty("StackTrace", exception.StackTrace);
 
@@ -63,7 +62,10 @@ namespace Application.Middleware
                         break;
                 }
 
-                Log.Error($"{errorResult.Exception} Request failed with Status Code {context.Response.StatusCode} and Error Id {errorId}.");
+                Log.Error("{@Exception} Request failed with Status Code {@StatusCode} and Error Id {@ErrorId}.", 
+                    errorResult.Exception, 
+                    context.Response.StatusCode, 
+                    errorId);
 
                 var response = context.Response;
                 if (!response.HasStarted)

@@ -36,13 +36,14 @@ namespace Infrastructure.Repositories
 
         public async Task<Shop> GetShopById(ShopId id)
         {
-            return await _dbContext.Shops.Include(e => e.ProductList)
+            return await _dbContext.Shops.AsNoTracking()
+                                         .Include(e => e.ProductList)
                                          .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<IEnumerable<Shop>> GetAllShops()
         {
-            return await _dbContext.Shops.ToListAsync();
+            return await _dbContext.Shops.AsNoTracking().ToListAsync();
         }
     }
 }
