@@ -32,7 +32,7 @@ namespace Infrastructure.Context.DbConfiguration
             builder.OwnsOne(c => c.TotalPrice, mv =>
             {
                 mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("Currency");
-                mv.Property(p => p.Amount).HasColumnName("Amount");
+                mv.Property(p => p.Amount).HasColumnName("Amount").HasPrecision(18, 2);
             });
 
             builder.HasMany(c => c.ShopInvoices)
@@ -63,7 +63,7 @@ namespace Infrastructure.Context.DbConfiguration
             builder.OwnsOne(c => c.PartialOrderPrice, mv =>
             {
                 mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("Currency");
-                mv.Property(p => p.Amount).HasColumnName("Amount");
+                mv.Property(p => p.Amount).HasColumnName("Amount").HasPrecision(18, 2);
             });
 
             builder.HasOne(c => c.Invoice)

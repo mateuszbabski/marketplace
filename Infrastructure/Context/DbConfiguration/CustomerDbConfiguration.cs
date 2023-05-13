@@ -69,7 +69,7 @@ namespace Infrastructure.Context.DbConfiguration
             builder.OwnsOne(c => c.TotalPrice, mv =>
             {
                 mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("Currency");
-                mv.Property(p => p.Amount).HasColumnName("Amount");
+                mv.Property(p => p.Amount).HasColumnName("Amount").HasPrecision(18,2);
             });
 
             builder.HasMany(c => c.Items)
@@ -93,7 +93,7 @@ namespace Infrastructure.Context.DbConfiguration
             builder.OwnsOne(c => c.Price, mv =>
             {
                 mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("Currency");
-                mv.Property(p => p.Amount).HasColumnName("Amount");
+                mv.Property(p => p.Amount).HasColumnName("Amount").HasPrecision(18, 2);
             });
 
             builder.Property(c => c.ProductId)
@@ -116,7 +116,7 @@ namespace Infrastructure.Context.DbConfiguration
             builder.OwnsOne(c => c.TotalPrice, mv =>
             {
                 mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("Currency");
-                mv.Property(p => p.Amount).HasColumnName("Amount");
+                mv.Property(p => p.Amount).HasColumnName("Amount").HasPrecision(18, 2);
             });
 
             builder.Property(c => c.PlacedOn).HasColumnName("PlacedOn");
@@ -167,7 +167,7 @@ namespace Infrastructure.Context.DbConfiguration
             builder.OwnsOne(c => c.Price, mv =>
             {
                 mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("Currency");
-                mv.Property(p => p.Amount).HasColumnName("Amount");
+                mv.Property(p => p.Amount).HasColumnName("Amount").HasPrecision(18, 2);
             });
 
             builder.ToTable("OrderItems");
