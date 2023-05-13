@@ -3,7 +3,6 @@ using Application.Common.Interfaces;
 using Application.Middleware;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using WebAPI.Services;
@@ -51,8 +50,7 @@ builder.Services
     .AddInfrastructure(builder.Configuration);
 
 builder.Host.UseSerilog((context, configuration) =>
-configuration.ReadFrom.Configuration(context.Configuration));
-
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 
 var app = builder.Build();

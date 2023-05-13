@@ -1,8 +1,10 @@
 ﻿using Application.Authentication;
 using Application.Authentication.Services;
+using Application.Common.Behaviors;
 using Application.Features.Products.AddProduct;
 using Application.Middleware;
 using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
@@ -17,6 +19,8 @@ namespace Application
 
             services.AddMediatR(configuration =>
             configuration.RegisterServicesFromAssembly(assembly));
+
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
             services.AddValidatorsFromAssembly(assembly);
 
