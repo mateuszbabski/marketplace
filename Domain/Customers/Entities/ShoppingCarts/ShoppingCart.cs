@@ -3,7 +3,7 @@ using Domain.Customers.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products;
-using Domain.Shops.Entities.Products.ValueObjects;
+
 namespace Domain.Customers.Entities.ShoppingCarts
 {
     public class ShoppingCart : Entity

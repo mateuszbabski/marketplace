@@ -29,7 +29,7 @@ namespace Application.Features.ShoppingCarts.AddProductToShoppingCart
                         
             shoppingCart.AddProductToShoppingCart(product, request.Quantity);
 
-            await _shoppingCartRepository.Update(shoppingCart);            
+            await _shoppingCartRepository.Update(shoppingCart);  
 
             return shoppingCart.Id;
         }

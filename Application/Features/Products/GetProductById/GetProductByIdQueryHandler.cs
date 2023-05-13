@@ -1,4 +1,5 @@
-﻿using Domain.Shops.Entities.Products.Repositories;
+﻿using Application.Common.Exceptions;
+using Domain.Shops.Entities.Products.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,8 @@ namespace Application.Features.Products.GetProductById
         }
         public async Task<ProductDetailsDto> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetById(request.Id) ?? throw new Exception("Product not found");
+            var product = await _productRepository.GetById(request.Id)
+                ?? throw new NotFoundException("Product not found");
 
             var productDto = ProductDetailsDto.CreateProductDtoFromObject(product);
 

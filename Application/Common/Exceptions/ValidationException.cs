@@ -1,11 +1,5 @@
 ﻿using FluentValidation.Results;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Common.Exceptions
 {
@@ -14,7 +8,7 @@ namespace Application.Common.Exceptions
         public List<string> Errors { get; }
         public HttpStatusCode StatusCode { get; }
 
-        public ValidationException(HttpStatusCode statusCode = HttpStatusCode.Forbidden) : base("Validation failure")
+        public ValidationException(HttpStatusCode statusCode = HttpStatusCode.UnprocessableEntity) : base("Validation failure")
         {
             Errors = new List<string>();
             StatusCode = statusCode;

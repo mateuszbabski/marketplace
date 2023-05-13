@@ -19,28 +19,28 @@ namespace Application.Authentication
                                     .WithMessage("Password is too short");
 
             RuleFor(c => c.OwnerName).NotEmpty()
-                                .WithMessage("Field cannot be empty");
+                                .WithMessage("OwnerName field cannot be empty");
 
             RuleFor(c => c.OwnerLastName).NotEmpty()
-                                    .WithMessage("Field cannot be empty");
+                                    .WithMessage("OwnerLastName field cannot be empty");
 
             RuleFor(c => c.ShopName).NotEmpty()
-                                    .WithMessage("Field cannot be empty");
+                                    .WithMessage("ShopName field cannot be empty");
 
             RuleFor(c => c.TaxNumber).NotEmpty()
-                                    .WithMessage("Field cannot be empty");
+                                    .WithMessage("TaxNumber field cannot be empty");
 
             RuleFor(c => c.Country).NotEmpty()
-                                   .WithMessage("Field cannot be empty");
+                                   .WithMessage("Country field cannot be empty");
 
             RuleFor(c => c.City).NotEmpty()
-                                .WithMessage("Field cannot be empty");
+                                .WithMessage("City field cannot be empty");
 
             RuleFor(c => c.Street).NotEmpty()
-                                  .WithMessage("Field cannot be empty");
+                                  .WithMessage("Street field cannot be empty");
 
             RuleFor(c => c.PostalCode).NotEmpty()
-                                      .WithMessage("Field cannot be empty");
+                                      .WithMessage("PostalCode field cannot be empty");
 
             RuleFor(c => c.ContactNumber).NotEmpty()
                                            .Matches("^[0-9 +-]+$")
