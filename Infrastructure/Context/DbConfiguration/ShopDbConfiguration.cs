@@ -49,10 +49,10 @@ namespace Infrastructure.Context.DbConfiguration
 
             builder.OwnsOne(c => c.ShopAddress, sa =>
             {
-                sa.Property(x => x.Country).HasColumnName("Country");
-                sa.Property(x => x.City).HasColumnName("City");
-                sa.Property(x => x.Street).HasColumnName("Street");
-                sa.Property(x => x.PostalCode).HasColumnName("PostalCode");
+                sa.Property(x => x.Country).HasColumnName("Country").IsRequired();
+                sa.Property(x => x.City).HasColumnName("City").IsRequired();
+                sa.Property(x => x.Street).HasColumnName("Street").IsRequired();
+                sa.Property(x => x.PostalCode).HasColumnName("PostalCode").IsRequired();
             });
 
             builder.Property(c => c.ContactNumber)

@@ -17,6 +17,7 @@ using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Customers.Entities.Orders.Repositories;
 using Domain.Shops.Entities.ShopOrders.Repositories;
 using Domain.Invoices.Repositories;
+using Infrastructure.Services.Events;
 
 namespace Infrastructure
 {
@@ -36,6 +37,7 @@ namespace Infrastructure
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddSingleton<ITokenManager, TokenManager>();
             services.AddSingleton<IHashingService, HashingService>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDomainEventsDispatcher, DomainEventsDispatcher>();
 

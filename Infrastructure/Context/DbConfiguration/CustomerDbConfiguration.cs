@@ -40,10 +40,10 @@ namespace Infrastructure.Context.DbConfiguration
 
             builder.OwnsOne(c => c.Address, sa =>
             {
-                sa.Property(x => x.Country).HasColumnName("Country");
-                sa.Property(x => x.City).HasColumnName("City");
-                sa.Property(x => x.Street).HasColumnName("Street");
-                sa.Property(x => x.PostalCode).HasColumnName("PostalCode");
+                sa.Property(x => x.Country).HasColumnName("Country").IsRequired();
+                sa.Property(x => x.City).HasColumnName("City").IsRequired();
+                sa.Property(x => x.Street).HasColumnName("Street").IsRequired();
+                sa.Property(x => x.PostalCode).HasColumnName("PostalCode").IsRequired();
             });
 
             builder.HasMany(c => c.Orders)
@@ -127,10 +127,10 @@ namespace Infrastructure.Context.DbConfiguration
 
             builder.OwnsOne(c => c.ShippingAddress, sa =>
             {
-                sa.Property(x => x.Country).HasColumnName("Country");
-                sa.Property(x => x.City).HasColumnName("City");
-                sa.Property(x => x.Street).HasColumnName("Street");
-                sa.Property(x => x.PostalCode).HasColumnName("PostalCode");
+                sa.Property(x => x.Country).HasColumnName("Country").IsRequired();
+                sa.Property(x => x.City).HasColumnName("City").IsRequired();
+                sa.Property(x => x.Street).HasColumnName("Street").IsRequired();
+                sa.Property(x => x.PostalCode).HasColumnName("PostalCode").IsRequired();
             });
 
             builder.HasOne(c => c.Customer)

@@ -1,5 +1,5 @@
 ﻿using Application.Common.Interfaces;
-using Infrastructure.Services;
+using Infrastructure.Services.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -2,7 +2,7 @@
 using Infrastructure.Context;
 using MediatR;
 
-namespace Infrastructure.Services
+namespace Infrastructure.Services.Events
 {
     internal sealed class DomainEventsDispatcher : IDomainEventsDispatcher
     {
@@ -24,7 +24,7 @@ namespace Infrastructure.Services
 
             var domainEvents = domainEntities.SelectMany(x => x.DomainEvents).ToList();
 
-            if (domainEvents is null) 
+            if (domainEvents is null)
                 return;
 
             domainEntities.ForEach(x => x.ClearDomainEvents());
