@@ -2,6 +2,8 @@
 using Application.Common.Responses;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Serilog;
+using Serilog.Context;
 using System.Net;
 
 namespace Application.Middleware
@@ -17,6 +19,9 @@ namespace Application.Middleware
             catch (Exception exception) 
             { 
                 string errorId = Guid.NewGuid().ToString();
+
+                LogContext.PushProperty("ErrorId", errorId);
+                LogContext.PushProperty("StackTrace", exception.StackTrace);
 
                 var errorResult = new ErrorResponse
                 {
@@ -58,7 +63,7 @@ namespace Application.Middleware
                         break;
                 }
 
-                // LOG
+                Log.Error($"{errorResult.Exception} Request failed with Status Code {context.Response.StatusCode} and Error Id {errorId}.");
 
                 var response = context.Response;
                 if (!response.HasStarted)
@@ -69,8 +74,7 @@ namespace Application.Middleware
                 }
                 else
                 {
-                    // LOG
-                    return;
+                    Log.Warning("Can't write error response. Response has already started.");
                 }
                     
             }
