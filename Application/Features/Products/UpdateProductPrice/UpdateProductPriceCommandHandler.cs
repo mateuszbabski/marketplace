@@ -18,12 +18,17 @@ namespace Application.Features.Products.UpdateProductPrice
         private readonly ICurrentUserService _userService;
         private readonly IProductRepository _productRepository;
         private readonly IShopRepository _shopRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateProductPriceCommandHandler(ICurrentUserService userService, IProductRepository productRepository, IShopRepository shopRepository)
+        public UpdateProductPriceCommandHandler(ICurrentUserService userService,
+                                                IProductRepository productRepository,
+                                                IShopRepository shopRepository,
+                                                IUnitOfWork unitOfWork)
         {
             _userService = userService;
             _productRepository = productRepository;
             _shopRepository = shopRepository;
+            _unitOfWork = unitOfWork;
         }
         public async Task<Unit> Handle(UpdateProductPriceCommand request, CancellationToken cancellationToken)
         {
@@ -40,7 +45,7 @@ namespace Application.Features.Products.UpdateProductPrice
                                     request.Amount,
                                     request.Currency);
 
-            await _productRepository.Update(product);
+            await _unitOfWork.CommitAsync();
 
             return Unit.Value;
         }

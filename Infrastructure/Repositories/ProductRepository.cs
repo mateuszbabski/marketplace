@@ -1,14 +1,8 @@
-﻿using Application.Features.Products;
-using Domain.Shops.Entities.Products;
+﻿using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.Repositories;
 using Domain.Shops.Entities.Products.ValueObjects;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
@@ -29,19 +23,19 @@ namespace Infrastructure.Repositories
             return product;
         }
 
-        public async Task Update(Product product)
+        public void Update(Product product)
         {
-            await _dbContext.SaveChangesAsync();
+            _dbContext.Products.Update(product);
         }
 
         public async Task<Product> GetById(ProductId id)
         {
-            return await _dbContext.Products.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+            return await _dbContext.Products.FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<IEnumerable<Product>> GetAllProducts()
         {
-            return await _dbContext.Products.AsNoTracking().ToListAsync();
+            return await _dbContext.Products.ToListAsync();
         }
     }
 }

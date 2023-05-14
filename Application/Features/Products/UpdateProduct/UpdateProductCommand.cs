@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.UpdateProduct
 {
-    public class UpdateProductCommand : IRequest<Unit>
+    public class UpdateProductCommand : IRequest
     {
         public Guid Id { get; set; }
         public string ProductName { get; set; }

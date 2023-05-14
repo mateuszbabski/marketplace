@@ -35,7 +35,7 @@ namespace Application.Common.Behaviors
 
                 if (failures.Any())
                 {
-                    _logger.LogWarning("Validation exceptions occured - number of failures {@Failures}", failures.Count);
+                    _logger.LogError("Validation exceptions occured - number of failures {@Failures}", failures.Count);
                     throw new CustomValidationException(failures);
                 }
             }

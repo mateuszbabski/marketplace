@@ -13,7 +13,8 @@ namespace Application.Features.Products.AddProduct
         private readonly IShopRepository _shopRepository;
         private readonly ICurrentUserService _userService;
 
-        public AddProductCommandHandler(IProductRepository productRepository, IShopRepository shopRepository,
+        public AddProductCommandHandler(IProductRepository productRepository,
+                                        IShopRepository shopRepository,
                                         ICurrentUserService userService)
         {
             _productRepository = productRepository;

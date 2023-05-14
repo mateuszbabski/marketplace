@@ -41,27 +41,26 @@ namespace Application.Features.Orders.CancelOrder
 
             customer.CancelOrder(request.Id);
 
-            CancelRelatedShopOrders(request.Id);
+            await CancelRelatedShopOrders(request.Id);
 
-            // cancel or just delete invoices if order is cancelled
-            CancelAllInvoices(request.Id);
+            await CancelAllInvoices(request.Id);
 
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.CommitAsync();
 
             return Unit.Value;
         }
 
-        private async void CancelRelatedShopOrders(OrderId Id)
+        private async Task CancelRelatedShopOrders(OrderId Id)
         {
-            var shopOrderList = await _shopOrderRepository.GetShopOrdersByOrderId(Id);            
+            var shopOrderList = await _shopOrderRepository.GetShopOrdersByOrderId(Id);
 
             foreach (var shopOrder in shopOrderList)
             {
-                shopOrder.CancelOrder();                
+                shopOrder.CancelOrder();
             }
         }
 
-        private async void CancelAllInvoices(OrderId orderId)
+        private async Task CancelAllInvoices(OrderId orderId)
         {
             var invoice = await _invoiceRepository.GetInvoiceByOrderId(orderId);
 

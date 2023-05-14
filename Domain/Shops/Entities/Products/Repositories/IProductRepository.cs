@@ -10,7 +10,7 @@ namespace Domain.Shops.Entities.Products.Repositories
     public interface IProductRepository
     {
         Task<Product> Add(Product product);
-        Task Update(Product product);
+        void Update(Product product);
         Task<Product> GetById(ProductId id);
         Task<IEnumerable<Product>> GetAllProducts();
     }

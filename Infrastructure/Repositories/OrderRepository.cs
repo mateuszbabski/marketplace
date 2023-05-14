@@ -32,7 +32,6 @@ namespace Infrastructure.Repositories
         public async Task<Order> GetOrderById(OrderId Id, CustomerId customerId)
         {
             return await _dbContext.Orders.Where(o => o.CustomerId == customerId)
-                                          .AsNoTracking()
                                           .Include(o => o.OrderItems)
                                           .Include(o => o.ShopOrders)
                                           .FirstOrDefaultAsync(o => o.Id == Id);
@@ -41,7 +40,6 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Order>> GetAllOrdersForCustomer(CustomerId customerId)
         {
             return await _dbContext.Orders.Where(o => o.CustomerId == customerId)
-                                          .AsNoTracking()
                                           .ToListAsync();
         }
     }

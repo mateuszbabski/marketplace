@@ -1,7 +1,11 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
+using Domain.Shops;
 using Domain.Shops.Entities.Products.Repositories;
+using Domain.Shops.Entities.Products.ValueObjects;
 using Domain.Shops.Repositories;
 using MediatR;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +19,18 @@ namespace Application.Features.Products.ChangeProductAvailability
         private readonly IProductRepository _productRepository;
         private readonly ICurrentUserService _userService;
         private readonly IShopRepository _shopRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ChangeProductAvailabilityCommandHandler(IProductRepository productRepository, ICurrentUserService userService, IShopRepository shopRepository)
+        public ChangeProductAvailabilityCommandHandler(IProductRepository productRepository,
+                                                       ICurrentUserService userService,
+                                                       IShopRepository shopRepository,
+                                                       IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _userService = userService;
             _shopRepository = shopRepository;
+            _unitOfWork = unitOfWork;
         }
-
 
         public async Task<Unit> Handle(ChangeProductAvailabilityCommand request, CancellationToken cancellationToken)
         {
@@ -32,12 +40,12 @@ namespace Application.Features.Products.ChangeProductAvailability
 
             if (product == null || product.ShopId.Value != shopId)
             {
-                throw new Exception("Product not found");
+                throw new NotFoundException("Product not found");
             }
 
             shop.ChangeProductAvailability(request.Id);
 
-            await _productRepository.Update(product);         
+            await _unitOfWork.CommitAsync();
             
             return Unit.Value;
         }

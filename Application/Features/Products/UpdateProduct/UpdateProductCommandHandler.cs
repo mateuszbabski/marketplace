@@ -1,10 +1,12 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.Repositories;
 using Domain.Shops.Entities.Products.ValueObjects;
 using Domain.Shops.Repositories;
 using MediatR;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +15,24 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.UpdateProduct
 {
-    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Unit>
+    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
     {
         private readonly IProductRepository _productRepository;
         private readonly ICurrentUserService _userService;
         private readonly IShopRepository _shopRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateProductCommandHandler(IProductRepository productRepository, ICurrentUserService userService, IShopRepository shopRepository)
+        public UpdateProductCommandHandler(IProductRepository productRepository,
+                                           ICurrentUserService userService,
+                                           IShopRepository shopRepository,
+                                           IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _userService = userService;
             _shopRepository = shopRepository;
+            _unitOfWork = unitOfWork;
         }
-        public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
             var shopId = _userService.UserId;
             var shop = await _shopRepository.GetShopById(shopId);
@@ -33,17 +40,15 @@ namespace Application.Features.Products.UpdateProduct
 
             if (product == null || product.ShopId.Value != shopId)
             {
-                throw new Exception("Product not found");
-            }
-            
+                throw new NotFoundException("Product not found");
+            }            
+                        
             shop.ChangeProductDetails(request.Id,
                                       request.ProductName,
                                       request.ProductDescription,
                                       request.Unit);
 
-            await _productRepository.Update(product);
-
-            return Unit.Value;
+            await _unitOfWork.CommitAsync();            
         }
     }
 }

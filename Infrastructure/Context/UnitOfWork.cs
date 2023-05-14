@@ -24,10 +24,10 @@ namespace Infrastructure.Context
             _domainEventsDispatcher = domainEventsDispatcher;
         }
 
-        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public async Task<int> CommitAsync()
         {
             await _domainEventsDispatcher.DispatchEventsAsync();
-            return await _dbContext.SaveChangesAsync(cancellationToken);
+            return await _dbContext.SaveChangesAsync();
         }
     }
 }

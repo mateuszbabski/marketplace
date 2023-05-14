@@ -32,7 +32,6 @@ namespace Infrastructure.Repositories
         public async Task<ShopOrder> GetShopOrderById(ShopOrderId Id, ShopId shopId)
         {
             return await _dbContext.ShopOrders.Where(o => o.ShopId == shopId)
-                                              .AsNoTracking()
                                               .Include(o => o.ShopOrderItems)                                              
                                               .FirstOrDefaultAsync(o => o.Id == Id);
         }
@@ -40,14 +39,12 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<ShopOrder>> GetAllShopOrdersForShop(ShopId shopId)
         {
             return await _dbContext.ShopOrders.Where(o => o.ShopId == shopId)
-                                              .AsNoTracking()
                                               .ToListAsync();
         }
 
         public async Task<IEnumerable<ShopOrder>> GetShopOrdersByOrderId(OrderId orderId)
         {
             return await _dbContext.ShopOrders.Where(o => o.OrderId == orderId)
-                                              .AsNoTracking()
                                               .ToListAsync();
         }
     }
