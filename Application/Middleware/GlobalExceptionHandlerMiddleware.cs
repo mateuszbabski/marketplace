@@ -41,7 +41,7 @@ namespace Application.Middleware
 
                 switch (exception)
                 {
-                    case ValidationException validationException:
+                    case CustomValidationException validationException:
                         errorResult.StatusCode = (int)validationException.StatusCode;
                         if (validationException.Errors is not null)
                         {
@@ -63,8 +63,8 @@ namespace Application.Middleware
                 }
 
                 Log.Error("{@Exception} Request failed with Status Code {@StatusCode} and Error Id {@ErrorId}.", 
-                    errorResult.Exception, 
-                    context.Response.StatusCode, 
+                    errorResult.Exception,
+                    errorResult.StatusCode, 
                     errorId);
 
                 var response = context.Response;

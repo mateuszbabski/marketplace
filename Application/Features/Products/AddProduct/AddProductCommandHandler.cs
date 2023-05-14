@@ -27,11 +27,6 @@ namespace Application.Features.Products.AddProduct
             var shopId = _userService.UserId;
             var shop = await _shopRepository.GetShopById(shopId);
 
-            var validator = new AddProductCommandValidator();
-            var validationResult = await validator.ValidateAsync(request);
-            if (!validationResult.IsValid)
-                throw new ValidationException(validationResult.Errors);
-
             var price = MoneyValue.Of(request.Amount, request.Currency);
             
             var product = shop.AddProduct(request.ProductName,

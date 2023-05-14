@@ -21,6 +21,7 @@ namespace Application
             configuration.RegisterServicesFromAssembly(assembly));
 
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PerformanceBehavior<,>));
 
             services.AddValidatorsFromAssembly(assembly);
@@ -28,8 +29,7 @@ namespace Application
             services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             services.AddScoped<IValidator<RegisterCustomerRequest>, RegisterCustomerRequestValidator>();
-            services.AddScoped<IValidator<RegisterShopRequest>, RegisterShopRequestValidator>();
-            services.AddScoped<IValidator<AddProductCommand>, AddProductCommandValidator>();            
+            services.AddScoped<IValidator<RegisterShopRequest>, RegisterShopRequestValidator>();          
 
             return services;
         }
