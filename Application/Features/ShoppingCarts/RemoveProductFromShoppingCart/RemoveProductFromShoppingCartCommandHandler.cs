@@ -8,11 +8,15 @@ namespace Application.Features.ShoppingCarts.RemoveProductFromShoppingCart
     {
         private readonly ICurrentUserService _userService;
         private readonly IShoppingCartRepository _shoppingCartRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RemoveProductFromShoppingCartCommandHandler(ICurrentUserService userService, IShoppingCartRepository shoppingCartRepository)
+        public RemoveProductFromShoppingCartCommandHandler(ICurrentUserService userService,
+                                                           IShoppingCartRepository shoppingCartRepository,
+                                                           IUnitOfWork unitOfWork)
         {
             _userService = userService;
             _shoppingCartRepository = shoppingCartRepository;
+            _unitOfWork = unitOfWork;
         }
         public async Task<Unit> Handle(RemoveProductFromShoppingCartCommand request, CancellationToken cancellationToken)
         {
@@ -23,6 +27,8 @@ namespace Application.Features.ShoppingCarts.RemoveProductFromShoppingCart
             shoppingCart.RemoveItemFromCart(request.Id);
 
             await _shoppingCartRepository.RemoveItem(shoppingCart, request.Id);
+
+            await _unitOfWork.CommitAsync();
 
             return Unit.Value;
         }

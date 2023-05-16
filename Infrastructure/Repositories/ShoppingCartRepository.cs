@@ -20,14 +20,8 @@ namespace Infrastructure.Repositories
         public async Task<ShoppingCart> Create(ShoppingCart shoppingCart)
         {
             await _dbContext.ShoppingCarts.AddAsync(shoppingCart);
-            await _dbContext.SaveChangesAsync();
 
             return shoppingCart;
-        }
-
-        public async Task Update(ShoppingCart shoppingCart)
-        {
-            await _dbContext.SaveChangesAsync();
         }
 
         public async Task RemoveItem(ShoppingCart shoppingCart, ShoppingCartItemId shoppingCartItemId)
@@ -41,14 +35,11 @@ namespace Infrastructure.Repositories
             {
                 _dbContext.ShoppingCarts.Remove(shoppingCart);
             }
-
-            await _dbContext.SaveChangesAsync();
         }
 
-        public async Task Delete(ShoppingCart shoppingCart)
+        public void DeleteCart(ShoppingCart shoppingCart)
         {
             _dbContext.ShoppingCarts.Remove(shoppingCart);
-            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<ShoppingCart> GetShoppingCartById(ShoppingCartId id)

@@ -12,14 +12,17 @@ namespace Application.Features.Products.AddProduct
         private readonly IProductRepository _productRepository;
         private readonly IShopRepository _shopRepository;
         private readonly ICurrentUserService _userService;
+        private readonly IUnitOfWork _unitOfWork;
 
         public AddProductCommandHandler(IProductRepository productRepository,
                                         IShopRepository shopRepository,
-                                        ICurrentUserService userService)
+                                        ICurrentUserService userService,
+                                        IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _shopRepository = shopRepository;
             _userService = userService;
+            _unitOfWork = unitOfWork;
         }
 
 
@@ -37,6 +40,8 @@ namespace Application.Features.Products.AddProduct
                                           shopId);
 
             await _productRepository.Add(product);
+
+            await _unitOfWork.CommitAsync();
             
             return product.Id;
         }

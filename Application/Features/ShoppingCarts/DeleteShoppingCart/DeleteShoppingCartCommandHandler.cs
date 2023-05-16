@@ -13,11 +13,15 @@ namespace Application.Features.ShoppingCarts.DeleteShoppingCart
     {
         private readonly ICurrentUserService _userService;
         private readonly IShoppingCartRepository _shoppingCartRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteShoppingCartCommandHandler(ICurrentUserService userService, IShoppingCartRepository shoppingCartRepository)
+        public DeleteShoppingCartCommandHandler(ICurrentUserService userService,
+                                                IShoppingCartRepository shoppingCartRepository,
+                                                IUnitOfWork unitOfWork)
         {
             _userService = userService;
             _shoppingCartRepository = shoppingCartRepository;
+            _unitOfWork = unitOfWork;
         }
         public async Task<Unit> Handle(DeleteShoppingCartCommand request, CancellationToken cancellationToken)
         {
@@ -26,7 +30,9 @@ namespace Application.Features.ShoppingCarts.DeleteShoppingCart
             var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(userId)
                 ?? throw new Exception("Cart not found.");
 
-            await _shoppingCartRepository.Delete(shoppingCart);
+            _shoppingCartRepository.DeleteCart(shoppingCart);
+
+            await _unitOfWork.CommitAsync();
 
             return Unit.Value;
         }

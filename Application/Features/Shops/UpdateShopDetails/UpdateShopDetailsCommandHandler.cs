@@ -18,11 +18,15 @@ namespace Application.Features.Shops.UpdateShopDetails
     {
         private readonly ICurrentUserService _userService;
         private readonly IShopRepository _shopRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateShopDetailsCommandHandler(ICurrentUserService userService, IShopRepository shopRepository)
+        public UpdateShopDetailsCommandHandler(ICurrentUserService userService,
+                                               IShopRepository shopRepository,
+                                               IUnitOfWork unitOfWork)
         {
             _userService = userService;
             _shopRepository = shopRepository;
+            _unitOfWork = unitOfWork;
         }
         public async Task<Unit> Handle(UpdateShopDetailsCommand request, CancellationToken cancellationToken)
         {
@@ -42,9 +46,10 @@ namespace Application.Features.Shops.UpdateShopDetails
                                    request.Street,
                                    request.PostalCode,
                                    request.TaxNumber,
-                                   request.ContactNumber);           
+                                   request.ContactNumber);  
 
-            await _shopRepository.Update(shop);
+            await _unitOfWork.CommitAsync();
+
             return Unit.Value;
         }
     }

@@ -12,13 +12,17 @@ namespace Application.Features.ShoppingCarts.AddProductToShoppingCart
         private readonly ICurrentUserService _userService;
         private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
         public AddProductToShoppingCartCommandHandler(ICurrentUserService userService,
-                                                      IShoppingCartRepository shoppingCartRepository, IProductRepository productRepository)
+                                                      IShoppingCartRepository shoppingCartRepository,
+                                                      IProductRepository productRepository,
+                                                      IUnitOfWork unitOfWork)
         {
             _userService = userService;
             _shoppingCartRepository = shoppingCartRepository;
             _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Guid> Handle(AddProductToShoppingCartCommand request, CancellationToken cancellationToken)
@@ -29,7 +33,7 @@ namespace Application.Features.ShoppingCarts.AddProductToShoppingCart
                         
             shoppingCart.AddProductToShoppingCart(product, request.Quantity);
 
-            await _shoppingCartRepository.Update(shoppingCart);  
+            await _unitOfWork.CommitAsync();
 
             return shoppingCart.Id;
         }

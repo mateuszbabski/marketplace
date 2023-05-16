@@ -18,14 +18,8 @@ namespace Infrastructure.Repositories
         public async Task<Product> Add(Product product)
         {
             await _dbContext.Products.AddAsync(product);
-            await _dbContext.SaveChangesAsync();
 
             return product;
-        }
-
-        public void Update(Product product)
-        {
-            _dbContext.Products.Update(product);
         }
 
         public async Task<Product> GetById(ProductId id)

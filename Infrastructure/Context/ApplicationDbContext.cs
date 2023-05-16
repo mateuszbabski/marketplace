@@ -6,6 +6,7 @@ using Domain.Shops;
 using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.ShopOrders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Infrastructure.Context
 {
@@ -15,7 +16,7 @@ namespace Infrastructure.Context
         {
         }
 
-        public DbSet<Customer> Customers { get;  set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
@@ -35,6 +36,12 @@ namespace Infrastructure.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        }
+        // test it
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(warnings 
+                => warnings.Ignore(CoreEventId.NavigationBaseIncludeIgnored, CoreEventId.NavigationBaseIncluded));
         }
     }
 }

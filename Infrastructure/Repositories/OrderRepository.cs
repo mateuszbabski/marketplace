@@ -19,14 +19,8 @@ namespace Infrastructure.Repositories
         public async Task<Order> Add(Order order)
         {
             await _dbContext.Orders.AddAsync(order);
-            await _dbContext.SaveChangesAsync();
 
             return order;
-        }
-
-        public async Task Update(Order order)
-        {
-            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<Order> GetOrderById(OrderId Id, CustomerId customerId)

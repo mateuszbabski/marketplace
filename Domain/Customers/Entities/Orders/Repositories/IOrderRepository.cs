@@ -11,7 +11,6 @@ namespace Domain.Customers.Entities.Orders.Repositories
     public interface IOrderRepository
     {
         Task<Order> Add(Order order);
-        Task Update(Order order);
         Task<Order> GetOrderById(OrderId Id, CustomerId customerId);
         Task<IEnumerable<Order>> GetAllOrdersForCustomer(CustomerId customerId);
     }
