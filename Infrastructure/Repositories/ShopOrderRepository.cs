@@ -42,6 +42,14 @@ namespace Infrastructure.Repositories
                                               .ToListAsync();
         }
 
+        public async Task<IEnumerable<ShopOrder>> GetAllShopOrdersByOrderIdForCustomer(OrderId orderId, CustomerId customerId)
+        {
+            return await _dbContext.ShopOrders.Where(o => o.OrderId == orderId)
+                                              .Where(o => o.CustomerId == customerId)
+                                              .Include(o => o.ShopOrderItems)
+                                              .ToListAsync();
+        }
+
         public async Task<IEnumerable<ShopOrder>> GetShopOrdersByOrderId(OrderId orderId)
         {
             return await _dbContext.ShopOrders.Where(o => o.OrderId == orderId)

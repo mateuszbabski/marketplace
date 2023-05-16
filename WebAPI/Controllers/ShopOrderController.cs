@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Features.ShopOrders.GetShopOrders;
 using Application.Features.ShopOrders;
 using Application.Features.ShopOrders.GetShopOrderById;
+using Application.Features.ShopOrders.GetShopOrdersByOrderId;
 
 namespace WebAPI.Controllers
 {
@@ -35,6 +36,18 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<ShopOrderDto>>> GetAllShopOrdersForShop()
         {
             var orders = await _mediator.Send(new GetShopOrdersQuery());
+
+            return Ok(orders);
+        }
+
+        [Authorize(Roles = "customer")]
+        [HttpGet("GetAllShopOrdersForCustomerOrder")]
+        public async Task<ActionResult<IEnumerable<ShopOrderDto>>> GetAllShopOrdersForCustomersOrder(Guid orderId)
+        {
+            var orders = await _mediator.Send(new GetShopOrderByOrderIdQuery()
+            {
+                OrderId = orderId
+            });
 
             return Ok(orders);
         }
