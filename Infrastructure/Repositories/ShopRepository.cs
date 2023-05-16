@@ -24,12 +24,6 @@ namespace Infrastructure.Repositories
             return shop;
         }
 
-        public async Task Update(Shop shop)
-        {
-            _dbContext.Shops.Update(shop);
-            await _dbContext.SaveChangesAsync();            
-        }
-
         public async Task<Shop> GetShopByEmail(string email)
         {
             return await _dbContext.Shops.FirstOrDefaultAsync(e => e.Email == email);
@@ -37,8 +31,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Shop> GetShopById(ShopId id)
         {
-            return await _dbContext.Shops
-                                         .Include(e => e.ProductList)
+            return await _dbContext.Shops.Include(e => e.ProductList)
                                          .FirstOrDefaultAsync(e => e.Id == id);
         }
 
