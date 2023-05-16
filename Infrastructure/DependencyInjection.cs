@@ -18,6 +18,7 @@ using Domain.Customers.Entities.Orders.Repositories;
 using Domain.Shops.Entities.ShopOrders.Repositories;
 using Domain.Invoices.Repositories;
 using Infrastructure.Services.Events;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Infrastructure
 {
@@ -28,9 +29,12 @@ namespace Infrastructure
             var jwtSettings = new JwtSettings();
             configuration.GetSection("JwtSettings").Bind(jwtSettings);
             services.AddSingleton(jwtSettings);
-            
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                options.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.DuplicateDependentEntityTypeInstanceWarning));
+            });
 
             services.AddScoped<IApplicationDbContext>(options => options.GetRequiredService<ApplicationDbContext>());
 
