@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Customers.Entities.Orders.Repositories;
 using MediatR;
 using System;
@@ -22,7 +23,8 @@ namespace Application.Features.Orders.GetOrders
         public async Task<IEnumerable<OrderDto>> Handle(GetOrdersQuery request, CancellationToken cancellationToken)
         {
             var customerId = _userService.UserId;
-            var orders = await _orderRepository.GetAllOrdersForCustomer(customerId) ?? throw new Exception("There is no orders available for current user");
+            var orders = await _orderRepository.GetAllOrdersForCustomer(customerId) 
+                ?? throw new NotFoundException("There is no orders available for current user");
 
             var orderList = OrderDto.CreateOrderDtoFromObject(orders);
 

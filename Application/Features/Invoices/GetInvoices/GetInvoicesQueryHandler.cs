@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Invoices.Repositories;
 using MediatR;
 
@@ -19,7 +20,8 @@ namespace Application.Features.Invoices.GetInvoices
         {
             var userId = _userService.UserId;
 
-            var invoiceList = await _invoiceRepository.GetAllInvoicesForCustomer(userId);
+            var invoiceList = await _invoiceRepository.GetAllInvoicesForCustomer(userId)
+                ?? throw new NotFoundException("There is no available invoices");
 
             var invoiceListDto = InvoiceDto.CreateInvoiceDtoFromObject(invoiceList);
 

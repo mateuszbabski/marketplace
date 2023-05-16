@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using MediatR;
 
@@ -22,7 +23,7 @@ namespace Application.Features.ShoppingCarts.RemoveProductFromShoppingCart
         {
             var customerId = _userService.UserId;
             var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(customerId) 
-                ?? throw new Exception("Cart not found.");
+                ?? throw new NotFoundException("Cart not found.");
 
             shoppingCart.RemoveItemFromCart(request.Id);
 

@@ -1,4 +1,5 @@
-﻿using Domain.Shops;
+﻿using Application.Common.Exceptions;
+using Domain.Shops;
 using Domain.Shops.Repositories;
 using MediatR;
 using System;
@@ -19,7 +20,8 @@ namespace Application.Features.Shops.GetAllShops
         }
         public async Task<IEnumerable<ShopDto>> Handle(GetAllShopsQuery request, CancellationToken cancellationToken)
         {
-            var shops = await _shopRepository.GetAllShops() ?? throw new Exception("Shops not found");
+            var shops = await _shopRepository.GetAllShops() 
+                ?? throw new NotFoundException("Shops not found");
 
             var shopListDto = ShopDto.CreateShopDtoFromObject(shops);
 

@@ -1,4 +1,5 @@
-﻿using Domain.Shops.Entities.Products;
+﻿using Application.Common.Exceptions;
+using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.Repositories;
 using MediatR;
 using System;
@@ -19,7 +20,8 @@ namespace Application.Features.Products.GetAllProducts
         }
         public async Task<IEnumerable<ProductDto>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
-            var products = await _productRepository.GetAllProducts() ?? throw new Exception("Products not found");
+            var products = await _productRepository.GetAllProducts() 
+                ?? throw new NotFoundException("Products not found");
 
             var productList = ProductDto.CreateProductDtoFromObject(products);    
             

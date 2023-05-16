@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Shops.Entities.ShopOrders.Repositories;
 using MediatR;
 using System;
@@ -23,7 +24,8 @@ namespace Application.Features.ShopOrders.GetShopOrderById
         {
             var userId = _userService.UserId;
 
-            var shopOrder = await _shopOrderRepository.GetShopOrderById(request.Id, userId) ?? throw new Exception("There is no ShopOrder with requested Id");
+            var shopOrder = await _shopOrderRepository.GetShopOrderById(request.Id, userId) 
+                ?? throw new NotFoundException("There is no ShopOrder with requested Id");
 
             var shopOrderDto = ShopOrderDetailsDto.CreateShopOrderDtoFromObject(shopOrder);
 

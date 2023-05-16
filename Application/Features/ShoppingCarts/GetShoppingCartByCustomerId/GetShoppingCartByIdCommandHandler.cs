@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using MediatR;
 
@@ -17,12 +18,8 @@ namespace Application.Features.ShoppingCarts.GetShoppingCartByCustomerId
         public async Task<ShoppingCartDto> Handle(GetShoppingCartByCustomerIdCommand request, CancellationToken cancellationToken)
         {
             var customerId = _userService.UserId;
-            var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(customerId);
-
-            if (shoppingCart == null)
-            {
-                throw new Exception("Cart not found.");
-            }
+            var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(customerId) 
+                ?? throw new NotFoundException("Cart not found.");
 
             var shoppingCartDto = ShoppingCartDto.CreateShoppingCartDtoFromObject(shoppingCart);
 

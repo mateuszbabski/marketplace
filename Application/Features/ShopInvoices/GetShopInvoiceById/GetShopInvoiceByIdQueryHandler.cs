@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Invoices.Repositories;
 using MediatR;
 
@@ -18,7 +19,8 @@ namespace Application.Features.ShopInvoices.GetShopInvoiceById
         {
             var userId = _userService.UserId;
 
-            var shopInvoice = await _invoiceRepository.GetByIdForShop(request.Id, userId);
+            var shopInvoice = await _invoiceRepository.GetByIdForShop(request.Id, userId)
+                ?? throw new NotFoundException("There is no available shop invoice with current id");
 
             var shopInvoiceDto = ShopInvoiceDetailsDto.CreateShopInvoiceDetailsDtoFromObject(shopInvoice);
 

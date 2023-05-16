@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Customers.Entities.Orders.Repositories;
 using MediatR;
 
@@ -17,7 +18,8 @@ namespace Application.Features.Orders.GetOrderById
         public async Task<OrderDetailsDto> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
         {
             var customerId = _userService.UserId;
-            var order = await _orderRepository.GetOrderById(request.Id, customerId) ?? throw new Exception("There is no Order with requested Id");
+            var order = await _orderRepository.GetOrderById(request.Id, customerId) 
+                ?? throw new NotFoundException("There is no Order with requested Id");
 
             var orderDto = OrderDetailsDto.CreateOrderDetailsDtoFromObject(order);
             

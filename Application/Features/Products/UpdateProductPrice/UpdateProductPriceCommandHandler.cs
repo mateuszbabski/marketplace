@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Application.Common.Responses;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products;
@@ -38,7 +39,7 @@ namespace Application.Features.Products.UpdateProductPrice
 
             if (product == null || product.ShopId.Value != shopId)
             {
-                throw new Exception("Product not found");
+                throw new NotFoundException("Product not found");
             }
 
             shop.ChangeProductPrice(request.Id,

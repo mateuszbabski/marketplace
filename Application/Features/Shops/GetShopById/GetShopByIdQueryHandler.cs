@@ -1,4 +1,5 @@
-﻿using Domain.Shops.Repositories;
+﻿using Application.Common.Exceptions;
+using Domain.Shops.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,8 @@ namespace Application.Features.Shops.GetShopById
         }
         public async Task<ShopDetailsDto> Handle(GetShopByIdQuery request, CancellationToken cancellationToken)
         {
-            var shop = await _shopRepository.GetShopById(request.Id) ?? throw new Exception("Shop not found.");
+            var shop = await _shopRepository.GetShopById(request.Id) 
+                ?? throw new NotFoundException("Shop not found.");
 
             var shopDto = ShopDetailsDto.CreateShopDetailsDtoFromObject(shop);
 

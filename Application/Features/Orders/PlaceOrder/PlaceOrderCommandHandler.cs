@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Customers.Repositories;
 using Domain.Invoices;
@@ -34,9 +35,10 @@ namespace Application.Features.Orders.PlaceOrder
         public async Task<Guid> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
         {
             var customerId = _userService.UserId;
-            var customer = await _customerRepository.GetCustomerById(customerId);
+            var customer = await _customerRepository.GetCustomerWithCartById(customerId);
 
-            var shoppingCart = customer.GetShoppingCart() ?? throw new Exception("There is no shopping cart available");
+            var shoppingCart = customer.GetShoppingCart() 
+                ?? throw new NotFoundException("There is no shopping cart available");
 
             var shippingAddress = CreateShippingAddress(request, customer.Address);
 

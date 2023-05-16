@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Invoices.Repositories;
 using MediatR;
 
@@ -18,7 +19,8 @@ namespace Application.Features.Invoices.GetInvoiceById
         {
             var userId = _userService.UserId;
 
-            var invoice = await _invoiceRepository.GetByIdForCustomer(request.Id, userId);
+            var invoice = await _invoiceRepository.GetByIdForCustomer(request.Id, userId)
+                ?? throw new NotFoundException("There is no available invoice with current id");
 
             var invoiceDto = InvoiceDetailsDto.CreateInvoiceDetailsDtoFromObject(invoice);
 
