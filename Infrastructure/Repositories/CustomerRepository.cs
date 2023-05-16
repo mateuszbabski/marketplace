@@ -30,8 +30,13 @@ namespace Infrastructure.Repositories
         public async Task<Customer> GetCustomerById(CustomerId id)
         {
             return await _dbContext.Customers.Include(x => x.Orders)
-                                             .Include(x => x.ShoppingCart)
-                                             .Include(x => x.ShoppingCart.Items)
+                                             .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<Customer> GetCustomerWithCartById(CustomerId id)
+        {
+            return await _dbContext.Customers.Include(x => x.ShoppingCart)
+                                             .ThenInclude(x => x.Items)
                                              .FirstOrDefaultAsync(c => c.Id == id);
         }
     }
