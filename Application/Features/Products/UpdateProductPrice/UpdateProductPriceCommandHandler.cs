@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.UpdateProductPrice
 {
-    public class UpdateProductPriceCommandHandler : IRequestHandler<UpdateProductPriceCommand, Unit>
+    public class UpdateProductPriceCommandHandler : IRequestHandler<UpdateProductPriceCommand>
     {
         private readonly ICurrentUserService _userService;
         private readonly IProductRepository _productRepository;
@@ -31,7 +31,7 @@ namespace Application.Features.Products.UpdateProductPrice
             _shopRepository = shopRepository;
             _unitOfWork = unitOfWork;
         }
-        public async Task<Unit> Handle(UpdateProductPriceCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateProductPriceCommand request, CancellationToken cancellationToken)
         {
             var shopId = _userService.UserId;
             var shop = await _shopRepository.GetShopById(shopId);
@@ -47,8 +47,6 @@ namespace Application.Features.Products.UpdateProductPrice
                                     request.Currency);
 
             await _unitOfWork.CommitAsync();
-
-            return Unit.Value;
         }
     }
 }

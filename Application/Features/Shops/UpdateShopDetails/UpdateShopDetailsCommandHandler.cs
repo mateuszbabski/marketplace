@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Shops.UpdateShopDetails
 {
-    public class UpdateShopDetailsCommandHandler : IRequestHandler<UpdateShopDetailsCommand, Unit>
+    public class UpdateShopDetailsCommandHandler : IRequestHandler<UpdateShopDetailsCommand>
     {
         private readonly ICurrentUserService _userService;
         private readonly IShopRepository _shopRepository;
@@ -28,7 +28,7 @@ namespace Application.Features.Shops.UpdateShopDetails
             _shopRepository = shopRepository;
             _unitOfWork = unitOfWork;
         }
-        public async Task<Unit> Handle(UpdateShopDetailsCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateShopDetailsCommand request, CancellationToken cancellationToken)
         {
             var userId = _userService.UserId;
             var shop = await _shopRepository.GetShopById(request.Id);
@@ -49,8 +49,6 @@ namespace Application.Features.Shops.UpdateShopDetails
                                    request.ContactNumber);  
 
             await _unitOfWork.CommitAsync();
-
-            return Unit.Value;
         }
     }
 }

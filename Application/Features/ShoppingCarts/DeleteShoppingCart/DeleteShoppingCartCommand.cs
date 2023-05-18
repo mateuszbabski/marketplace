@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.ShoppingCarts.DeleteShoppingCart
 {
-    public class DeleteShoppingCartCommand : IRequest<Unit>
+    public class DeleteShoppingCartCommand : IRequest
     {
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.ShoppingCarts.RemoveProductFromShoppingCart
 {
-    public class RemoveProductFromShoppingCartCommand : IRequest<Unit>
+    public class RemoveProductFromShoppingCartCommand : IRequest
     {
         public Guid Id { get; set; }
     }

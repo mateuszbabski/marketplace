@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.UpdateProductPrice
 {
-    public class UpdateProductPriceCommand : IRequest<Unit>
+    public class UpdateProductPriceCommand : IRequest
     {
         public Guid Id { get; set; }
         public decimal Amount { get; set; }

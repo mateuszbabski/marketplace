@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.ChangeProductAvailability
 {
-    public class ChangeProductAvailabilityCommand : IRequest<Unit>
+    public class ChangeProductAvailabilityCommand : IRequest
     {
         public Guid Id { get; set; }
     }

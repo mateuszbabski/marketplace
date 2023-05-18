@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Orders.CancelOrder
 {
-    public class CancelOrderCommand : IRequest<Unit>
+    public class CancelOrderCommand : IRequest
     {
         public Guid Id { get; set; }
     }

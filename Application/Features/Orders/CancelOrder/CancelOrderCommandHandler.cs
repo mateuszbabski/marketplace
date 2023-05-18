@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Orders.CancelOrder
 {
-    public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, Unit>
+    public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand>
     {
         private readonly ICurrentUserService _userService;
         private readonly ICustomerRepository _customerRepository;
@@ -34,7 +34,7 @@ namespace Application.Features.Orders.CancelOrder
             _invoiceRepository = invoiceRepository;
             _unitOfWork = unitOfWork;
         }
-        public async Task<Unit> Handle(CancelOrderCommand request, CancellationToken cancellationToken)
+        public async Task Handle(CancelOrderCommand request, CancellationToken cancellationToken)
         {
             var customerId = _userService.UserId;
             var customer = await _customerRepository.GetCustomerById(customerId);
@@ -46,8 +46,6 @@ namespace Application.Features.Orders.CancelOrder
             await CancelAllInvoices(request.Id);
 
             await _unitOfWork.CommitAsync();
-
-            return Unit.Value;
         }
 
         private async Task CancelRelatedShopOrders(OrderId orderId)

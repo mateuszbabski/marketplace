@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Products.ChangeProductAvailability
 {
-    public class ChangeProductAvailabilityCommandHandler : IRequestHandler<ChangeProductAvailabilityCommand, Unit>
+    public class ChangeProductAvailabilityCommandHandler : IRequestHandler<ChangeProductAvailabilityCommand>
     {
         private readonly IProductRepository _productRepository;
         private readonly ICurrentUserService _userService;
@@ -32,7 +32,7 @@ namespace Application.Features.Products.ChangeProductAvailability
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(ChangeProductAvailabilityCommand request, CancellationToken cancellationToken)
+        public async Task Handle(ChangeProductAvailabilityCommand request, CancellationToken cancellationToken)
         {
             var shopId = _userService.UserId;
             var shop = await _shopRepository.GetShopById(shopId);
@@ -46,8 +46,6 @@ namespace Application.Features.Products.ChangeProductAvailability
             shop.ChangeProductAvailability(request.Id);
 
             await _unitOfWork.CommitAsync();
-            
-            return Unit.Value;
         }
     }
 }

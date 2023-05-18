@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Features.ShoppingCarts.RemoveProductFromShoppingCart
 {
-    public class RemoveProductFromShoppingCartCommandHandler : IRequestHandler<RemoveProductFromShoppingCartCommand, Unit>
+    public class RemoveProductFromShoppingCartCommandHandler : IRequestHandler<RemoveProductFromShoppingCartCommand>
     {
         private readonly ICurrentUserService _userService;
         private readonly IShoppingCartRepository _shoppingCartRepository;
@@ -19,7 +19,7 @@ namespace Application.Features.ShoppingCarts.RemoveProductFromShoppingCart
             _shoppingCartRepository = shoppingCartRepository;
             _unitOfWork = unitOfWork;
         }
-        public async Task<Unit> Handle(RemoveProductFromShoppingCartCommand request, CancellationToken cancellationToken)
+        public async Task Handle(RemoveProductFromShoppingCartCommand request, CancellationToken cancellationToken)
         {
             var customerId = _userService.UserId;
             var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(customerId) 
@@ -30,8 +30,6 @@ namespace Application.Features.ShoppingCarts.RemoveProductFromShoppingCart
             await _shoppingCartRepository.RemoveItem(shoppingCart, request.Id);
 
             await _unitOfWork.CommitAsync();
-
-            return Unit.Value;
         }
     }
 }

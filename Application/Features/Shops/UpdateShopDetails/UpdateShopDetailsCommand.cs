@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Shops.UpdateShopDetails
 {
-    public class UpdateShopDetailsCommand : IRequest<Unit>
+    public class UpdateShopDetailsCommand : IRequest
     {
         public Guid Id { get; set; }
         public string OwnerName { get; set; }
