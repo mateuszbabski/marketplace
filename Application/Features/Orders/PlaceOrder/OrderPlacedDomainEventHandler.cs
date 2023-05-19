@@ -1,11 +1,10 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Customers.Entities.Orders;
 using Domain.Customers.Entities.Orders.Events;
+using Domain.Customers.Events;
 using Domain.Invoices;
 using Domain.Invoices.Repositories;
 using MediatR;
 using Serilog;
-using System.Net.Mail;
 
 namespace Application.Features.Orders.PlaceOrder
 {
@@ -26,6 +25,8 @@ namespace Application.Features.Orders.PlaceOrder
             var invoice = Invoice.CreateInvoice(notification.Order, _dateTimeProvider.UtcNow);
 
             await _invoiceRepository.Add(invoice);
+
+            // create payment(invoice);
         }
     }
 }

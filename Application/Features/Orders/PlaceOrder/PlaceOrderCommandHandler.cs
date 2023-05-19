@@ -15,21 +15,18 @@ namespace Application.Features.Orders.PlaceOrder
         private readonly ICustomerRepository _customerRepository;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IShoppingCartRepository _shoppingCartRepository;
-        private readonly IInvoiceRepository _invoiceRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public PlaceOrderCommandHandler(ICurrentUserService userService,
                                         ICustomerRepository customerRepository,
                                         IDateTimeProvider dateTimeProvider,
                                         IShoppingCartRepository shoppingCartRepository,
-                                        IInvoiceRepository invoiceRepository,
                                         IUnitOfWork unitOfWork)
         {
             _userService = userService;
             _customerRepository = customerRepository;
             _dateTimeProvider = dateTimeProvider;
             _shoppingCartRepository = shoppingCartRepository;
-            _invoiceRepository = invoiceRepository;
             _unitOfWork = unitOfWork;
         }
         public async Task<Guid> Handle(PlaceOrderCommand request, CancellationToken cancellationToken)
@@ -44,11 +41,7 @@ namespace Application.Features.Orders.PlaceOrder
 
             var order = customer.PlaceOrder(shoppingCart, shippingAddress, _dateTimeProvider.UtcNow);
 
-            //var invoice = Invoice.CreateInvoice(order, _dateTimeProvider.UtcNow);
-
             _shoppingCartRepository.DeleteCart(shoppingCart);
-
-            //await _invoiceRepository.Add(invoice);
 
             await _unitOfWork.CommitAsync();
             
