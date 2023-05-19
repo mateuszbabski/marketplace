@@ -1,15 +1,8 @@
-﻿using Domain.Customers.Entities.Orders;
-using Domain.Customers.Entities.Orders.Events;
-using Domain.Customers.Entities.Orders.ValueObjects;
+﻿using Domain.Customers.Entities.Orders.Events;
 using Domain.Invoices.Repositories;
 using Domain.Shops.Entities.ShopOrders.Repositories;
 using MediatR;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Orders.CancelOrder
 {
@@ -32,12 +25,10 @@ namespace Application.Features.Orders.CancelOrder
             {
                 shopOrder.CancelOrder();
             }
-            Log.Information("shop orders cancelled");
 
             var invoice = await _invoiceRepository.GetInvoiceByOrderId(notification.OrderId);
 
             invoice.CancelInvoice();
-            Log.Information("invoices cancelled");
         }
     }
 }
