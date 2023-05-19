@@ -61,7 +61,14 @@ namespace Domain.Shops
                                   TelephoneNumber contactNumber)
         {           
 
-            return new Shop(email, passwordHash, ownerName, ownerLastName, shopName, shopAddress, taxNumber, contactNumber);
+            return new Shop(email,
+                            passwordHash,
+                            ownerName,
+                            ownerLastName,
+                            shopName,
+                            shopAddress,
+                            taxNumber,
+                            contactNumber);
         }
 
         public void UpdateShopDetails(string ownerName,

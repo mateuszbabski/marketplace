@@ -1,4 +1,5 @@
-﻿using Domain.Customers.Entities.Orders.ValueObjects;
+﻿using Domain.Customers.Entities.Orders.Events;
+using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.Abstractions;
@@ -56,7 +57,9 @@ namespace Domain.Customers.Entities.Orders
         {
             var order = new Order(shoppingCart, shippingAddress, placedOn);
 
-            SplitOrderByShops(order, shoppingCart);            
+            SplitOrderByShops(order, shoppingCart);
+            
+            order.AddDomainEvent(new OrderPlacedDomainEvent(order));
 
             return order;
         }
@@ -67,6 +70,8 @@ namespace Domain.Customers.Entities.Orders
             {
                 this.StatusChanged = DateTime.Now;
                 this.OrderStatus = OrderStatus.Cancelled;
+
+                this.AddDomainEvent(new OrderCancelledDomainEvent(this.Id));
             }
         }
 

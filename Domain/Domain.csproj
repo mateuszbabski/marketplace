@@ -11,13 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Customers\Entities\Orders\Events\" />
     <Folder Include="Customers\Entities\ShoppingCarts\Events\" />
     <Folder Include="Customers\Events\" />
-    <Folder Include="Invoices\Events\" />
-    <Folder Include="Shops\Entities\Products\Events\" />
     <Folder Include="Shops\Entities\ShopOrders\Events\" />
-    <Folder Include="Shops\Events\" />
   </ItemGroup>
 
 </Project>

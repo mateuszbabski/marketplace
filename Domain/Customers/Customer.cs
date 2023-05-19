@@ -1,4 +1,5 @@
 ﻿using Domain.Customers.Entities.Orders;
+using Domain.Customers.Entities.Orders.Events;
 using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.ValueObjects;
@@ -98,8 +99,8 @@ namespace Domain.Customers
         {
             var order = Order.CreateNew(shoppingCart, shippingAddress, placedOn);
 
-            this.Orders.Add(order);           
-            
+            this.Orders.Add(order);
+
             return order;
         }
 
