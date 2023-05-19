@@ -48,7 +48,7 @@ namespace Domain.Customers.Entities.Orders
             {
                 var orderItem = OrderItem.CreateFromShoppingCartItem(this.Id, cartItem);
                 OrderItems.Add(orderItem);
-            }
+            }            
         }
 
         internal static Order CreateNew(ShoppingCart shoppingCart,
@@ -57,9 +57,9 @@ namespace Domain.Customers.Entities.Orders
         {
             var order = new Order(shoppingCart, shippingAddress, placedOn);
 
-            SplitOrderByShops(order, shoppingCart);
-            
-            order.AddDomainEvent(new OrderPlacedDomainEvent(order));
+            order.AddDomainEvent(new OrderCreatedDomainEvent(order));
+
+            SplitOrderByShops(order, shoppingCart);            
 
             return order;
         }
@@ -100,6 +100,8 @@ namespace Domain.Customers.Entities.Orders
 
                 order.ShopOrders.Add(shopOrder);
             }
+
+            order.AddDomainEvent(new OrderSplitDomainEvent(order));
         }
     }
 }
