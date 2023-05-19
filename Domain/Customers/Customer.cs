@@ -1,12 +1,10 @@
 ﻿using Domain.Customers.Entities.Orders;
-using Domain.Customers.Entities.Orders.Events;
 using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.Entities.ShoppingCarts;
+using Domain.Customers.Events;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
-using Domain.Shops.Entities.ShopOrders;
-using System.Linq;
 
 namespace Domain.Customers
 {
@@ -100,6 +98,8 @@ namespace Domain.Customers
             var order = Order.CreateNew(shoppingCart, shippingAddress, placedOn);
 
             this.Orders.Add(order);
+
+            this.AddDomainEvent(new OrderPlacedDomainEvent(order));
 
             return order;
         }
