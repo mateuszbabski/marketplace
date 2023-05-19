@@ -2,6 +2,7 @@
 using Application.Common.Interfaces;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using MediatR;
+using Serilog;
 
 namespace Application.Features.ShoppingCarts.RemoveProductFromShoppingCart
 {
@@ -27,7 +28,10 @@ namespace Application.Features.ShoppingCarts.RemoveProductFromShoppingCart
 
             shoppingCart.RemoveItemFromCart(request.Id);
 
-            await _shoppingCartRepository.RemoveItem(shoppingCart, request.Id);
+            if (shoppingCart.Items.Count == 0)
+            {
+                _shoppingCartRepository.DeleteCart(shoppingCart);
+            }
 
             await _unitOfWork.CommitAsync();
         }
