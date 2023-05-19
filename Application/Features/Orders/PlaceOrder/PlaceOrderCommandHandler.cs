@@ -44,11 +44,11 @@ namespace Application.Features.Orders.PlaceOrder
 
             var order = customer.PlaceOrder(shoppingCart, shippingAddress, _dateTimeProvider.UtcNow);
 
-            var invoice = Invoice.CreateInvoice(order, _dateTimeProvider.UtcNow);
+            //var invoice = Invoice.CreateInvoice(order, _dateTimeProvider.UtcNow);
 
             _shoppingCartRepository.DeleteCart(shoppingCart);
 
-            await _invoiceRepository.Add(invoice);
+            //await _invoiceRepository.Add(invoice);
 
             await _unitOfWork.CommitAsync();
             

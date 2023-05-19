@@ -41,28 +41,28 @@ namespace Application.Features.Orders.CancelOrder
 
             customer.CancelOrder(request.Id);
 
-            await CancelRelatedShopOrders(request.Id);
+            //await CancelRelatedShopOrders(request.Id);
 
-            await CancelAllInvoices(request.Id);
+            //await CancelAllInvoices(request.Id);
 
             await _unitOfWork.CommitAsync();
         }
 
-        private async Task CancelRelatedShopOrders(OrderId orderId)
-        {
-            var shopOrderList = await _shopOrderRepository.GetShopOrdersByOrderId(orderId);
+        //private async Task CancelRelatedShopOrders(OrderId orderId)
+        //{
+        //    var shopOrderList = await _shopOrderRepository.GetShopOrdersByOrderId(orderId);
 
-            foreach (var shopOrder in shopOrderList)
-            {
-                shopOrder.CancelOrder();
-            }
-        }
+        //    foreach (var shopOrder in shopOrderList)
+        //    {
+        //        shopOrder.CancelOrder();
+        //    }
+        //}
 
-        private async Task CancelAllInvoices(OrderId orderId)
-        {
-            var invoice = await _invoiceRepository.GetInvoiceByOrderId(orderId);
+        //private async Task CancelAllInvoices(OrderId orderId)
+        //{
+        //    var invoice = await _invoiceRepository.GetInvoiceByOrderId(orderId);
 
-            invoice.CancelInvoice();
-        }
+        //    invoice.CancelInvoice();
+        //}
     }
 }
