@@ -1,4 +1,5 @@
-﻿using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
+﻿using Domain.Customers.Entities.ShoppingCarts.Events;
+using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
@@ -23,7 +24,10 @@ namespace Domain.Customers.Entities.ShoppingCarts
 
         public static ShoppingCart CreateShoppingCart(CustomerId customerId)
         {
-            return new ShoppingCart(customerId);
+            var shoppingCart = new ShoppingCart(customerId);
+            shoppingCart.AddDomainEvent(new ShoppingCartCreatedDomainEvent(shoppingCart));
+
+            return shoppingCart;
         }
 
         private MoneyValue CountTotalPrice(List<ShoppingCartItem> items) 
@@ -51,12 +55,15 @@ namespace Domain.Customers.Entities.ShoppingCarts
                                                                                              Id,
                                                                                              quantity);
                 Items.Add(newShoppingCartItem);
+
+                this.AddDomainEvent(new ProductAddedToShoppingCartDomainEvent(this, newShoppingCartItem));
             }
             else
             {
                 shoppingCartItem.ChangeCartItemQuantity(quantity, product.Price);
+                this.AddDomainEvent(new ProductQuantityChangedDomainEvent(this, shoppingCartItem));
             }
-
+            
             this.TotalPrice = CountTotalPrice(this.Items);
         }
         
@@ -64,7 +71,9 @@ namespace Domain.Customers.Entities.ShoppingCarts
         {
             var item = Items.FirstOrDefault(x => x.Id == shoppingCartItemId);
 
-            Items.Remove(item);        
+            Items.Remove(item);
+
+            this.AddDomainEvent(new ProductRemovedFromShoppingCartDomainEvent(this, item));
 
             this.TotalPrice = CountTotalPrice(this.Items);
         }
