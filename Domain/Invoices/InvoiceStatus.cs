@@ -3,7 +3,6 @@
     public enum InvoiceStatus
     {
         Created,
-        Sent,
         WaitingForPayment,
         Paid,
         Cancelled

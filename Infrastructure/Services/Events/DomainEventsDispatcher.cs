@@ -1,6 +1,7 @@
 ﻿using Domain.Shared.Abstractions;
 using Infrastructure.Context;
 using MediatR;
+using Serilog;
 
 namespace Infrastructure.Services.Events
 {
@@ -31,6 +32,7 @@ namespace Infrastructure.Services.Events
 
             foreach (var domainEvent in domainEvents)
             {
+                Log.Warning(domainEvent.ToString());
                 await _mediator.Publish(domainEvent);
             }
         }

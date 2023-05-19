@@ -8,6 +8,7 @@ using Domain.Customers.Entities.Orders;
 using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Shared.Abstractions;
+using Domain.Shops.Entities.ShopOrders.Events;
 
 namespace Domain.Shops.Entities.ShopOrders
 {
@@ -64,7 +65,11 @@ namespace Domain.Shops.Entities.ShopOrders
                                                 order.ShippingAddress.Street,
                                                 order.ShippingAddress.PostalCode);
 
-            return new ShopOrder(order, shippingAddress, shoppingCartItems);
+            var shopOrder = new ShopOrder(order, shippingAddress, shoppingCartItems);
+
+            shopOrder.AddDomainEvent(new ShopOrderCreatedDomainEvent(shopOrder));
+
+            return shopOrder;
         }
 
         private static MoneyValue CountTotalPrice(List<ShoppingCartItem> items, string currency)
@@ -80,6 +85,7 @@ namespace Domain.Shops.Entities.ShopOrders
             {
                 this.OrderStatus = OrderStatus.Cancelled;
                 this.StatusChanged = DateTime.Now;
+                this.AddDomainEvent(new ShopOrderCancelledDomainEvent(this));
             }            
         }
     }

@@ -1,4 +1,5 @@
-﻿using Domain.Customers.Entities.Orders.ValueObjects;
+﻿using Domain.Customers.Entities.Orders.Events;
+using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.Abstractions;
@@ -47,7 +48,7 @@ namespace Domain.Customers.Entities.Orders
             {
                 var orderItem = OrderItem.CreateFromShoppingCartItem(this.Id, cartItem);
                 OrderItems.Add(orderItem);
-            }
+            }            
         }
 
         internal static Order CreateNew(ShoppingCart shoppingCart,
@@ -55,6 +56,8 @@ namespace Domain.Customers.Entities.Orders
                                         DateTime placedOn)
         {
             var order = new Order(shoppingCart, shippingAddress, placedOn);
+
+            order.AddDomainEvent(new OrderCreatedDomainEvent(order));
 
             SplitOrderByShops(order, shoppingCart);            
 
@@ -67,6 +70,8 @@ namespace Domain.Customers.Entities.Orders
             {
                 this.StatusChanged = DateTime.Now;
                 this.OrderStatus = OrderStatus.Cancelled;
+
+                this.AddDomainEvent(new OrderCancelledDomainEvent(this.Id));
             }
         }
 
@@ -95,6 +100,8 @@ namespace Domain.Customers.Entities.Orders
 
                 order.ShopOrders.Add(shopOrder);
             }
+
+            order.AddDomainEvent(new OrderSplitDomainEvent(order));
         }
     }
 }

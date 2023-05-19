@@ -42,12 +42,6 @@ namespace Infrastructure.Repositories
             _dbContext.ShoppingCarts.Remove(shoppingCart);
         }
 
-        public async Task<ShoppingCart> GetShoppingCartById(ShoppingCartId id)
-        {
-            return await _dbContext.ShoppingCarts.Include(x => x.Items)
-                                                 .FirstOrDefaultAsync(x => x.Id == id);
-        }
-
         public async Task<ShoppingCart> GetShoppingCartByCustomerId(CustomerId customerId)
         {
             return await _dbContext.ShoppingCarts.Include(x => x.Items)

@@ -1,5 +1,6 @@
 ﻿using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
+using Domain.Shops.Entities.Products.Events;
 using Domain.Shops.Entities.Products.ValueObjects;
 using Domain.Shops.ValueObjects;
 using System.Text.Json.Serialization;
@@ -40,7 +41,11 @@ namespace Domain.Shops.Entities.Products
                               ProductUnit unit,
                               ShopId shopId)
         {
-            return new Product(productName, productDescription, price, unit, shopId);
+            var product = new Product(productName, productDescription, price, unit, shopId);
+
+            product.AddDomainEvent(new ProductAddedToShopDomainEvent(product));
+
+            return product;
         }
         
         internal void ChangeDetails(string productName, string productDescription, string unit)
@@ -48,6 +53,8 @@ namespace Domain.Shops.Entities.Products
             SetName(productName);
             SetDescription(productDescription);
             SetUnit(unit);
+
+            this.AddDomainEvent(new ProductDetailsChangedDomainEvent(this));
         }
 
         internal void ChangeAvailability()
@@ -65,6 +72,7 @@ namespace Domain.Shops.Entities.Products
         internal void SetPrice(MoneyValue price)
         {
             Price = price;
+            this.AddDomainEvent(new ProductPriceChangedDomainEvent(this));
         }
 
         internal void SetUnit(string unit)
@@ -93,11 +101,13 @@ namespace Domain.Shops.Entities.Products
         internal void Remove()
         {
             IsAvailable = false;
+            this.AddDomainEvent(new ProductRemovedFromShopDomainEvent(this));
         }
 
         internal void Restore()
         {
             IsAvailable = true;
+            this.AddDomainEvent(new ProductRestoredDomainEvent(this));
         }
 
     }

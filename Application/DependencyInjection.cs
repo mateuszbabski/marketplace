@@ -1,7 +1,6 @@
 ﻿using Application.Authentication;
 using Application.Authentication.Services;
 using Application.Common.Behaviors;
-using Application.Features.Products.AddProduct;
 using Application.Middleware;
 using FluentValidation;
 using MediatR;

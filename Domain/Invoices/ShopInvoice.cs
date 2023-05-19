@@ -1,4 +1,5 @@
-﻿using Domain.Invoices.ValueObjects;
+﻿using Domain.Invoices.Events;
+using Domain.Invoices.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.ShopOrders;
@@ -33,7 +34,10 @@ namespace Domain.Invoices
         }
         internal static ShopInvoice CreateShopInvoice(InvoiceId invoiceId, ShopOrder shopOrder, DateTime createdOn)
         {
-            return new ShopInvoice(invoiceId, shopOrder, createdOn);
+            var shopInvoice = new ShopInvoice(invoiceId, shopOrder, createdOn);
+            shopInvoice.AddDomainEvent(new ShopInvoiceCreatedDomainEvent(shopInvoice));
+
+            return shopInvoice;
         }
 
         internal void CancelInvoice()
@@ -41,6 +45,7 @@ namespace Domain.Invoices
             if (this.InvoiceStatus != InvoiceStatus.Paid)
             {
                 this.InvoiceStatus = InvoiceStatus.Cancelled;
+                this.AddDomainEvent(new ShopInvoiceCancelledDomainEvent(this));
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Domain.Customers.Entities.Orders;
 using Domain.Customers.Entities.Orders.ValueObjects;
 using Domain.Customers.ValueObjects;
+using Domain.Invoices.Events;
 using Domain.Invoices.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
@@ -41,6 +42,8 @@ namespace Domain.Invoices
                 invoice.ShopInvoices.Add(shopInvoice);
             }
 
+            invoice.AddDomainEvent(new InvoiceCreatedDomainEvent(invoice));
+
             return invoice;
         }
 
@@ -52,6 +55,8 @@ namespace Domain.Invoices
             }
 
             this.ShopInvoices.ForEach(x => x.CancelInvoice());
+
+            this.AddDomainEvent(new InvoiceCancelledDomainEvent(this));
         }
     }
 }
