@@ -2,16 +2,10 @@
 using Domain.Customers.Entities.ShoppingCarts.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
-using Domain.Shops;
 using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.ValueObjects;
 using Domain.Shops.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Domain.Customers.Entities.ShoppingCarts
 {
@@ -27,36 +21,42 @@ namespace Domain.Customers.Entities.ShoppingCarts
         [JsonIgnore]
         public virtual ShoppingCart ShoppingCart { get; set; }
 
-        private ShoppingCartItem() { }      
-        
-        private ShoppingCartItem(Product product, ShoppingCartId shoppingCartId, int quantity)
+        private ShoppingCartItem() { }
+
+        private ShoppingCartItem(Product product,
+                                 ShoppingCartId shoppingCartId,
+                                 int quantity,
+                                 string currency,
+                                 decimal convertedPrice)
         {
             Id = new ShoppingCartItemId(Guid.NewGuid());
             ProductId = product.Id;
             ShoppingCartId = shoppingCartId;
             ShopId = product.ShopId;
             Quantity = quantity;
-            Price = CountCartItemPrice(quantity, product.Price);
+            Price = CountCartItemPrice(quantity, convertedPrice, currency);
         }
 
         internal static ShoppingCartItem CreateShoppingCartItemFromProduct(Product product,
                                                                            ShoppingCartId shoppingCartId,
-                                                                           int quantity)
+                                                                           int quantity,
+                                                                           string currency,
+                                                                           decimal convertedPrice)
         {
             if (quantity <= 0)
             {
                 throw new InvalidQuantityException();
             }
 
-            return new ShoppingCartItem(product, shoppingCartId, quantity);
+            return new ShoppingCartItem(product, shoppingCartId, quantity, currency, convertedPrice);
         }
 
-        private static MoneyValue CountCartItemPrice(int quantity, MoneyValue productPrice) 
+        private static MoneyValue CountCartItemPrice(int quantity, decimal convertedPrice, string currency)
         {
-            return MoneyValue.Of(quantity * productPrice.Amount, productPrice.Currency);
+            return MoneyValue.Of(quantity * convertedPrice, currency);
         }
 
-        internal void ChangeCartItemQuantity(int quantity, MoneyValue productPrice)
+        internal void ChangeCartItemQuantity(int quantity, decimal convertedPrice, string currency)
         {
             if (quantity <= 0)
             {
@@ -65,7 +65,7 @@ namespace Domain.Customers.Entities.ShoppingCarts
 
             this.Quantity = quantity;
 
-            this.Price = CountCartItemPrice(quantity, productPrice);
+            this.Price = CountCartItemPrice(quantity, convertedPrice, currency);
         }
     }
 }

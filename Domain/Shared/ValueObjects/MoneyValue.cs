@@ -1,17 +1,12 @@
 ﻿using Domain.Shared.Rules;
 using Domain.Shops.Entities.Products.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Shared.ValueObjects
 {
     public record MoneyValue
     {
         public decimal Amount { get; }
-        public string Currency { get; } = "PLN";   
+        public string Currency { get; }   
 
         internal MoneyValue(decimal amount, string currency)
         {

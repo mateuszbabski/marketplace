@@ -1,9 +1,11 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
+using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.Repositories;
 using MediatR;
+using Serilog;
 
 namespace Application.Features.ShoppingCarts.AddProductToShoppingCart
 {
@@ -13,38 +15,72 @@ namespace Application.Features.ShoppingCarts.AddProductToShoppingCart
         private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ICurrencyConverter _currencyConverter;
 
         public AddProductToShoppingCartCommandHandler(ICurrentUserService userService,
                                                       IShoppingCartRepository shoppingCartRepository,
                                                       IProductRepository productRepository,
-                                                      IUnitOfWork unitOfWork)
+                                                      IUnitOfWork unitOfWork,
+                                                      ICurrencyConverter currencyConverter)
         {
             _userService = userService;
             _shoppingCartRepository = shoppingCartRepository;
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
+            _currencyConverter = currencyConverter;
         }
+
+        //public async Task<Guid> Handle(AddProductToShoppingCartCommand request, CancellationToken cancellationToken)
+        //{
+        //    var customerId = _userService.UserId;
+        //    var product = await _productRepository.GetById(request.ProductId);
+        //    var shoppingCart = await ReturnOrCreateNewShoppingCart(customerId);
+
+        //    shoppingCart.AddProductToShoppingCart(product, request.Quantity);
+
+        //    await _unitOfWork.CommitAsync();
+
+        //    return shoppingCart.Id;
+        //}
+
+        //private async Task<ShoppingCart> ReturnOrCreateNewShoppingCart(Guid customerId)
+        //{
+        //    var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(customerId);
+
+        //    if (shoppingCart == null)
+        //    {
+        //        var newShoppingCart = ShoppingCart.CreateShoppingCart(customerId);
+        //        await _shoppingCartRepository.Create(newShoppingCart);
+        //        return newShoppingCart;
+        //    }
+
+        //    return shoppingCart;
+        //}
 
         public async Task<Guid> Handle(AddProductToShoppingCartCommand request, CancellationToken cancellationToken)
         {
             var customerId = _userService.UserId;
             var product = await _productRepository.GetById(request.ProductId);
-            var shoppingCart = await ReturnOrCreateNewShoppingCart(customerId);
-                        
-            shoppingCart.AddProductToShoppingCart(product, request.Quantity);
+            var shoppingCart = await ReturnOrCreateNewShoppingCart(customerId, product.Price.Currency);
+
+            var productConvertedPrice = await _currencyConverter.GetConversionRate(product.Price.Amount,
+                                                                                   product.Price.Currency,
+                                                                                   shoppingCart.TotalPrice.Currency);
+
+            shoppingCart.AddProductToShoppingCart(product, request.Quantity, productConvertedPrice);
 
             await _unitOfWork.CommitAsync();
 
             return shoppingCart.Id;
         }
 
-        private async Task<ShoppingCart> ReturnOrCreateNewShoppingCart(Guid customerId)
+        private async Task<ShoppingCart> ReturnOrCreateNewShoppingCart(Guid customerId, string currency)
         {
             var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(customerId);
 
             if (shoppingCart == null)
             {
-                var newShoppingCart = ShoppingCart.CreateShoppingCart(customerId);
+                var newShoppingCart = ShoppingCart.CreateShoppingCart(customerId, currency);
                 await _shoppingCartRepository.Create(newShoppingCart);
                 return newShoppingCart;
             }

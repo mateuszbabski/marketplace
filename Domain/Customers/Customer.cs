@@ -5,6 +5,7 @@ using Domain.Customers.Events;
 using Domain.Customers.ValueObjects;
 using Domain.Shared.Abstractions;
 using Domain.Shared.ValueObjects;
+using Domain.Shops.Entities.Products;
 
 namespace Domain.Customers
 {
@@ -77,15 +78,6 @@ namespace Domain.Customers
             SetName(name);
             SetLastName(lastName);
             SetTelephoneNumber(telephoneNumber);
-        }
-
-        public ShoppingCart CreateCart(CustomerId CustomerId)
-        {
-            var newCart = ShoppingCart.CreateShoppingCart(CustomerId);
-
-            ShoppingCart = newCart;
-
-            return ShoppingCart;
         }
 
         public ShoppingCart GetShoppingCart()
