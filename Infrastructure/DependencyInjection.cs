@@ -19,6 +19,7 @@ using Domain.Shops.Entities.ShopOrders.Repositories;
 using Domain.Invoices.Repositories;
 using Infrastructure.Services.Events;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Infrastructure.Services.CurrencyConverters;
 
 namespace Infrastructure
 {
@@ -35,6 +36,8 @@ namespace Infrastructure
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
                 options.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.DuplicateDependentEntityTypeInstanceWarning));
             });
+
+            services.AddHttpClient<ICurrencyConverter, CurrencyConverter>();
 
             services.AddScoped<IApplicationDbContext>(options => options.GetRequiredService<ApplicationDbContext>());
 
