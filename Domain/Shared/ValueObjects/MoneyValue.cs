@@ -16,7 +16,7 @@ namespace Domain.Shared.ValueObjects
 
         public static MoneyValue Of(decimal amount, string currency)
         {
-            if (new MoneyMustHaveCurrencyRule(currency.ToString()).IsBroken() || currency.Length > 3)
+            if (new SystemMustAcceptsCurrencyRule(currency).IsBroken() || currency.Length > 3)
             {
                 throw new InvalidProductPriceException("Invalid currency.");
             }
