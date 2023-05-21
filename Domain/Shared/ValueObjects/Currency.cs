@@ -1,9 +1,23 @@
-﻿namespace Domain.Shared.ValueObjects
+﻿using System.Collections.ObjectModel;
+
+namespace Domain.Shared.ValueObjects
 {
-    public record Currency(string Symbol)
+    public class Currency
     {
-        public static Currency PLN => new("PLN");
-        public static Currency EUR => new("EUR");
-        public static Currency USD => new("USD");
+        private readonly List<string> _currencies;
+        public ReadOnlyCollection<string> CurrencyList { get 
+            { 
+                return _currencies.AsReadOnly();
+            } 
+        }
+        public Currency()
+        {
+            _currencies = new List<string>
+            {
+                "PLN",
+                "EUR",
+                "USD"
+            };
+        }
     }
 }
