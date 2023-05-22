@@ -1,5 +1,6 @@
 ﻿using Application.Features.ShoppingCarts;
 using Application.Features.ShoppingCarts.AddProductToShoppingCart;
+using Application.Features.ShoppingCarts.ChangeShoppingCartCurrency;
 using Application.Features.ShoppingCarts.DeleteShoppingCart;
 using Application.Features.ShoppingCarts.GetShoppingCartByCustomerId;
 using Application.Features.ShoppingCarts.RemoveProductFromShoppingCart;
@@ -25,6 +26,15 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<Guid>> AddProductToShoppingCart([FromBody] AddProductToShoppingCartCommand command)
         {
             return await _mediator.Send(command);
+        }
+
+        [Authorize(Roles = "customer")]
+        [HttpPost("ChangeShoppingCartCurrency")]
+        public async Task<ActionResult> ChangeShoppingCartCurrency([FromBody] ChangeShoppingCartCurrencyCommand command)
+        {
+            await _mediator.Send(command);
+
+            return Ok();
         }
 
         [Authorize(Roles = "customer")]
