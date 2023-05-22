@@ -10,7 +10,8 @@ namespace Application.Features.ShoppingCarts.GetShoppingCartByCustomerId
         private readonly ICurrentUserService _userService;
         private readonly IShoppingCartRepository _shoppingCartRepository;
 
-        public GetShoppingCartByCustomerIdCommandHandler(ICurrentUserService userService, IShoppingCartRepository shoppingCartRepository)
+        public GetShoppingCartByCustomerIdCommandHandler(ICurrentUserService userService,
+                                                         IShoppingCartRepository shoppingCartRepository)
         {
             _userService = userService;
             _shoppingCartRepository = shoppingCartRepository;

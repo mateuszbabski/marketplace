@@ -2,8 +2,6 @@
 using Application.Common.Interfaces;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Customers.Repositories;
-using Domain.Invoices;
-using Domain.Invoices.Repositories;
 using Domain.Shared.ValueObjects;
 using MediatR;
 
