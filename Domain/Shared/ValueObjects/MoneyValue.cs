@@ -16,7 +16,7 @@ namespace Domain.Shared.ValueObjects
 
         public static MoneyValue Of(decimal amount, string currency)
         {
-            if (new SystemMustAcceptsCurrencyRule(currency).IsBroken() || currency.Length > 3)
+            if (new SystemMustAcceptsCurrencyRule(currency).IsBroken() || currency.Length != 3)
             {
                 throw new InvalidProductPriceException("Invalid currency.");
             }
@@ -52,7 +52,6 @@ namespace Domain.Shared.ValueObjects
         public static MoneyValue operator *(decimal number, MoneyValue right)
         {
             return new MoneyValue(number * right.Amount, right.Currency);
-
         }
     }
 }
