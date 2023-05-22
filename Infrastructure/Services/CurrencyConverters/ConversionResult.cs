@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Services.CurrencyConverters
 {
-    public record ConversionRate
+    public record ConversionResult
     {
         public decimal Amount { get; init; }
         public string Base { get; init; }

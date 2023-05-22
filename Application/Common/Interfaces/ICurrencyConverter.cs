@@ -9,6 +9,7 @@ namespace Application.Common.Interfaces
 {
     public interface ICurrencyConverter
     {
-        Task<decimal> GetConversionRate(decimal amount, string from, string to);
+        Task<decimal> GetConversionRate(string from, string to);
+        Task<decimal> GetConvertedPrice(decimal amount, string from, string to);
     }
 }
