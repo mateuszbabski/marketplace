@@ -11,7 +11,7 @@ namespace Domain.Shared.ValueObjects
         internal MoneyValue(decimal amount, string currency)
         {
             Amount = amount;
-            Currency = currency;
+            Currency = currency.ToUpper();
         }
 
         public static MoneyValue Of(decimal amount, string currency)
