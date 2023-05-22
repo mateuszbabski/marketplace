@@ -96,6 +96,12 @@ namespace Infrastructure.Context.DbConfiguration
                 mv.Property(p => p.Amount).HasColumnName("Amount").HasPrecision(18, 2);
             });
 
+            builder.OwnsOne(c => c.BaseCurrencyPrice, mv =>
+            {
+                mv.Property(p => p.Currency).HasMaxLength(3).HasColumnName("BaseCurrency");
+                mv.Property(p => p.Amount).HasColumnName("BaseAmount").HasPrecision(18, 2);
+            });
+
             builder.Property(c => c.ProductId)
                    .HasConversion(c => c.Value, c => new ProductId(c));
 
