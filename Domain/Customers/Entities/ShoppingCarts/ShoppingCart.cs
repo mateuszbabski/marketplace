@@ -44,8 +44,23 @@ namespace Domain.Customers.Entities.ShoppingCarts
             return TotalPrice;
         }
 
+        public void ChangeShoppingCartCurrency(decimal conversionRate, string currency)
+        {
+            foreach (var item in Items)
+            {
+                item.ChangeCurrency(conversionRate, currency);
+            }
+
+            decimal convertedProductsPrice = Items.Sum(x => x.Price.Amount);
+
+            this.TotalPrice = MoneyValue.Of(convertedProductsPrice, currency);
+
+            AddDomainEvent(new ShoppingCartCurrencyChangedDomainEvent(this));
+        }
+
         public void AddProductToShoppingCart(Product product, int quantity, decimal convertedPrice)
         {
+            // try to move conversion here
             var shoppingCartItem = Items.FirstOrDefault(x => x.ProductId == product.Id);
 
             if (shoppingCartItem == null)
