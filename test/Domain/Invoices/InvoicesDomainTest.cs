@@ -58,12 +58,12 @@ namespace UnitTest.Domain.Invoices
         private static Order SampleOrder()
         {
             var customer = CustomerFactory.GetCustomer();
-            var shoppingCart = ShoppingCart.CreateShoppingCart(customer.Id);
+            var shoppingCart = ShoppingCart.CreateShoppingCart(customer.Id, "USD");
             var product = ProductFactory.CreateProduct();
             var product2 = ProductFactory.CreateProduct();
 
-            shoppingCart.AddProductToShoppingCart(product, 1);
-            shoppingCart.AddProductToShoppingCart(product2, 1);
+            shoppingCart.AddProductToShoppingCart(product, 1, product.Price.Amount);
+            shoppingCart.AddProductToShoppingCart(product2, 1, product2.Price.Amount);
 
             var order = customer.PlaceOrder(shoppingCart, customer.Address, DateTime.UtcNow);
 

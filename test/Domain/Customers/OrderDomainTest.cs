@@ -37,9 +37,9 @@ namespace UnitTest.Domain.Customers
 
         private static ShoppingCart GetSampleCart(Guid customerId)
         {
-            var shoppingCart = ShoppingCart.CreateShoppingCart(customerId);
+            var shoppingCart = ShoppingCart.CreateShoppingCart(customerId, "USD");
             var product = ProductFactory.CreateProduct();
-            shoppingCart.AddProductToShoppingCart(product, 10);
+            shoppingCart.AddProductToShoppingCart(product, 10, product.Price.Amount);
 
             return shoppingCart;
         }    
