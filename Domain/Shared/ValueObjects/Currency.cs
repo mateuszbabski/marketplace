@@ -1,11 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using Domain.Shared.Abstractions;
+using System.Collections.ObjectModel;
 
 namespace Domain.Shared.ValueObjects
 {
     public class Currency
     {
         private readonly List<string> _currencies;
-        public ReadOnlyCollection<string> CurrencyList { get 
+        public ReadOnlyCollection<string> CurrencyList 
+        { 
+            get 
             { 
                 return _currencies.AsReadOnly();
             } 
@@ -18,6 +21,6 @@ namespace Domain.Shared.ValueObjects
                 "EUR",
                 "USD"
             };
-        }
+        } 
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Application.Common.Interfaces;
-using Domain.Shared.ValueObjects;
 using System.Net.Http.Json;
 
 namespace Infrastructure.Services.CurrencyConverters
