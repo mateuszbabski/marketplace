@@ -25,10 +25,10 @@ namespace UnitTest.Domain.Shops
 
         private static ShoppingCart CreateCartSample(Customer customer)
         {
-            var shoppingCart = ShoppingCart.CreateShoppingCart(customer.Id);
+            var shoppingCart = ShoppingCart.CreateShoppingCart(customer.Id, "USD");
             var product = ProductFactory.CreateProduct();
 
-            shoppingCart.AddProductToShoppingCart(product, 1);
+            shoppingCart.AddProductToShoppingCart(product, 1, product.Price.Amount);
 
             return shoppingCart;
         }

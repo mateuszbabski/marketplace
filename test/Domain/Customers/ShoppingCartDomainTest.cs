@@ -10,7 +10,7 @@ namespace UnitTest.Domain.Customers
         public void CreateShoppingCart_ReturnsShoppingCartInstance()
         {
             var customer = CustomerFactory.GetCustomer();
-            var shoppingCart = ShoppingCart.CreateShoppingCart(customer.Id);
+            var shoppingCart = ShoppingCart.CreateShoppingCart(customer.Id, "USD");
 
             Assert.NotNull(shoppingCart);
             Assert.IsType<ShoppingCart>(shoppingCart);          
@@ -22,7 +22,7 @@ namespace UnitTest.Domain.Customers
             var product = ProductFactory.CreateProduct();
             var shoppingCart = GetShoppingCart();
 
-            shoppingCart.AddProductToShoppingCart(product, 1);
+            shoppingCart.AddProductToShoppingCart(product, 1, product.Price.Amount);
 
             var cartItem = shoppingCart.Items.FirstOrDefault(x => x.ProductId == product.Id);
 
@@ -37,7 +37,7 @@ namespace UnitTest.Domain.Customers
             var product = ProductFactory.CreateProduct();
             var shoppingCart = GetShoppingCart();
 
-            var act = Assert.Throws<InvalidQuantityException>(() => shoppingCart.AddProductToShoppingCart(product, 0));
+            var act = Assert.Throws<InvalidQuantityException>(() => shoppingCart.AddProductToShoppingCart(product, 0, product.Price.Amount));
 
             var cartItem = shoppingCart.Items.FirstOrDefault(x => x.ProductId == product.Id);
             
@@ -51,7 +51,7 @@ namespace UnitTest.Domain.Customers
             var product = ProductFactory.CreateProduct();
             var shoppingCart = GetShoppingCart();
 
-            shoppingCart.AddProductToShoppingCart(product, 1);
+            shoppingCart.AddProductToShoppingCart(product, 1, product.Price.Amount);
 
             var cartItem = shoppingCart.Items.FirstOrDefault(x => x.ProductId == product.Id);
             
@@ -68,7 +68,7 @@ namespace UnitTest.Domain.Customers
         private static ShoppingCart GetShoppingCart()
         {
             var customer = CustomerFactory.GetCustomer();
-            return ShoppingCart.CreateShoppingCart(customer.Id);
+            return ShoppingCart.CreateShoppingCart(customer.Id, "USD");
         }
     }
 }
