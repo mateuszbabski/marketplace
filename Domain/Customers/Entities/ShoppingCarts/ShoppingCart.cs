@@ -60,7 +60,6 @@ namespace Domain.Customers.Entities.ShoppingCarts
 
         public void AddProductToShoppingCart(Product product, int quantity, decimal convertedPrice)
         {
-            // try to move conversion here
             var shoppingCartItem = Items.FirstOrDefault(x => x.ProductId == product.Id);
 
             if (shoppingCartItem == null)

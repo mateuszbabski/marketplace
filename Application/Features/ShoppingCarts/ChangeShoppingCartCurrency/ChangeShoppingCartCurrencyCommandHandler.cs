@@ -2,9 +2,7 @@
 using Application.Common.Interfaces;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Shared.Rules;
-using Domain.Shared.ValueObjects;
 using MediatR;
-using Serilog;
 
 namespace Application.Features.ShoppingCarts.ChangeShoppingCartCurrency
 {
@@ -31,7 +29,7 @@ namespace Application.Features.ShoppingCarts.ChangeShoppingCartCurrency
             var shoppingCart = await _shoppingCartRepository.GetShoppingCartByCustomerId(customerId)
                 ?? throw new NotFoundException("Cart not found.");
 
-            // find better solution to avoid mistakes and errors
+            // find better solution to avoid mistakes and errors with currency
             if(request.Currency.ToUpper() == shoppingCart.TotalPrice.Currency
                 || new SystemMustAcceptsCurrencyRule(request.Currency).IsBroken())
             {

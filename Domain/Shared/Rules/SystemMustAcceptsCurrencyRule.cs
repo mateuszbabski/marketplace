@@ -16,3 +16,4 @@ namespace Domain.Shared.Rules
         public bool IsBroken() => !CurrencyList.Contains(_currency, StringComparer.OrdinalIgnoreCase);
     }
 }
+        

@@ -1,5 +1,4 @@
 ﻿using Application.Common.Interfaces;
-using Serilog;
 using System.Net.Http.Json;
 
 namespace Infrastructure.Services.CurrencyConverters
@@ -15,7 +14,7 @@ namespace Infrastructure.Services.CurrencyConverters
 
         public async Task<decimal> GetConversionRate(string from, string to)
         {
-            if (from == to) return 1;
+            if (from == to) return 1;            
 
             var uriString = 
                 string.Format($"https://api.frankfurter.app/latest?amount=1&from={@from}&to={@to}", from, to);
