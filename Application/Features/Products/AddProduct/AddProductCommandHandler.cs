@@ -32,7 +32,7 @@ namespace Application.Features.Products.AddProduct
             var shop = await _shopRepository.GetShopById(shopId);
 
             var price = MoneyValue.Of(request.Amount, request.Currency);
-            
+
             var product = shop.AddProduct(request.ProductName,
                                           request.ProductDescription,
                                           price,

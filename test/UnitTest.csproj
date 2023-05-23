@@ -25,11 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Products\" />
-    <Folder Include="Application\Shop\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 

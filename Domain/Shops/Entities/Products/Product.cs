@@ -36,10 +36,10 @@ namespace Domain.Shops.Entities.Products
         }
 
         internal static Product CreateProduct(ProductName productName,
-                              ProductDescription productDescription,
-                              MoneyValue price,
-                              ProductUnit unit,
-                              ShopId shopId)
+                                              ProductDescription productDescription,
+                                              MoneyValue price,
+                                              ProductUnit unit,
+                                              ShopId shopId)
         {
             var product = new Product(productName, productDescription, price, unit, shopId);
 

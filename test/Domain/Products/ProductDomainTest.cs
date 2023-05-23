@@ -59,7 +59,7 @@ namespace UnitTest.Domain.Products
 
             var act = Assert.Throws<InvalidProductPriceException>(() => shop.AddProduct("productName",
                                           "productDescription",
-                                          MoneyValue.Of(10, "USDC"),
+                                          MoneyValue.Of(10, "USD"),
                                           "pieces",
                                           shop.Id));
 
