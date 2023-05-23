@@ -7,7 +7,9 @@ using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.Exceptions;
 using Domain.Shops.Entities.Products.Repositories;
 using Domain.Shops.Repositories;
+using FluentAssertions;
 using Moq;
+using Shouldly;
 using UnitTest.Domain.Products;
 using UnitTest.Domain.Shops;
 
@@ -61,40 +63,54 @@ namespace UnitTest.Application.Products
             Assert.IsType<Guid>(result);
         }
 
-        //[Fact]
-        //public async Task AddProduct_InvalidField_Throws()
-        //{
-        //    var command = new AddProductCommand()
-        //    {
-        //        ProductName = "",
-        //        ProductDescription = "Test",
-        //        Amount = 1,
-        //        Currency = "USD",
-        //        Unit = "KG"
-        //    };
+        [Fact]
+        public async Task AddProduct_InvalidNameField_ThrowsEmptyProductNameException()
+        {
+            var command = new AddProductCommand()
+            {
+                ProductName = "",
+                ProductDescription = "Test",
+                Amount = 1,
+                Currency = "USD",
+                Unit = "KG"
+            };
 
-        //    var shop = ShopFactory.Create();
+            var shop = ShopFactory.Create();
 
-        //    var price = MoneyValue.Of(command.Amount, command.Currency);
+            var price = MoneyValue.Of(command.Amount, command.Currency);
 
-        //    var product = shop.AddProduct(command.ProductName,
-        //                                  command.ProductDescription,
-        //                                  price,
-        //                                  command.Unit,
-        //                                  shop.Id);
+            _userService.Setup(s => s.UserId).Returns(shop.Id);
 
-        //    _userService.Setup(s => s.UserId).Returns(shop.Id);
+            _shopRepository.Setup(s => s.GetShopById(shop.Id)).ReturnsAsync(shop);
 
-        //    _shopRepository.Setup(s => s.GetShopById(shop.Id)).ReturnsAsync(shop);
+            var result = await Assert.ThrowsAsync<EmptyProductNameException>(() => _sut.Handle(command, CancellationToken.None));
 
-        //    //_productRepository.Setup(p => p.Add(product)).ThrowsAsync(new EmptyProductNameException());
+            Assert.IsType<EmptyProductNameException>(result);
+            Assert.Equal("Product name cannot be empty.", result.Message);
+        }
 
-        //    var result = await Assert.ThrowsAsync<>(()
-        //        => _sut.Handle(command, CancellationToken.None));
+        [Fact]
+        public async Task AddProduct_InvalidPriceField_ThrowsInvalidProductPriceException()
+        {
+            var command = new AddProductCommand()
+            {
+                ProductName = "Test",
+                ProductDescription = "Test",
+                Amount = 0,
+                Currency = "USD",
+                Unit = "KG"
+            };
 
-        //    //Assert.IsType<EmptyProductNameException>(result);
-        //    Assert.Fail("Product name cannot be empty.");
-        //    //Assert.Equal("Product name cannot be empty.", result.Message);
-        //}
+            var shop = ShopFactory.Create();
+
+            _userService.Setup(s => s.UserId).Returns(shop.Id);
+
+            _shopRepository.Setup(s => s.GetShopById(shop.Id)).ReturnsAsync(shop);
+
+            var result = await Assert.ThrowsAsync<InvalidProductPriceException>(() => _sut.Handle(command, CancellationToken.None));
+
+            Assert.IsType<InvalidProductPriceException>(result);
+            Assert.Equal("Money amount value cannot be zero or negative.", result.Message);
+        }
     }
 }
