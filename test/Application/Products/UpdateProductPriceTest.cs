@@ -1,17 +1,10 @@
 ﻿using Application.Common.Exceptions;
 using Application.Common.Interfaces;
-using Application.Features.Products.ChangeProductAvailability;
-using Application.Features.Products.UpdateProduct;
 using Application.Features.Products.UpdateProductPrice;
 using Domain.Shops.Entities.Products.Exceptions;
 using Domain.Shops.Entities.Products.Repositories;
 using Domain.Shops.Repositories;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnitTest.Domain.Shops;
 
 namespace UnitTest.Application.Products
