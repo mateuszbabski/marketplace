@@ -3,16 +3,8 @@ using Application.Common.Interfaces;
 using Application.Features.ShoppingCarts.AddProductToShoppingCart;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
-using Domain.Shops;
-using Domain.Shops.Entities.Products.Exceptions;
 using Domain.Shops.Entities.Products.Repositories;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using UnitTest.Application.Products;
 using UnitTest.Domain.Customers;
 
