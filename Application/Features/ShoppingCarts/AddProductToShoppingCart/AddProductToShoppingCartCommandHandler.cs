@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Domain.Customers.Entities.ShoppingCarts;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Shops.Entities.Products.Repositories;
@@ -30,7 +31,7 @@ namespace Application.Features.ShoppingCarts.AddProductToShoppingCart
         public async Task<Guid> Handle(AddProductToShoppingCartCommand request, CancellationToken cancellationToken)
         {
             var customerId = _userService.UserId;
-            var product = await _productRepository.GetById(request.ProductId);
+            var product = await _productRepository.GetById(request.ProductId) ?? throw new NotFoundException("Product not found.");
             var shoppingCart = await ReturnOrCreateNewShoppingCart(customerId, product.Price.Currency);
 
             var productConvertedPrice = await _currencyConverter.GetConvertedPrice(product.Price.Amount,
