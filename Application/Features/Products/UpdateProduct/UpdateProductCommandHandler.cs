@@ -1,17 +1,8 @@
 ﻿using Application.Common.Exceptions;
 using Application.Common.Interfaces;
-using Domain.Shared.ValueObjects;
-using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.Repositories;
-using Domain.Shops.Entities.Products.ValueObjects;
 using Domain.Shops.Repositories;
 using MediatR;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Products.UpdateProduct
 {
