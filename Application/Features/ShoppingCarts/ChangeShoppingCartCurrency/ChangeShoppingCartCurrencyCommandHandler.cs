@@ -2,6 +2,7 @@
 using Application.Common.Interfaces;
 using Domain.Customers.Entities.ShoppingCarts.Repositories;
 using Domain.Shared.Rules;
+using Domain.Shops.Entities.Products.Exceptions;
 using MediatR;
 
 namespace Application.Features.ShoppingCarts.ChangeShoppingCartCurrency
@@ -33,7 +34,7 @@ namespace Application.Features.ShoppingCarts.ChangeShoppingCartCurrency
             if(request.Currency.ToUpper() == shoppingCart.TotalPrice.Currency
                 || new SystemMustAcceptsCurrencyRule(request.Currency).IsBroken())
             {
-                return;
+                throw new InvalidProductPriceException("Invalid currency.");
             }
 
             var conversionRate = await _currencyConverter.GetConversionRate(shoppingCart.TotalPrice.Currency,
