@@ -1,16 +1,11 @@
-﻿using Application.Common.Behaviors;
-using Application.Common.Exceptions;
-using Application.Common.Interfaces;
+﻿using Application.Common.Interfaces;
 using Application.Features.Products.AddProduct;
 using Domain.Shared.ValueObjects;
 using Domain.Shops.Entities.Products;
 using Domain.Shops.Entities.Products.Exceptions;
 using Domain.Shops.Entities.Products.Repositories;
 using Domain.Shops.Repositories;
-using FluentAssertions;
 using Moq;
-using Shouldly;
-using UnitTest.Domain.Products;
 using UnitTest.Domain.Shops;
 
 namespace UnitTest.Application.Products
@@ -64,6 +59,39 @@ namespace UnitTest.Application.Products
         }
 
         [Fact]
+        public async Task AddProduct_ValidFields_CallsAddOnRepository()
+        {
+            var command = new AddProductCommand()
+            {
+                ProductName = "Test",
+                ProductDescription = "Test",
+                Amount = 1,
+                Currency = "USD",
+                Unit = "KG"
+            };
+
+            var shop = ShopFactory.Create();
+
+            var price = MoneyValue.Of(command.Amount, command.Currency);
+
+            var product = shop.AddProduct(command.ProductName,
+                                          command.ProductDescription,
+                                          price,
+                                          command.Unit,
+                                          shop.Id);
+
+            _userService.Setup(s => s.UserId).Returns(shop.Id);
+
+            _shopRepository.Setup(s => s.GetShopById(shop.Id)).ReturnsAsync(shop);
+
+            var result = await _sut.Handle(command, CancellationToken.None);
+
+            _productRepository.Verify(x => x.Add(It.Is<Product>(m => m.Id.Value == result)), Times.Once);
+            _unitOfWork.Verify(x => x.CommitAsync(), Times.Once);
+            Assert.IsType<Guid>(result);
+        }
+
+        [Fact]
         public async Task AddProduct_InvalidNameField_ThrowsEmptyProductNameException()
         {
             var command = new AddProductCommand()
@@ -102,6 +130,14 @@ namespace UnitTest.Application.Products
             };
 
             var shop = ShopFactory.Create();
+
+            var price = MoneyValue.Of(command.Amount, command.Currency);
+
+            var product = shop.AddProduct(command.ProductName,
+                                          command.ProductDescription,
+                                          price,
+                                          command.Unit,
+                                          shop.Id);
 
             _userService.Setup(s => s.UserId).Returns(shop.Id);
 
