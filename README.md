@@ -62,9 +62,11 @@ Done:
 - Splitting order by shops
 - Creating invoice for customer and split them for shops
 - Currency conversion while adding to cart various products
+- Change shopping cart currency
+- Domain unit test
+- Domain events
 
 To implement:
-- Change shopping cart currency
 - Autoupdate prices while checking out cart/placing order basis on current rates
 - Searching products
 - Notify all shops owners about products to prepare
